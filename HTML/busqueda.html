@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda Avanzada</title>
+    <link rel="stylesheet" href="busqueda.css">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <img src="assets/images/logopng.png" alt="Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Cursos</a></li>
+                <li><a href="#">Busqueda</a></li>
+                <li><a href="#">Mensajes</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<div class="container">
+    <h1>Búsqueda Avanzada</h1>
+
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" placeholder="Buscar..." id="search-input">
+            <img src="assets/images/lupa.webp" alt="Buscar" class="lupa-icon">
+        </div>
+
+        <div class="dropdowns">
+            <select id="categories">
+                <option value="">Categorías</option>
+                <option value="categoria1">Categoría 1</option>
+                <option value="categoria2">Categoría 2</option>
+            </select>
+
+            <select id="title-order">
+                <option value="az">Título A-Z</option>
+                <option value="za">Título Z-A</option>
+            </select>
+
+            <select id="user-order">
+                <option value="az">Usuarios A-Z</option>
+                <option value="za">Usuarios Z-A</option>
+            </select>
+
+            <div class="date-range">
+                <label for="start-date">Desde</label>
+                <input type="date" id="start-date">
+
+                <label for="end-date">Hasta</label>
+                <input type="date" id="end-date">
+            </div>
+        </div>
+    </div>
+
+    <div class="results-container"></div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="column">
+            <p>Productos</p>
+            <p>Campañas</p>
+            <p>Nosotros</p>
+        </div>
+        <div class="column">
+            <p>Contacto</p>
+            <p>Términos y condiciones</p>
+            <p>Sucursales</p>
+            <p>Facturación</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>LEVELUP LEARNING 2024 © Todos los derechos reservados</p>
+    </div>
+</footer>
+
+</body>
+</html>
