@@ -1,0 +1,13 @@
+/* Sección de gestion admin */
+.seccion-admin {
+    width: 80%;
+    min-height: 800px;
+    margin: 2rem auto;
+    text-align: center;
+    background: #7e5ca0db;
+    border-radius: 10px;
+}
+
+.seccion-admin h1 {
+    margin: 10px;
+}

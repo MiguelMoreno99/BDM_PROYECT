@@ -1,0 +1,43 @@
+/* Sección del reporte */
+.reporte-usuarios {
+    width: 80%;
+    min-height: 800px;
+    margin: 2rem auto;
+    text-align: center;
+    background: #7e5ca0db;
+    border-radius: 10px;
+}
+
+table {
+    background: #48355c;
+}
+
+.filtros {
+    margin-bottom: 2rem;
+}
+
+.filtros label, .filtros select {
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem auto;
+}
+
+table th, table td {
+    border: 1px solid #dddddd;
+    padding: 1rem;
+    text-align: center;
+}
+
+table th {
+    background-color: #2E3B4D;
+    color: white;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+    color: #2E3B4D;
+}

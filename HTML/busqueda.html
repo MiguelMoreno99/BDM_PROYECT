@@ -5,30 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador Cursos</title>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
     <link rel="stylesheet" href="../CSS/busqueda.css">
 </head>
 
 <body>
 
     <!-- Header -->
-    <header class="main-header">
-        <div class="logo">
-            <img src="../assets\images/logo.webp" alt="Logo">
-        </div>
-        <nav class="nav-opciones">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="busqueda.html">Busqueda</a></li>
-                <li><a href="dms.html">Mensajes</a></li>
-                <li><a href="registro.html">Registrarse</a></li>
-                <li><a href="inicio_sesion.html">Iniciar Sesion</a></li>
-                <li><a href="crear_curso.html">Crear Curso</a></li>
-                <li><a href="crear_nivel.html">Crear Nivel</a></li>
-                <li><a href="gestion_admin.html">Gestion Administradores</a></li>
-                <li><a href="reportes.html">Reportes</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div id="header-container"></div>
 
     <div class="container">
         <div class="search-container">
@@ -41,7 +27,6 @@
                     <button type="" class="btn">Buscar Cursos</button>
                 </div>
             </div>
-
             <div class="dropdowns">
                 <label for="categories">Filtrar por Categoria:</label>
                 <select id="categories">
@@ -74,27 +59,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-opciones">
-            <ul>
-                <li><a href="#">Productos</a></li>
-                <li><a href="#">Campañas</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-            <ul>
-                <li><a href="#">Términos y condiciones</a></li>
-                <li><a href="#">Sucursales</a></li>
-                <li><a href="#">Facturación</a></li>
-            </ul>
-            <div class="footer-final">
-                <ul>
-                    <li>LEVELUP LEARNING 2024 © Todos los derechos reservados</li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <script></script>
+    <div id="footer-container"></div>
+
+    <script src="../JS/templates.js"></script>
+
 </body>
 
 </html>
