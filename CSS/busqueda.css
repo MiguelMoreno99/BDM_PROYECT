@@ -1,86 +1,90 @@
-body {
-    background-image: url('assets/images/bg5.webp');
-    background-size: cover;
-    background-position: center;
-    font-family: Arial, sans-serif;
+/* General Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../assets/images/bg4.webp');
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
     min-height: 100vh;
 }
 
-/* HEADER */
-header {
-    background-color: rgba(96, 31, 133, 0.7);
-    padding: 10px 20px;
+/* Header */
+.main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 3;
-    width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #351d3f5a;
+    color: white;
+    padding: 15px 30px;
 }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+.main-header .logo img {
+    width: 70px;
 }
 
-.logo {
-    width: 70px; 
-}
-
-nav ul {
+.nav-opciones ul {
     list-style-type: none;
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
-nav ul li {
-    display: inline-block;
+.nav-opciones ul li {
+    display: inline;
 }
 
-nav ul li a {
+.nav-opciones ul li a {
     color: white;
     text-decoration: none;
     font-size: 16px;
-    padding: 5px 10px;
+    padding: 10px;
 }
 
-nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+.nav-opciones ul li a:hover {
+    background-color: #532e6291;
     border-radius: 5px;
 }
 
+/* BARRA DE BUSQUEDA */
+
 .container {
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.955);
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 600px;
-    margin-top: 20px;
-    z-index: 2;
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 75vh;
+    background-color: rgba(255, 255, 255, 0.537);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px auto; 
+    flex-grow: 1; 
 }
 
 h1 {
+    display: flex;
+    flex-direction: column;
+    gap: 120x;
     color: blueviolet;
-    text-align: left;
-    font-size: 24px;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 25px;
+    margin-left: 25px;
 }
 
-/* BARRA DE BUSQUEDA */
 .search-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 120x;
+    margin: 10px;
 }
 
 .search-box {
+    margin: 10px;
     display: flex;
     align-items: center;
     background-color: #e0e0e0;
@@ -104,12 +108,14 @@ h1 {
 }
 
 .dropdowns {
+    margin: 10px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-select, input[type="date"] {
+select,
+input[type="date"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -118,41 +124,48 @@ select, input[type="date"] {
 }
 
 .results-container {
-    margin-top: 30px;
+    display: flex;
+    margin-top: 10px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
-    min-height: 150px;
+    height: 70%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.503);
 }
 
-/* FOOTER */
-footer {
-    background-color: rgba(96, 31, 133, 0.7);
-    padding: 20px 0;
-    text-align: center;
+/* Footer */
+.main-footer {
+    background-color: #351d3fa6;
     color: white;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-    margin-top: auto; 
+    text-align: center;
+    padding: 20px;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-}
-
-.footer-content .column {
-    flex: 1;
-}
-
-.footer-bottom {
+.footer-opciones ul {
+    list-style-type: none;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-top: 10px;
-    font-size: 12px;
 }
 
-footer p {
-    margin: 5px 0;
+.footer-opciones ul li {
+    display: inline;
+    text-align: center;
+    margin: 50px;
+}
+
+.footer-opciones ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.footer-opciones .footer-final{
+    font-size: 20px;
+    font-style: italic;
+    margin-top: 30px;
+}
+
+.footer-opciones ul li a:hover {
+    text-decoration: underline;
 }
