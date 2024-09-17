@@ -16,11 +16,10 @@
         </div>
         <nav class="nav-opciones">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Perfil</a></li>
-                <li><a href="#">Cursos</a></li>
-                <li><a href="#">Busqueda</a></li>
-                <li><a href="#">Mensajes</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="busqueda.html">Busqueda</a></li>
+                <li><a href="dms.html">Mensajes</a></li>
+                <li><a href="registro.html">Iniciar Sesion / Registrarse</a></li>
             </ul>
         </nav>
     </header>
@@ -55,7 +54,8 @@
                     <input type="date" id="dob" name="dob" required>
                 </div>
                 <div class="form-grupo">
-                    <img class="profilePreview" src="../assets/images/perfil.webp" alt="Foto de perfil">
+                    <img class="profilePreview" id="profilePreview" src="../assets/images/perfil.webp"
+                        alt="Foto de perfil">
                     <input type="file" id="profilePic" name="profilePic" accept="image/*" onchange="loadFile(event)">
                 </div>
                 <div class="form-grupo">

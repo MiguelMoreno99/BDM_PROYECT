@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Búsqueda Avanzada</title>
+    <title>Buscador Cursos</title>
     <link rel="stylesheet" href="../CSS/busqueda.css">
 </head>
 
@@ -17,47 +17,52 @@
         </div>
         <nav class="nav-opciones">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Perfil</a></li>
-                <li><a href="#">Cursos</a></li>
-                <li><a href="#">Busqueda</a></li>
-                <li><a href="#">Mensajes</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="busqueda.html">Busqueda</a></li>
+                <li><a href="dms.html">Mensajes</a></li>
+                <li><a href="registro.html">Iniciar Sesion / Registrarse</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
         <div class="search-container">
-            <h1>Búsqueda Avanzada: </h1>
+            <h1>Búsqueda Avanzada de Cursos: </h1>
             <div class="search-box">
-                <input type="text" placeholder="Buscar..." id="search-input">
-                <img src="../assets\images/lupa.webp" alt="Buscar" class="lupa-icon">
+                <div class="input-box-text">
+                    <input type="text" placeholder="Buscar Curso..." id="search-input">
+                </div>
+                <div class="input-box-button">
+                    <button type="" class="btn">Buscar Cursos</button>
+                </div>
             </div>
 
             <div class="dropdowns">
+                <label for="categories">Filtrar por Categoria:</label>
                 <select id="categories">
-                    <option value="">Categorías</option>
-                    <option value="categoria1">Categoría 1</option>
-                    <option value="categoria2">Categoría 2</option>
+                    <option value="">Todas</option>
+                    <option value="categoria1">IT</option>
+                    <option value="categoria2">Software</option>
+                    <option value="categoria3">Marketing</option>
+                    <option value="categoria4">Desing</option>
                 </select>
-
-                <select id="title-order">
-                    <option value="az">Título A-Z</option>
-                    <option value="za">Título Z-A</option>
-                </select>
-
+                <label for="user-order">Filtar por Creador:</label>
                 <select id="user-order">
-                    <option value="az">Usuarios A-Z</option>
-                    <option value="za">Usuarios Z-A</option>
+                    <option value="">Todos</option>
+                    <option value="Creador1">Miguel Moreno</option>
+                    <option value="Creador2">Sergio Villa</option>
+                    <option value="Creador3">Eduardo Benavides</option>
+                    <option value="Creador4">Franco Mendez</option>
                 </select>
-
                 <div class="date-range">
-                    <label for="start-date">Desde</label>
+                    <label for="start-date">Filtrar Desde:
+                    </label>
                     <input type="date" id="start-date">
 
-                    <label for="end-date">Hasta</label>
+                    <label for="end-date">Hasta: </label>
                     <input type="date" id="end-date">
                 </div>
+                <button type="" class="btn">Filtrar Cursos</button>
             </div>
             <div class="results-container"></div>
         </div>
@@ -84,7 +89,7 @@
             </div>
         </div>
     </footer>
-
+    <script></script>
 </body>
 
 </html>
