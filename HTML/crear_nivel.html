@@ -16,14 +16,53 @@
   <div id="header-container"></div>
 
   <!-- Contenido de Gestion Admin -->
-  <section class="seccion-nivel">
-    <h1>Sección de Creación de Nivel</h1>
+  <section class="seccion-curso">
+    <br>
+    <br>
+  
+    <h1>Sección de Creación de categoria</h1>
+
+    <br>
+    <br>
+  
+    <form id="crear-curso-form" class="crear-curso-form">
+      <!-- Nombre del curso -->
+      <div class="form-group">
+        <label for="titulo-curso">Nombre del categoria:</label>
+        <input type="text" id="titulo-curso" name="titulo-curso" placeholder="Escribe el nombre del curso" required>
+      </div>
+  
+      <!-- Descripción del curso -->
+      <div class="form-group">
+        <label for="descripcion-curso">Descripción del categoria:</label>
+        <textarea id="descripcion-curso" name="descripcion-curso" placeholder="Escribe una descripción general del curso" rows="4" required></textarea>
+      </div>
+  
+      <!-- Imagen del curso -->
+      <div class="form-group">
+        <label for="imagen-curso">Imagen del categoria:</label>
+        <input type="file" id="imagen-curso" name="imagen-curso" accept="image/*" required>
+      </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+  
+      <!-- Botón de envío -->
+      <div class="form-group">
+        <button type="submit" class="btn-crear-curso">Crear categoria</button>
+      </div>
+    </form>
   </section>
+
+
 
   <!-- Footer -->
   <div id="footer-container"></div>
 
   <script src="../JS/templates.js"></script>
+  
 </body>
 
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Nivel</title>
+  <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
+  <link rel="stylesheet" href="../CSS/GENERAL/header.css">
+  <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
+  <link rel="stylesheet" href="../CSS/crear_nivel.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- Contenido de Gestion Admin -->
+  <section class="seccion-curso">
+    <br>
+    <br>
+  
+    <h1>Editar categoria</h1>
+
+    <br>
+    <br>
+  
+    <form id="crear-curso-form" class="crear-curso-form">
+      <!-- Nombre del curso -->
+      <div class="form-group">
+        <label for="titulo-curso">Nombre del categoria:</label>
+        <input type="text" id="titulo-curso" name="titulo-curso" placeholder="Escribe el nombre del curso">
+      </div>
+  
+      <!-- Descripción del curso -->
+      <div class="form-group">
+        <label for="descripcion-curso">Descripción del categoria:</label>
+        <textarea id="descripcion-curso" name="descripcion-curso" placeholder="Escribe una descripción general del curso" rows="4"></textarea>
+      </div>
+  
+      <!-- Imagen del curso -->
+      <div class="form-group">
+        <label for="imagen-curso">Imagen del categoria:</label>
+        <input type="file" id="imagen-curso" name="imagen-curso" accept="image/*">
+      </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+  
+      <!-- Botón de envío -->
+      <div class="form-group">
+        <button type="submit" class="btn-crear-curso">Editar categoria</button>
+      </div>
+    </form>
+  </section>
+
+
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script src="../JS/templates.js"></script>
+  
+</body>
+
+</html>

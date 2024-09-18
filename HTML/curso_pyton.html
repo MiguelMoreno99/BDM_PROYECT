@@ -9,9 +9,24 @@
   <link rel="stylesheet" href="../CSS/GENERAL/header.css">
   <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
   <link rel="stylesheet" href="../CSS/curso_pyton.css">
+
+
 </head>
 
 <body>
+
+  <!-- Modal para Confirmación de Borrado -->
+<div id="modal-borrar" class="modal">
+  <div class="modal-contenido">
+    <h3>¿Por qué quieres borrar este comentario?</h3>
+    <textarea id="razon-borrar" placeholder="Escribe la razón aquí..."></textarea>
+    <div class="modal-buttons">
+      <button id="confirmar-borrar" class="btn-borrar" onclick="confirmarEliminar(this)">Borrar</button>
+      <button id="cancelar-borrar" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
   <!-- Header -->
   <div id="header-container"></div>
 
@@ -45,18 +60,21 @@
         <p><strong>Juan Pérez:</strong></p>
         <p>"Excelente curso, aprendí mucho sobre Python. Los ejemplos fueron claros y útiles."</p>
         <p>Calificación: 5/5 ⭐</p>
+        <button class="btn-borrar">Borrar</button>
       </div>
-
+      
       <div class="comentario-item">
         <p><strong>María García:</strong></p>
         <p>"Muy bueno, aunque me gustaría más ejercicios prácticos."</p>
         <p>Calificación: 4/5 ⭐</p>
+        <button class="btn-borrar">Borrar</button>
       </div>
-
+      
       <div class="comentario-item">
         <p><strong>Carlos Sánchez:</strong></p>
         <p>"Gran curso, pero el ritmo era un poco lento para mí."</p>
         <p>Calificación: 4/5 ⭐</p>
+        <button class="btn-borrar">Borrar</button>
       </div>
     </section>
   </main>
@@ -65,6 +83,7 @@
   <div id="footer-container"></div>
 
   <script src="../JS/templates.js"></script>
+  <script src="../JS/curso_phyton.js"></script>
 </body>
 
 </html>
