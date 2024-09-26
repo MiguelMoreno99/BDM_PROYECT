@@ -2,6 +2,7 @@
 .ventas {
     background: #7e5ca0db;
     border-radius: 10px;
+    padding: 2%;
 }
 
 .editar {
@@ -205,4 +206,15 @@ img {
 .uppercase {
 
     text-transform: uppercase !important;
+}
+
+.lista-cursos{
+    color: #dddddd;
+}
+
+.lista-cursos a{
+    color: greenyellow;
+    background-color: #1d1d1d;
+    border-radius: 8px;
+    padding: 10px;
 }

@@ -29,25 +29,33 @@
       <!-- Nombre del curso -->
       <div class="form-group">
         <label for="titulo-curso">Nombre del curso:</label>
-        <input type="text" id="titulo-curso" name="titulo-curso" placeholder="Escribe el nombre del curso" required>
+        <input type="text" id="titulo-curso" name="titulo-curso" placeholder="Escribe el nombre del curso" >
       </div>
   
       <!-- Descripción del curso -->
       <div class="form-group">
         <label for="descripcion-curso">Descripción del curso:</label>
-        <textarea id="descripcion-curso" name="descripcion-curso" placeholder="Escribe una descripción general del curso" rows="4" required></textarea>
+        <textarea id="descripcion-curso" name="descripcion-curso" placeholder="Escribe una descripción general del curso" rows="4" ></textarea>
       </div>
   
       <!-- Imagen del curso -->
       <div class="form-group">
         <label for="imagen-curso">Imagen del curso:</label>
-        <input type="file" id="imagen-curso" name="imagen-curso" accept="image/*" required>
+        <input type="file" id="imagen-curso" name="imagen-curso" accept="image/*" >
+      </div>
+
+      <div class="form-group">
+        <label for="Categoria">Categoria</label>
+        <select id="Categoria" name="Categoria" >
+          <option value="gratis">Programacion</option>
+          <option value="completo">Arte</option>
+        </select>
       </div>
   
       <!-- Tipo de precio del curso (Select con opciones) -->
       <div class="form-group">
         <label for="tipo-precio">¿Cómo se manejará el costo del curso?</label>
-        <select id="tipo-precio" name="tipo-precio" required>
+        <select id="tipo-precio" name="tipo-precio" >
           <option value="gratis">Curso completo gratis</option>
           <option value="completo">Precio por curso completo</option>
           <option value="nivel">Precio por cada nivel</option>
@@ -71,36 +79,7 @@
       </div>
 
       <!-- Aquí se insertarán dinámicamente los niveles -->
-      <div id="contenedor-niveles">
-        <div class="seccion" data-nivel="1">
-          <div class="seccion-titulo">
-            <h3>Nivel 1: <input type="text" name="nivel-titulo-1" placeholder="Título del nivel"></h3>
-            <button type="button" class="btn-borrar" onclick="eliminarNivel(this)">🗑️</button>
-          </div>
-          <div class="clase">
-            <p>Contenido del nivel 1:</p>
-            <textarea name="contenido-nivel-1" placeholder="Escribe el contenido del nivel aquí"></textarea>
-            <br>
-            <div class="adjuntos">
-              <br>
-              <label for="pdf-nivel-1">Adjuntar PDF:</label>
-              <input type="file" id="pdf-nivel-1" name="pdf-nivel-1" accept="application/pdf">
-              <br>
-              
-              <label for="imagen-nivel-1">Adjuntar imagen:</label>
-              <input type="file" id="imagen-nivel-1" name="imagen-nivel-1" accept="image/*">
-              <br>
-              
-              <label for="link-nivel-1">Link a página externa:</label>
-              <input type="url" id="link-nivel-1" name="link-nivel-1" placeholder="https://example.com">
-              <br>
-              
-              <label for="video-nivel-1">Subir video (obligatorio):</label>
-              <input type="file" id="video-nivel-1" name="video-nivel-1" accept="video/*" required>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="contenedor-niveles"></div>
 
       <div class="acciones">
         <button type="button" class="btn-agregar-seccion" onclick="agregarNivel()">Agregar nivel</button>
@@ -122,6 +101,7 @@
   <div id="footer-container"></div>
 
   <script src="../JS/templates.js"></script>
+  <script src="../JS/Crear_curso_validacion.js"></script>
   <script src="../JS/Crear_curso.js"></script>
 
 </body>

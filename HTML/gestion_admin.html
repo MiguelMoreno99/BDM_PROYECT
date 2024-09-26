@@ -22,8 +22,8 @@
     <form action="" method="post" class="filtros seleccion-accion">
       <label for="tipo_usuario">Acción:</label>
       <select id="tipo_usuario" name="tipo_usuario" onchange="mostrarReporte(this.value)">
-        <option value="instructor">Bloquear</option>
-        <option value="estudiante">Desbloquear</option>
+        <option value="instructor">Activar</option>
+        <option value="estudiante">Desactivar</option>
       </select>
     </form>
 
@@ -36,7 +36,7 @@
       <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre">
 
       <label for="usuario">Usuario:</label>
-      <input type="text" id="usuario" name="usuario" placeholder="Ingrese el usuario">
+      <input type="text" id="Apellido" name="usuario" placeholder="Ingrese los Apellido">
 
       <label for="correo">Correo:</label>
       <input type="text" id="correo" name="correo" placeholder="Ingrese el correo">
@@ -126,33 +126,32 @@
 
     <div class="editar">
       <h2>Editar Perfil</h2>
-      <form id="profileForm">
+      <form id="profileForm" onsubmit="return Modificardatos_admin();">
         <div class="form-group">
-          <label for="username">Nombre de Usuario:</label>
-          <input type="text" id="username" name="username">
+          <label for="username">Nombre(s):</label>
+          <input type="text" id="nombre" name="username">
         </div>
-
+    
+        <div class="form-group">
+          <label for="username">Apellido(s):</label>
+          <input type="text" id="apellido" name="username">
+        </div>
+    
         <div class="form-group">
           <label for="email">Correo Electrónico:</label>
           <input type="email" id="email" name="email">
         </div>
-
+    
         <div class="form-group">
           <label for="password">Contraseña:</label>
           <input type="password" id="password" name="password">
         </div>
-
-        <div class="form-group">
-          <label for="password2">Contraseña:</label>
-          <input type="password" id="password2" name="password2">
-        </div>
-
+    
         <div class="form-group">
           <label for="profile_picture">Foto de Perfil:</label>
           <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
         </div>
-
-
+    
         <button type="submit" class="btn-submit">Guardar Cambios</button>
       </form>
     </div>
@@ -164,6 +163,7 @@
 
   <script src="../JS/templates.js"></script>
   <script src="../JS/Gestion_admin.js"></script>
+  <script src="../JS/validacion_gestion_admin.js"></script>
 </body>
 
 </html>

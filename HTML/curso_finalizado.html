@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizaste el curso</title>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
+    <link rel="stylesheet" href="../CSS/curso_finalizado.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
+</head>
+
+<body>
+    <div id="header-container"></div>
+    <div class="main-div">
+        <div class="mensaje">
+            <br>
+            <h1>¡FELICIDADES!, HAS FINALIZADO EL CURSO</h1>
+        </div>
+        <br>
+        <div class="contenido-curso">
+            <br>
+            <img src="../assets/cursos/img/PythonLogo.png" alt="Curso de Programación en Python">
+            <h1>Curso de Programación en Python</h1>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="diploma-div">
+            <h1>Diploma</h1>
+            <br>
+            <img src="../assets/images/Diploma.png">
+            <br>
+            <br>
+            <button class="button">Descargar</button>
+        </div>
+        <br>
+        <br>
+        <div class="Calificacion-div">
+            <h2>Califica el Curso</h2>
+            <form id="ratingForm">
+                <div class="form-group">
+                    <div class="stars">
+                        <input type="radio" name="star" id="star1" value="5"><label for="star1">★</label>
+                        <input type="radio" name="star" id="star2" value="4"><label for="star2">★</label>
+                        <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
+                        <input type="radio" name="star" id="star4" value="2"><label for="star4">★</label>
+                        <input type="radio" name="star" id="star5" value="1"><label for="star5">★</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comentario:</label>
+                    <textarea id="comment" name="comment" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="button">Enviar</button>
+                <a href="index.html" class="button">Regresar</a>
+            </form>
+        </div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../JS/calificar_curso.js"></script>
+    <script src="../JS/templates.js"></script>
+</body>
+</html>

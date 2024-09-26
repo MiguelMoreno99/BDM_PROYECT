@@ -1,0 +1,123 @@
+.main-div{
+    background-color: rgba(255, 255, 255, 0.742);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 5%;;
+    margin-inline: 15%;
+    gap: 20px;
+    justify-content: center;
+}
+
+.mensaje{
+    text-align: center;
+}
+
+/*Curso*/
+.contenido-curso{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.742);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-inline: 10%;
+    gap: 20px;
+}
+
+.contenido-curso img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.contenido-curso h1{
+    margin-top: 7%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/*Diploma*/
+.diploma-div{
+    background-color: rgba(255, 255, 255, 0.742);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-inline: 10%;
+    gap: 20px;
+    text-align: center;
+}
+
+.diploma-div img{
+    width: 70%;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/*Calificacion y comentarios del curso*/
+.Calificacion-div{
+    background-color: rgba(255, 255, 255, 0.742);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-inline: 10%;
+    gap: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.button {
+    padding: 1rem;
+    background-color: #7c6dfd;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.button:hover {
+    background-color: #3f00b3;
+}
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.stars input[type="radio"] {
+    display: none;
+}
+
+.stars label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.stars input[type="radio"]:checked ~ label {
+    color: #f5b301;
+}
+
+.stars label:hover,
+.stars label:hover ~ label {
+    color: #f5b301;
+}
