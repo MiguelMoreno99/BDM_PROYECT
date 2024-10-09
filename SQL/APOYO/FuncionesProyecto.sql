@@ -1,13 +1,15 @@
 go	
 create function dbo.FNValidarUsuarioRepedido
 (
-	@correo_usuario char(50)
+	@correo_electronico char(30)
 )
 returns int
 as
 begin
 	declare @cantidad int
-	select @cantidad = (select COUNT(id_usuario) from tabla_usuarios where correo_usuario = @correo_usuario)
+
+	select @cantidad = (select COUNT(genero_id) from Usuarios where correo_electronico = @correo_electronico)
+
 	return @cantidad
 end
 go

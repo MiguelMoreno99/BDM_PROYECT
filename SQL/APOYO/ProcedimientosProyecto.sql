@@ -1,25 +1,50 @@
 go
 create procedure dbo.PROCAltaUsuario
 (
-@tipo_usuario int,
-@correo_usuario char(50),
-@contraseña_usuario char(50),
-@nombre_usuario char(50),
-@apellido_usuario char(50),
-@nacimiento_usuario date,
-@genero_usuario int,
-@imagen_usuario image
+@correo_electronico char(30),
+@contrasena char(30),
+@nombre char(50),
+@apellido_paterno char(50),
+@apellido_materno char(50),
+@fecha_nacimiento date,
+@genero int,
+@imagen image
 )
 AS
 BEGIN
+	if @correo_electronico = '' 
+		BEGIN
+			;THROW 99001, 'ERROR, NO INGRESO NINGUN CORREO ELECTRONICO!', 1;
+		END
 	declare @i int
-	select @i = (select dbo.FNValidarUsuarioRepedido(@correo_usuario))
+	select @i = (select dbo.FNValidarUsuarioRepedido(@correo_electronico))
 	if @i > 0
 		BEGIN
 			;THROW 99001, 'ERROR, YA HAY UN USUARIO CON ESE CORREO ELECTRONICO!', 1;
 		END
-	insert into tabla_usuarios(tipo_usuario,correo_usuario,contraseña_usuario,nombre_usuario,apellido_usuario,nacimiento_usuario,genero_usuario,imagen_usuario)
-		values (@tipo_usuario,@correo_usuario,@contraseña_usuario,@nombre_usuario,@apellido_usuario,@nacimiento_usuario,@genero_usuario,@imagen_usuario)
+	if @contrasena = '' 
+		BEGIN
+			;THROW 99001, 'ERROR, INGRESE UNA CONTRASEÑA!', 1;
+		END
+	if @nombre = '' 
+		BEGIN
+			;THROW 99001, 'ERROR, INGRESE SU NOMBRE!', 1;
+		END
+	if @apellido_paterno = '' 
+		BEGIN
+			;THROW 99001, 'ERROR, INGRESE SU APELLIDO PATERNO!', 1;
+		END
+	if @apellido_materno = '' 
+		BEGIN
+			;THROW 99001, 'ERROR, INGRESE SU APELLIDO MATERNO!', 1;
+		END
+	if @imagen is null 
+		BEGIN
+			;THROW 99001, 'ERROR, INGRESE UNA IMAGEN!', 1;
+		END
+	ELSE
+	insert into Usuarios(correo_electronico,primera_contrasena,nombre,apellido_paterno,apellido_materno,fecha_de_nacimiento,genero_id,imagen)
+		values (@correo_electronico,@contrasena,@nombre,@apellido_paterno,@apellido_materno,@fecha_nacimiento,@genero,@imagen)
 END
 go
 
