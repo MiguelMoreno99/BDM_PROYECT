@@ -18,3 +18,15 @@ begin
 	update tabla_usuarios set registro_usuario = GETDATE() where correo_usuario = @correo_usuario
 end
 go
+
+--create trigger TRAltaHistoria --buscar triggers de mas utilidad
+--on Historial after insert
+--as
+--begin
+--	declare @id_historia int
+
+--	select @id_historia = id_historia from inserted
+
+--	update Historial set fecha_hora_de_busqueda = GETDATE() where id_historia = @id_historia
+--end
+--go
