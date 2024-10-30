@@ -83,6 +83,7 @@ form.filtros select option {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 1.5rem; /* Añadir margen superior */
 }
 
 .btn-submit:hover {

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,55 +8,64 @@
     <link rel="stylesheet" href="../CSS/GENERAL/header.css">
     <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
     <link rel="stylesheet" href="../CSS/registro.css">
-</head>
 
+    <script src="../JS/templates.js"></script>
+    <script src="../JS/registro.js"></script> 
+</head>
 <body>
     <!-- Header -->
     <div id="header-container"></div>
+
     <!-- Contenedor central -->
-    <main class="registro-contenedor">
+    <main class="registro-contenedor"> 
         <div class="registro-caja">
             <h2>Registro de Usuario</h2>
-            <form id="registroForm" onsubmit="return Llenardatos_creacion();">
+            <form id="registroForm" action="../.Controlador/Usuario.php" method="POST" enctype="multipart/form-data" onsubmit="return Llenardatos_creacion(event);">
+                <!-- Campo oculto para indicar que es un registro -->
+                <input type="hidden" name="accion" value="registro">
+
                 <div class="form-grupo">
                     <label for="Nombre">Nombre(s):</label>
-                    <input type="text" id="Nombre" name="Nombre">
+                    <input type="text" id="Nombre" name="nombre_usuario">
                 </div>
                 <div class="form-grupo">
-                    <label for="Usuario">Apellido(s):</label>
-                    <input type="text" id="Usuario" name="Usuario">
+                    <label for="Usuario">Apellido paterno:</label>
+                    <input type="text" id="apellido_paterno" name="apellido_paterno">
+                </div>
+                <div class="form-grupo">
+                    <label for="Usuario">Apellido materno:</label>
+                    <input type="text" id="apellido_materno" name="apellido_materno">
                 </div>
                 <div class="form-grupo">
                     <label for="email">Correo electrónico:</label>
-                    <input type="text" id="email" name="email">
+                    <input type="text" id="email" name="correo_usuario">
                 </div>
                 <div class="form-grupo">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name="contrasenia_usuario">
                 </div>
                 <div class="form-grupo">
                     <label>Género:</label><br>
                     <div class="radio-grupo">
-                        <label><input type="radio" name="genero" value="masculino"> Masculino</label>
-                        <label><input type="radio" name="genero" value="femenino"> Femenino</label>
-                        <label><input type="radio" name="genero" value="otro"> Otro</label>
+                        <label><input type="radio" name="genero_usuario" value="1"> Masculino</label>
+                        <label><input type="radio" name="genero_usuario" value="2"> Femenino</label>
+                        <label><input type="radio" name="genero_usuario" value="3"> Otro</label>
                     </div>
                 </div>
                 <div class="form-grupo">
                     <label for="fecha">Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha" name="dob">
+                    <input type="date" id="fecha" name="nacimiento_usuario">
                 </div>
                 <div class="form-grupo">
-                    <img class="profilePreview" id="profilePreview" src="../assets/images/perfil.webp"
-                        alt="Foto de perfil">
-                    <input type="file" id="Foto" name="profilePic" accept="image/*" onchange="loadFile(event)">
+                    <img class="profilePreview" id="profilePreview" src="../assets/images/perfil.webp" alt="Foto de perfil">
+                    <input type="file" id="Foto" name="imagen_usuario" accept="image/*" onchange="loadFile(event)">
                 </div>
                 <div class="form-grupo">
-                    <label>¿Eres Alumno, Instructor, o Administrador?</label> <br>
+                    <label>¿Eres Alumno, Instructor, o Administrador?</label><br>
                     <div class="radio-grupo">
-                        <label><input type="radio" name="tipo_usuario" value="administrador"> Administrador</label>
-                        <label><input type="radio" name="tipo_usuario" value="estudiante"> Estudiante</label>
-                        <label><input type="radio" name="tipo_usuario" value="maestro"> Instructor</label>
+                        <label><input type="radio" name="tipo_usuario" value="1"> Instructor</label>
+                        <label><input type="radio" name="tipo_usuario" value="2"> Estudiante</label>
+                        <label><input type="radio" name="tipo_usuario" value="3"> Administrador</label>
                     </div>
                 </div>
                 <button type="submit" class="btn">Registrarse</button>
@@ -73,13 +81,10 @@
             var output = document.getElementById('profilePreview');
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function () {
-                URL.revokeObjectURL(output.src);
-            }
+                URL.revokeObjectURL(output.src); // Libera el objeto URL
+            };
         }
     </script>
-    
-    <script src="../JS/templates.js"></script>
-    <script src="../JS/registro.js"></script> <!-- Aquí el archivo JS modificado -->
-</body>
 
+</body>
 </html>
