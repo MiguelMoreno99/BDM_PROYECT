@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crear Nivel</title>
+  <title>Crear Categoria</title>
   <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
   <link rel="stylesheet" href="../CSS/GENERAL/header.css">
   <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
   <link rel="stylesheet" href="../CSS/crear_nivel.css">
+  <script src="../JS/crear_categoria.js"></script>
 </head>
 
 <body>
@@ -19,36 +20,41 @@
   <section class="seccion-curso">
     <br>
     <br>
-  
+
     <h1>Sección de Creación de categoria</h1>
 
     <br>
     <br>
-  
-    <form id="crear-curso-form" class="crear-curso-form">
+
+    <form form id="registroForm" action="../.Controlador/Categoria.php" method="POST" enctype="multipart/form-data"
+      onsubmit="return Llenardatos_creacion(event);">
+      <!-- Campo oculto para indicar que es un registro -->
+      <input type="hidden" name="accion" value="registro_categoria">
       <!-- Nombre del curso -->
       <div class="form-group">
         <label for="titulo-curso">Nombre del categoria:</label>
-        <input type="text" id="titulo-curso" name="titulo-curso" placeholder="Escribe el nombre de la categoria" >
+        <input type="text" id="titulo-curso" name="titulo-curso" placeholder="Escribe el nombre de la categoria">
       </div>
-  
+
       <!-- Descripción del curso -->
       <div class="form-group">
         <label for="descripcion-curso">Descripción del categoria:</label>
-        <textarea id="descripcion-curso" name="descripcion-curso" placeholder="Escribe una descripción general de la categoria" rows="4" ></textarea>
+        <textarea id="descripcion-curso" name="descripcion-curso"
+          placeholder="Escribe una descripción general de la categoria" rows="4"></textarea>
       </div>
-  
+
       <!-- Imagen del curso -->
       <div class="form-group">
         <label for="imagen-curso">Imagen del categoria:</label>
-        <input type="file" id="imagen-curso" name="imagen-curso" accept="image/*" >
+        <img class="CategoryPreview" id="CategoryPreview" src="../assets/images/lupa.webp" alt="Foto de Categoria">
+        <input type="file" id="Foto" name="imagen_categoria" accept="image/*" onchange="loadFile(event)">
       </div>
 
       <br>
       <br>
       <br>
       <br>
-  
+
       <!-- Botón de envío -->
       <div class="form-group">
         <button type="submit" class="btn-crear-curso">Crear categoria</button>
@@ -61,9 +67,19 @@
   <!-- Footer -->
   <div id="footer-container"></div>
 
+  <script>
+    function loadFile(event) {
+      var output = document.getElementById('CategoryPreview');
+      output.src = URL.createObjectURL(event.target.files[0]);
+      output.onload = function () {
+        URL.revokeObjectURL(output.src); // Libera el objeto URL
+      };
+    }
+  </script>
+
   <script src="../JS/crear_categoria.js"></script>
   <script src="../JS/templates.js"></script>
-  
+
 </body>
 
 </html>

@@ -11,7 +11,7 @@ $usuario = $_SESSION['usuario'];
         </div>
         <nav class="nav-opciones">
             <ul>
-                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.php">Inicio</a></li>
 
                 <li><a href="busqueda.html">Busqueda</a></li>
 

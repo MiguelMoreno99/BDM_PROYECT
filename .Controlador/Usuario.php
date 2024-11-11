@@ -71,7 +71,7 @@ class UserController
             if ($user) 
             {
                 $_SESSION['usuario'] = $user;
-               header('Location: ../HTML/index.html');
+               header('Location: ../HTML/index.php');
                exit();
             }
             else
@@ -94,7 +94,7 @@ class UserController
             {
                $this->userModel->resetLoginAttempts($correo_usuario, $contrasenia_usuario);
                $_SESSION['usuario'] = $user2;
-               header('Location: ../HTML/index.html');
+               header('Location: ../HTML/index.php');
             } else 
             {
                $this->userModel->incrementLoginAttempts($correo_usuario);
@@ -259,9 +259,6 @@ class UserController
         }
         exit();
     }
-
-
-
 }
 
 // Uso en index.php:
@@ -287,11 +284,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         case 'bloquear_usuarios':
             $controller->bloquearUsuario();
             break;
-
         case 'Desbloquear_usuarios':
             $controller->DesbloquearUsuario();
             break;
-        
     }
 }
 ?>

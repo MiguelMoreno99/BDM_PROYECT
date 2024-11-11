@@ -1,0 +1,56 @@
+-- Alta de Categorias
+use db_leveluplearning;
+
+DELIMITER //
+CREATE PROCEDURE PROCAltaCategoria
+(
+	IN nombre_categoria  VARCHAR(255),
+    IN descripcion_categoria  VARCHAR(255),
+	IN imagen_categoria longblob,
+    IN id_administrador_creador int
+)
+BEGIN
+    INSERT INTO tabla_categorias(nombre_categoria, descripcion_categoria, imagen_categoria, id_administrador_creador, fecha_creacion_categoria)
+    VALUES (nombre_categoria, descripcion_categoria, imagen_categoria, id_administrador_creador, now());
+END //
+DELIMITER ;
+
+CALL PROCAltaCategoria("Programacion","Esta es una descripcion de la categoria programacion",null,1);
+
+DELIMITER //
+CREATE PROCEDURE PROCValidarCategoria
+(   
+    IN p_nombre_categoria VARCHAR(255)   
+)
+BEGIN
+    SELECT 
+			nombre_categoria,
+            descripcion_categoria,
+            imagen_categoria
+    FROM 
+        tabla_categorias
+    WHERE 
+        nombre_categoria = p_nombre_categoria AND categoria_eliminada != 1;
+END //
+DELIMITER ;
+
+CALL PROCValidarCategoria("Programacion");
+
+DELIMITER //
+CREATE PROCEDURE PROCMostrarCategorias
+(     
+)
+BEGIN
+    SELECT 
+			id_categoria,
+			nombre_categoria,
+            descripcion_categoria,
+            imagen_categoria
+    FROM 
+        tabla_categorias
+    WHERE 
+        categoria_eliminada != 1;
+END //
+DELIMITER ;
+
+CALL PROCMostrarCategorias();

@@ -1,28 +1,23 @@
-document.getElementById('crear-curso-form').addEventListener('submit', function(event) {
-    const tituloCurso = document.getElementById('titulo-curso');
-    const descripcionCurso = document.getElementById('descripcion-curso');
-    const imagenCurso = document.getElementById('imagen-curso');
+function Llenardatos_creacion(event) {
+  event.preventDefault();
 
-    if (tituloCurso.value.trim() === '') {
-      alert('Ingresa un nombre para la categoría.');
-      tituloCurso.focus();
-      event.preventDefault(); 
-      return;
-    }
+  var tituloCurso = document.getElementById('titulo-curso').value;
+  var descripcionCurso = document.getElementById('descripcion-curso').value;
+  var imagenCurso = document.getElementById('Foto').files.length;
 
-    if (descripcionCurso.value.trim() === '') {
-      alert('Ingresa una descripción para la categoría.');
-      descripcionCurso.focus();
-      event.preventDefault(); 
-      return;
-    }
-
-    if (imagenCurso.files.length === 0) {
-      alert('Selecciona una imagen para la categoría.');
-      imagenCurso.focus();
-      event.preventDefault(); 
-      return;
-    }
-
-    alert('Categoria creada');
-  });
+  if (tituloCurso === "") {
+    alert("Introduce un Nombre de Categoria");
+    return false;
+  }
+  else if (descripcionCurso === "") {
+    alert("Introduce una Descipcion de Categoria");
+    return false;
+  }
+  else if (imagenCurso === 0) {
+    alert("Por favor, sube una foto de la categoria.");
+    return false;
+  }
+  else {
+    document.getElementById("registroForm").submit();
+  }
+}

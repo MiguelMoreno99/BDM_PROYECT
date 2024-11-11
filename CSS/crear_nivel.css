@@ -229,3 +229,8 @@
   button:hover {
     background-color: #4CAF50;
   }
+
+  .CategoryPreview{
+    width: 100px;
+    height: 100px;
+  }
