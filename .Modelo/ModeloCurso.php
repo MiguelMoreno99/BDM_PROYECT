@@ -30,5 +30,11 @@ class Modelo_Curso
         $stmt = $this->db->callProcedure('PROCMostrarCategorias',[]);
         return $stmt;
     }
+
+    public function DeleteCategory($nombre_categoria)
+    {
+        $stmt = $this->db->callProcedure('PROCBorrarCategoria', [$nombre_categoria]);
+        $stmt->closeCursor();
+    }
 }
 ?>

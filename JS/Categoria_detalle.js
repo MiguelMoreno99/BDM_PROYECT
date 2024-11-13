@@ -11,10 +11,10 @@
             
             if (confirmacion) {
                 // Si el usuario confirma, puedes proceder con la eliminación
-                alert("La categoria ha sido eliminado."); // Aquí puedes añadir la lógica de eliminación
+                alert("La categoria ha sido eliminada."); // Aquí puedes añadir la lógica de eliminación
             } else {
                 // Si el usuario cancela, no hacer nada
-                alert("La categoria no ha sido eliminado.");
+                alert("La categoria NO ha sido eliminada.");
             }
         });
     });
