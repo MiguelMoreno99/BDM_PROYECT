@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="../CSS/GENERAL/header.css">
   <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
   <link rel="stylesheet" href="../CSS/crear_nivel.css">
-  <script src="../JS/crear_categoria.js"></script>
 </head>
 
 <body>
@@ -26,7 +25,7 @@
     <br>
     <br>
 
-    <form form id="registroForm" action="../.Controlador/Categoria.php" method="POST" enctype="multipart/form-data"
+    <form id="crear-curso-form" class="crear-curso-form" action="../.Controlador/Categoria.php" method="POST" enctype="multipart/form-data"
       onsubmit="return Llenardatos_creacion(event);">
       <!-- Campo oculto para indicar que es un registro -->
       <input type="hidden" name="accion" value="registro_categoria">

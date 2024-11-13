@@ -11,7 +11,9 @@
             
             if (confirmacion) {
                 // Si el usuario confirma, puedes proceder con la eliminación
-                alert("La categoria ha sido eliminada."); // Aquí puedes añadir la lógica de eliminación
+                var nombre_categoria = document.getElementById('nombre_categoria').innerText;
+                var href = '../PHP/delete_category.php?titulo='+nombre_categoria;
+                 window.location.href = href;
             } else {
                 // Si el usuario cancela, no hacer nada
                 alert("La categoria NO ha sido eliminada.");

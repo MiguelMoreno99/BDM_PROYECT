@@ -17,6 +17,12 @@ class Modelo_Curso
         $stmt->closeCursor();
     }
 
+    public function editCategory($CategoryData)
+    {
+        $stmt = $this->db->callProcedure('PROCEditarCategoria', $CategoryData);
+        $stmt->closeCursor();
+    }
+
     public function checkCategoryExists($category)
     {
         $stmt = $this->db->callProcedure('PROCValidarCategoria', [$category]);
@@ -31,9 +37,9 @@ class Modelo_Curso
         return $stmt;
     }
 
-    public function DeleteCategory($nombre_categoria)
+    public function DeleteCategory($CategoryData)
     {
-        $stmt = $this->db->callProcedure('PROCBorrarCategoria', [$nombre_categoria]);
+        $stmt = $this->db->callProcedure('PROCBorrarCategoria', $CategoryData);
         $stmt->closeCursor();
     }
 }

@@ -45,96 +45,76 @@ class CourseController
         exit();
     }
 
-    // public function edit()
-    // {
-    //     $id_usuario = $_POST['id_usuario'];
+    public function edit()
+    {
+        $titulo = (isset($_POST['placeholder_titulo-curso']) ? $_POST['placeholder_titulo-curso'] : null);
 
-    //     // Usar una imagen actual si no se sube una nueva
-    //     $imagen_usuario = !empty($_FILES['imagen_usuario']['tmp_name']) 
-    //         ? file_get_contents($_FILES['imagen_usuario']['tmp_name']) 
-    //         : base64_decode($_POST['imagen_actual']);
+        // Usar una imagen actual si no se sube una nueva
+        $imagen_categoria = !empty($_FILES['imagen_categoria']['tmp_name'])
+            ? file_get_contents($_FILES['imagen_categoria']['tmp_name'])
+            : base64_decode($_POST['imagen_actual']);
 
-    //     // Utilizar valores de los placeholders si no se envían nuevos datos
-    //     $nombre_usuario = !empty($_POST['nombre_usuario']) ? $_POST['nombre_usuario'] : (isset($_POST['placeholder_nombre']) ? $_POST['placeholder_nombre'] : null);
-    //     $apellido_paterno_usuario = !empty($_POST['apellido_paterno_usuario']) ? $_POST['apellido_paterno_usuario'] : (isset($_POST['placeholder_apellido_paterno']) ? $_POST['placeholder_apellido_paterno'] : null);
-    //     $apellido_materno_usuario = !empty($_POST['apellido_materno_usuario']) ? $_POST['apellido_materno_usuario'] : (isset($_POST['placeholder_apellido_materno']) ? $_POST['placeholder_apellido_materno'] : null);
-    //     $correo_usuario = !empty($_POST['correo_usuario']) ? $_POST['correo_usuario'] : (isset($_POST['placeholder_correo']) ? $_POST['placeholder_correo'] : null);
-    //     $contrasenia_usuario = !empty($_POST['contrasenia_usuario']) ? $_POST['contrasenia_usuario'] : (isset($_POST['placeholder_contrasenia']) ? $_POST['placeholder_contrasenia'] : null);
+        // Utilizar valores de los placeholders si no se envían nuevos datos
+        $nombre_categoria = !empty($_POST['titulo-curso']) ? $_POST['titulo-curso'] : (isset($_POST['placeholder_titulo-curso']) ? $_POST['placeholder_titulo-curso'] : null);
+        $descripcion_categoria = !empty($_POST['descripcion-curso']) ? $_POST['descripcion-curso'] : (isset($_POST['placeholder_descripcion-curso']) ? $_POST['placeholder_descripcion-curso'] : null);
 
-    //     // Verificar que no hay campos nulos antes de realizar la actualización
-    //     if (is_null($nombre_usuario) || is_null($apellido_paterno_usuario) || is_null($apellido_materno_usuario) || is_null($correo_usuario) || is_null($contrasenia_usuario)) {
-    //         echo "<script>alert('Por favor, completa todos los campos requeridos.'); window.history.back();</script>";
-    //         exit();
-    //     }
+        // Verificar que no hay campos nulos antes de realizar la actualización
+        if (is_null($nombre_categoria) || is_null($descripcion_categoria)) {
+            echo "<script>alert('Por favor, completa todos los campos requeridos.'); window.history.back();</script>";
+            exit();
+        }
 
+        $categoryExists = $this->categoryModel->checkCategoryExists($nombre_categoria);
 
+        if ($categoryExists['nombre_categoria'] == $titulo) {
+            $this->categoryModel->editCategory([
+                $titulo,
+                $nombre_categoria,
+                $descripcion_categoria,
+                $imagen_categoria
+            ]);
+            echo "<script>alert('Se Editó la Categoria Correctamente!.'); window.location.href = '../HTML/index.php';</script>";
+            exit();
+        }
 
-    //     // Verificar si el correo ya existe
-    //     $emailExists = $this->userModel->checkEmailExists($correo_usuario);
+        if ($categoryExists['nombre_categoria'] == "") {
+            $this->categoryModel->editCategory([
+                $titulo,
+                $nombre_categoria,
+                $descripcion_categoria,
+                $imagen_categoria
+            ]);
+            echo "<script>alert('Se Editó la Categoria Correctamente!.'); window.location.href = '../HTML/index.php';</script>";
+            exit();
+        }
 
-    //     if ($emailExists && $emailExists['id_usuario'] == $id_usuario) 
-    //     {
-    //         // Llamar al modelo para actualizar el usuario
-    //         $this->userModel->updateUser([
-    //         $id_usuario,
-    //         $imagen_usuario,
-    //         $nombre_usuario,
-    //         $apellido_paterno_usuario,
-    //         $apellido_materno_usuario,
-    //         $correo_usuario,
-    //         $contrasenia_usuario,
-    //         ]);
+        if ($categoryExists['nombre_categoria'] == $nombre_categoria) {
+            echo "<script>alert('Ese nombre de Categoria ya existe, ingrese otro nombre.'); window.history.back();</script>";
+            exit();
+        }
+    }
 
-    //         // Actualizar la sesión con los nuevos datos del usuario
-    //         $_SESSION['usuario']['nombre_usuario'] = $nombre_usuario;
-    //         $_SESSION['usuario']['apellido_paterno'] = $apellido_paterno_usuario;
-    //         $_SESSION['usuario']['apellido_materno'] = $apellido_materno_usuario;
-    //         $_SESSION['usuario']['correo_usuario'] = $correo_usuario;
-    //         $_SESSION['usuario']['contrasenia_usuario'] = $contrasenia_usuario;
-    //         $_SESSION['usuario']['imagen_usuario'] = $imagen_usuario;
+    public function delete()
+    {
+        // Obtener el titulo de la categoría
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        // Obtener datos del formulario
+        $id_usuario = $_SESSION['usuario']['id_usuario'];
+        echo "id usuario";
+        echo $id_usuario;
+        echo "titulo";
+        echo $titulo;
 
-    //         echo "<script>alert('Usuario modificado.'); window.history.back();</script>";
-    //         exit();
-    //     }
-    //     else
-    //     {
-    //         if ($emailExists) 
-    //         {
-    //             echo "<script>alert('Ese correo ya existe, ingrese otro.'); window.history.back();</script>";
-    //             exit();
-    //         }
-    //         else
-    //         {
-    //            // Llamar al modelo para actualizar el usuario
-    //            $this->userModel->updateUser([
-    //             $id_usuario,
-    //             $imagen_usuario,
-    //             $nombre_usuario,
-    //             $apellido_paterno_usuario,
-    //             $apellido_materno_usuario,
-    //             $correo_usuario,
-    //             $contrasenia_usuario,
-    //             ]);
+        // Registrar usuario
+        $this->categoryModel->DeleteCategory([
+            $titulo,
+            $id_usuario
+        ]);
 
-    //             // Actualizar la sesión con los nuevos datos del usuario
-    //             $_SESSION['usuario']['nombre_usuario'] = $nombre_usuario;
-    //             $_SESSION['usuario']['apellido_paterno'] = $apellido_paterno_usuario;
-    //             $_SESSION['usuario']['apellido_materno'] = $apellido_materno_usuario;
-    //             $_SESSION['usuario']['correo_usuario'] = $correo_usuario;
-    //             $_SESSION['usuario']['contrasenia_usuario'] = $contrasenia_usuario;
-    //             $_SESSION['usuario']['imagen_usuario'] = $imagen_usuario;
-
-    //             echo "<script>alert('Usuario modificado.'); window.history.back();</script>";
-    //             exit();
-    //         }
-    //     }
-
-    //     exit();
-    // }
-
-    // public function delete()
-    // {
-    // }
+        // Redirigir al inicio
+        echo "<script>alert('Se Borró la Categoria Correctamente!.'); window.location.href = '../HTML/index.php';</script>";
+        exit();
+    }
 
     public function showCategorys()
     {
@@ -155,7 +135,7 @@ class CourseController
                 $empty = 0;
             }
         }
-        if($empty==1){
+        if ($empty == 1) {
             echo "
             <div class='curso-item'>
                 <h3>No hay Ninguna Categoria Creada</h3>
@@ -166,21 +146,31 @@ class CourseController
         }
     }
 
-    public function showCategory(){
+    public function showCategory()
+    {
 
-        // Obtener el ID de la categoría
+        // Obtener el titulo de la categoría
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
 
         $category = $this->categoryModel->checkCategoryExists($titulo);
 
         echo "
-        <h2>Categoria de " . $category['nombre_categoria'] . "</h2>
+        <h2 id='nombre_categoria'>" . $category['nombre_categoria'] . "</h2>
         <p class='descripcion'>
           " . $category['descripcion_categoria'] . "
         </p>
 
         <a href='#' class='btn-eliminar'>Eliminar Categoria</a>
-        <a href='Editar_Categoria.html?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>";
+        <a href='Editar_Categoria.php?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>";
+    }
+
+    public function getCategoryInfo()
+    {
+        // Obtener el titulo de la categoría
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+
+        $category = $this->categoryModel->checkCategoryExists($titulo);
+        return $category;
     }
 }
 
@@ -193,11 +183,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'registro_categoria':
             $controller->register();
             break;
-            // case 'editar_categoria':
-            //     $controller->edit();
-            //     break;
-            // case 'borrar_categoria':
-            //     $controller->delete();
-            //     break;        
+        case 'editar_categoria':
+            $controller->edit();
+            break;
     }
 }

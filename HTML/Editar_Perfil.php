@@ -10,7 +10,7 @@ $usuario = $_SESSION['usuario'];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión Administradores</title>
+  <title>Gestión de Perfil</title>
   <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
   <link rel="stylesheet" href="../CSS/GENERAL/header.css">
   <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
