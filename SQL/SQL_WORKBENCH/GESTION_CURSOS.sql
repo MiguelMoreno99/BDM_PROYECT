@@ -1,96 +1,112 @@
--- Alta de Categorias
 use db_leveluplearning;
 
 DELIMITER //
-CREATE PROCEDURE PROCAltaCategoria
+CREATE PROCEDURE PROCAltaCurso
 (
-	IN nombre_categoria  VARCHAR(255),
-    IN descripcion_categoria  VARCHAR(255),
-	IN imagen_categoria longblob,
-    IN id_administrador_creador int
+	IN p_titulo_curso  VARCHAR(255),
+    IN p_id_categoria_curso INT,
+    IN p_niveles_curso INT,
+    IN p_manejo_precio_curso INT,
+    IN p_precio_curso FLOAT,
+    IN p_descripcion_curso VARCHAR(100),
+	IN p_imagen_curso longblob,
+    IN p_id_instructor_creacion_curso INT
 )
 BEGIN
-    INSERT INTO tabla_categorias(nombre_categoria, descripcion_categoria, imagen_categoria, id_administrador_creador, fecha_creacion_categoria)
-    VALUES (nombre_categoria, descripcion_categoria, imagen_categoria, id_administrador_creador, now());
+    INSERT INTO tabla_cursos(titulo_curso, id_categoria_curso, niveles_curso, manejo_precio_curso, precio_curso,descripcion_curso,imagen_curso,fecha_creacion_curso,id_instructor_creacion_curso)
+    VALUES (p_titulo_curso, p_id_categoria_curso, p_niveles_curso, p_manejo_precio_curso,p_precio_curso,p_descripcion_curso,p_imagen_curso, now(),p_id_instructor_creacion_curso);
 END //
 DELIMITER ;
 
-CALL PROCAltaCategoria("Programacion","Esta es una descripcion de la categoria programacion",null,1);
+CALL PROCAltaCurso("Programacion Web JavaScript",23,1,0,0,"Esta es una descripcion del curso de programacion web javascript",null,3);
 
 DELIMITER //
-CREATE PROCEDURE PROCValidarCategoria
-(   
-    IN p_nombre_categoria VARCHAR(255)   
-)
-BEGIN
-    SELECT 
-			nombre_categoria,
-            descripcion_categoria,
-            imagen_categoria
-    FROM 
-        tabla_categorias
-    WHERE 
-        nombre_categoria = p_nombre_categoria AND categoria_eliminada != 1;
-END //
-DELIMITER ;
-
-CALL PROCValidarCategoria("Programacion");
-
-DELIMITER //
-CREATE PROCEDURE PROCMostrarCategorias
-(     
-)
-BEGIN
-    SELECT 
-			id_categoria,
-			nombre_categoria,
-            descripcion_categoria,
-            imagen_categoria
-    FROM 
-        tabla_categorias
-    WHERE 
-        categoria_eliminada != 1;
-END //
-DELIMITER ;
-
-CALL PROCMostrarCategorias();
-
-DELIMITER //
-CREATE PROCEDURE PROCBorrarCategoria
-(   
-    IN p_nombre_categoria VARCHAR(255),
-    IN p_id_usuario int
-)
-BEGIN
-    UPDATE  tabla_categorias
-    SET
-			categoria_eliminada = 1,
-            fecha_eliminacion_categoria = NOW(),
-            id_administrador_elimina_categoria = p_id_usuario
-    WHERE 
-        nombre_categoria = p_nombre_categoria;
-END //
-DELIMITER ;
-
-CALL PROCBorrarCategoria('Arte',1);
-
-DELIMITER //
-CREATE PROCEDURE PROCEditarCategoria
+CREATE PROCEDURE PROCAltaNivel
 (
-    IN p_nombre_categoriaActual VARCHAR(255),
-    IN p_nombre_categoriaNuevo VARCHAR(255),
-    IN p_descripcion_categoria VARCHAR(255),
-    IN p_imagen_categoria longblob
+	IN p_id_instructor_nivel  INT,
+    IN p_titulo_nivel varchar(255),
+    IN p_documento_nivel varchar(255),
+    IN p_link_video_nivel varchar(255),
+    IN p_costo_nivel FLOAT,
+    IN p_id_curso_nivel INT,
+	IN p_informacion_nivel varchar(255),
+    IN p_imagen_nivel longblob,
+    IN p_referencias_nivel varchar(255)
 )
 BEGIN
-    UPDATE  tabla_categorias
-    SET
-			nombre_categoria = p_nombre_categoriaNuevo,
-            descripcion_categoria = p_descripcion_categoria,
-            imagen_categoria = p_imagen_categoria
-    WHERE 
-        nombre_categoria = p_nombre_categoriaActual and categoria_eliminada != 1;
+    INSERT INTO tabla_niveles(id_instructor_nivel, titulo_nivel, documento_nivel, link_video_nivel, costo_nivel,id_curso_nivel, informacion_nivel,imagen_nivel,referencias_nivel,fecha_creacion_nivel)
+    VALUES (p_id_instructor_nivel, p_titulo_nivel, p_documento_nivel, p_link_video_nivel,p_costo_nivel,p_id_curso_nivel,p_informacion_nivel,p_imagen_nivel,p_referencias_nivel, now());
 END //
 DELIMITER ;
 
-CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);
+CALL PROCAltaNivel(3,"Introduccion a la Programacion Web JavaScript","linkdocumento","linkvideo",0,1,"Esta es la informacion del nivel 1 de programacion web javascript",null,"link referencias nivel");
+
+DELIMITER //
+CREATE PROCEDURE PROCValidarCurso
+(   
+    IN p_titulo_curso VARCHAR(255)   
+)
+BEGIN
+    SELECT
+    id_curso,
+	titulo_curso,
+    id_categoria_curso,
+    niveles_curso,
+    manejo_precio_curso,
+    precio_curso,
+    descripcion_curso,
+	imagen_curso,
+    id_instructor_creacion_curso
+    FROM 
+        tabla_cursos
+    WHERE 
+        titulo_curso = p_titulo_curso AND curso_deshabilitado != 1;
+END //
+DELIMITER ;
+
+CALL PROCValidarCurso("Programacion Web JavaScript");
+
+DELIMITER //
+CREATE PROCEDURE PROCValidarNivelesCurso
+(   
+    IN p_id_curso int
+)
+BEGIN
+    SELECT
+    id_nivel,
+	id_instructor_nivel,
+    titulo_nivel,
+    documento_nivel,
+    link_video_nivel,
+    costo_nivel,
+    informacion_nivel,
+	imagen_nivel,
+    referencias_nivel,
+    fecha_creacion_nivel
+    FROM 
+        tabla_niveles
+    WHERE 
+        id_curso_nivel = p_id_curso;
+END //
+DELIMITER ;
+
+CALL PROCValidarNivelesCurso(1);
+
+DELIMITER //
+CREATE PROCEDURE PROCBorrarCurso
+(   
+    IN p_titulo_curso VARCHAR(255),
+    IN p_id_instructor_eliminacion_curso int
+)
+BEGIN
+    UPDATE  tabla_cursos
+    SET
+			curso_deshabilitado = 1,
+            fecha_eliminacion_curso = NOW(),
+            id_instructor_eliminacion_curso = p_id_instructor_eliminacion_curso
+    WHERE 
+        titulo_curso = p_titulo_curso;
+END //
+DELIMITER ;
+
+CALL PROCBorrarCurso('Programacion Web JavaScript',1);

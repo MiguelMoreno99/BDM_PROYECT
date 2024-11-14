@@ -215,3 +215,8 @@
   button:hover {
     background-color: #4CAF50;
   }
+
+  .CoursePreview{
+    width: 250px;
+    height: 250px;
+  }

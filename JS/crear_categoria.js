@@ -18,6 +18,6 @@ function Llenardatos_creacion(event) {
     return false;
   }
   else {
-    document.getElementById("registroForm").submit();
+    document.getElementById("crear-curso-form").submit();
   }
 }

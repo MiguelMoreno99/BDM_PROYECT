@@ -202,7 +202,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE PROCEditarUsuario
 (
-    IN p_id_usuario INT,  -- Buscamos por ID de usuario (parÃ¡metro renombrado)
+    IN p_id_usuario INT,
     IN p_imagen_usuario LONGBLOB,
     IN p_nombre_usuario VARCHAR(50),
     IN p_apellido_paterno_usuario VARCHAR(50),
@@ -230,22 +230,35 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE PROCAltaUsuario
 (
-	IN tipo_usuario INT,	
-	IN imagen_usuario longblob,
-	IN nombre_usuario VARCHAR(50),
-	IN apellido_paterno VARCHAR(50),
-	IN apellido_materno VARCHAR(50),
-	IN genero_usuario int,
-	IN nacimiento_usuario date,
-	IN correo_usuario VARCHAR(255),
-	IN contrasenia_usuario VARCHAR(255)
+	IN p_tipo_usuario INT,	
+	IN p_imagen_usuario longblob,
+	IN p_nombre_usuario VARCHAR(50),
+	IN p_apellido_paterno VARCHAR(50),
+	IN p_apellido_materno VARCHAR(50),
+	IN p_genero_usuario int,
+	IN p_nacimiento_usuario date,
+	IN p_correo_usuario VARCHAR(255),
+	IN p_contrasenia_usuario VARCHAR(255)
 )
 BEGIN
     -- Insert the new user
     INSERT INTO tabla_usuario(tipo_usuario, imagen_usuario, nombre_usuario, apellido_paterno, apellido_materno, genero_usuario, nacimiento_usuario,
-    correo_usuario, contrasenia_usuario, registro_usuario)
-    VALUES (tipo_usuario, imagen_usuario, nombre_usuario, apellido_paterno, apellido_materno, genero_usuario, nacimiento_usuario,
-    correo_usuario, contrasenia_usuario, registro_usuario);
+    correo_usuario, contrasenia_usuario)
+    VALUES (p_tipo_usuario, p_imagen_usuario, p_nombre_usuario, p_apellido_paterno, p_apellido_materno, p_genero_usuario, p_nacimiento_usuario,
+    p_correo_usuario, p_contrasenia_usuario);
 
 END //
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER TRAltaUsuario
+BEFORE INSERT ON tabla_usuario
+FOR EACH ROW
+BEGIN
+  SET NEW.usuario_bloqueado = 0;
+  SET NEW.registro_usuario = NOW();
+  SET NEW.Hora_usuario = NOW();
+END //
+
 DELIMITER ;

@@ -28,7 +28,7 @@ class CourseController
         // Verificar si el correo ya existe
         $categoryExists = $this->categoryModel->checkCategoryExists($nombre_categoria);
 
-        if ($categoryExists) {
+        if ($categoryExists['nombre_categoria'] == $nombre_categoria) {
             echo "<script>alert('Ese nombre de Categoria ya existe, ingrese otro nombre.'); window.history.back();</script>";
             exit();
         }
@@ -171,6 +171,22 @@ class CourseController
 
         $category = $this->categoryModel->checkCategoryExists($titulo);
         return $category;
+    }
+
+    public function showInSelectCategorys()
+    {
+        $empty = 1;
+        $categorys = $this->categoryModel->showAllCategorys();
+        if ($categorys) {
+            foreach ($categorys as $categoria) {
+                echo "<option value=" . $categoria['id_categoria'] . ">" . $categoria['nombre_categoria'] . "</option>";
+                $empty = 0;
+            }
+        }
+        if ($empty == 1) {
+            echo "<script>alert('No hay ninguna categoria creada, contacte con su administrador para que agregue por lo menos una categoria para continuar.'); window.history.back();</script>";
+            exit();
+        }
     }
 }
 

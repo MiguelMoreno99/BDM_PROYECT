@@ -34,7 +34,7 @@ $usuario = $_SESSION['usuario'];
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 1): ?>
-                    <li><a href="crear_curso.html">Crear Curso</a></li>
+                    <li><a href="crear_curso.php">Crear Curso</a></li>
                 <?php else: ?>
 
                 <?php endif; ?>
