@@ -35,16 +35,16 @@ function agregarNivel() {
       <textarea name="contenido-nivel-${nivelActual}" placeholder="Escribe el contenido del nivel aquí" required></textarea>
       <div class="adjuntos">
         <label for="linkpdf-nivel-${nivelActual}">Link de drive del PDF:</label>
-        <input type="url" id="linkpdf-nivel-${nivelActual}" name="linkpdf-nivel-${nivelActual}" placeholder="https://drive.google.com/file/...">
+        <input type="url" id="linkpdf-nivel-${nivelActual}" name="linkpdf-nivel-${nivelActual}" placeholder="https://drive.google.com/file/..." required>
         
         <label for="imagen-nivel-${nivelActual}">Adjuntar imagen:</label>
-        <input type="file" id="imagen-nivel-${nivelActual}" name="imagen-nivel-${nivelActual}" accept="image/*">
+        <input type="file" id="imagen-nivel-${nivelActual}" name="imagen-nivel-${nivelActual}" accept="image/*" required>
         
         <label for="linkpagina-nivel-${nivelActual}">Link a página externa:</label>
-        <input type="url" id="linkpagina-nivel-${nivelActual}" name="linkpagina-nivel-${nivelActual}" placeholder="https://www.w3schools.com/css/...">
+        <input type="url" id="linkpagina-nivel-${nivelActual}" name="linkpagina-nivel-${nivelActual}" placeholder="https://www.w3schools.com/css/..." required>
         
         <label for="linkyoutube-nivel-${nivelActual}">Link Youtube Video:</label>
-        <input type="url" id="linkyoutube-nivel-${nivelActual}" name="linkyoutube-nivel-${nivelActual}" placeholder="https://www.youtube.com/watch...">
+        <input type="url" id="linkyoutube-nivel-${nivelActual}" name="linkyoutube-nivel-${nivelActual}" placeholder="https://www.youtube.com/watch..." required>
       </div>
       <div class="precio-nivel" style="display: none;">
         <label for="precio-nivel-${nivelActual}">Costo del nivel ($):</label>

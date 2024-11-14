@@ -11,35 +11,47 @@ class Modelo_Curso
         $this->db = new Database($config);
     }
 
-    public function registerCategory($CategoryData)
+    public function registerCourse($CourseData)
     {
-        $stmt = $this->db->callProcedure('PROCAltaCategoria', $CategoryData);
+        $stmt = $this->db->callProcedure('PROCAltaCurso', $CourseData);
         $stmt->closeCursor();
     }
 
-    public function editCategory($CategoryData)
+    public function registerLevel($LevelData)
     {
-        $stmt = $this->db->callProcedure('PROCEditarCategoria', $CategoryData);
+        $stmt = $this->db->callProcedure('PROCAltaNivel', $LevelData);
         $stmt->closeCursor();
     }
 
-    public function checkCategoryExists($category)
+    public function checkCourseExists($name_course)
     {
-        $stmt = $this->db->callProcedure('PROCValidarCategoria', [$category]);
+        $stmt = $this->db->callProcedure('PROCValidarCurso', [$name_course]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         return $result;
     }
 
-    public function showAllCategorys()
+    public function showAllCourses()
     {
-        $stmt = $this->db->callProcedure('PROCMostrarCategorias',[]);
+        $stmt = $this->db->callProcedure('PROCMostrarCursos',[]);
         return $stmt;
     }
 
-    public function DeleteCategory($CategoryData)
+    public function showAllCoursesByCategory($id_category)
     {
-        $stmt = $this->db->callProcedure('PROCBorrarCategoria', $CategoryData);
+        $stmt = $this->db->callProcedure('PROCMostrarCursosPorCategoria',[$id_category]);
+        return $stmt;
+    }
+
+    public function showAllLevelsOfCourse($id_course)
+    {
+        $stmt = $this->db->callProcedure('PROCValidarNivelesCurso',[$id_course]);
+        return $stmt;
+    }
+
+    public function DeleteCourse($CourseData)
+    {
+        $stmt = $this->db->callProcedure('PROCBorrarCurso', $CourseData);
         $stmt->closeCursor();
     }
 }

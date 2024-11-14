@@ -3,7 +3,7 @@ document.getElementById('crear-curso-form').addEventListener('submit', function(
     // Obtener los elementos del formulario
     const tituloCurso = document.getElementById('titulo-curso');
     const descripcionCurso = document.getElementById('descripcion-curso');
-    const imagenCurso = document.getElementById('imagen-curso');
+    const imagenCurso = document.getElementById('Foto');
     const contenedorNiveles = document.getElementById('contenedor-niveles');
   
     // Validar campos básicos
@@ -33,8 +33,5 @@ document.getElementById('crear-curso-form').addEventListener('submit', function(
       alert('Por favor, agrega al menos un nivel para el curso.');
       event.preventDefault();
       return;
-    }
-  
-    // Si todo está correcto, se puede enviar el formulario
-    alert('Curso creado');
+    };
   });

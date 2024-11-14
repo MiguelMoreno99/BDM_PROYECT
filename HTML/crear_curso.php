@@ -25,7 +25,9 @@
     <br>
     <br>
 
-    <form id="crear-curso-form" class="crear-curso-form">
+    <form id="crear-curso-form" class="crear-curso-form" action="../.Controlador/Curso.php" method="POST" enctype="multipart/form-data">
+      <!-- Campo oculto para indicar que es un registro -->
+      <input type="hidden" name="accion" value="registro_curso">
       <!-- Nombre del curso -->
       <div class="form-group">
         <label for="titulo-curso">Nombre del curso:</label>

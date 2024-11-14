@@ -110,3 +110,51 @@ END //
 DELIMITER ;
 
 CALL PROCBorrarCurso('Programacion Web JavaScript',1);
+
+DELIMITER //
+CREATE PROCEDURE PROCMostrarCursos
+(     
+)
+BEGIN
+    SELECT 
+    id_curso,
+	titulo_curso,
+    id_categoria_curso,
+    niveles_curso,
+    manejo_precio_curso,
+    precio_curso,
+    descripcion_curso,
+	imagen_curso,
+    id_instructor_creacion_curso
+    FROM 
+        tabla_cursos
+    WHERE 
+        curso_deshabilitado != 1;
+END //
+DELIMITER ;
+
+CALL PROCMostrarCursos();
+DELIMITER //
+CREATE PROCEDURE PROCMostrarCursosPorCategoria
+(
+IN p_id_categoria_curso INT
+)
+BEGIN
+    SELECT 
+    id_curso,
+	titulo_curso,
+    id_categoria_curso,
+    niveles_curso,
+    manejo_precio_curso,
+    precio_curso,
+    descripcion_curso,
+	imagen_curso,
+    id_instructor_creacion_curso
+    FROM 
+        tabla_cursos
+    WHERE 
+        id_categoria_curso = p_id_categoria_curso AND curso_deshabilitado != 1;
+END //
+DELIMITER ;
+
+CALL PROCMostrarCursosPorCategoria(23);

@@ -1,15 +1,15 @@
 <?php
 
-require_once '../.Modelo/ModeloCurso.php';
+require_once '../.Modelo/ModeloCategoria.php';
 session_start();
 
-class CourseController
+class CategoryController
 {
     private $categoryModel;
 
     public function __construct($config)
     {
-        $this->categoryModel = new Modelo_Curso($config);
+        $this->categoryModel = new Modelo_Categoria($config);
     }
 
     public function register()
@@ -192,7 +192,7 @@ class CourseController
 
 // Uso en index.php:
 $config = require '../PHP/config.php';
-$controller = new CourseController($config);
+$controller = new CategoryController($config);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($_POST['accion']) {
