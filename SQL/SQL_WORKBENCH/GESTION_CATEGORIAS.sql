@@ -23,6 +23,7 @@ CREATE PROCEDURE PROCValidarCategoria
 )
 BEGIN
     SELECT 
+			id_categoria,
 			nombre_categoria,
             descripcion_categoria,
             imagen_categoria

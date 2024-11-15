@@ -39,100 +39,12 @@
     <!-- Contenedor de Cursos -->
     <main class="cursos-contenedor">
         <div class="cursos-lista">
-
-            <!-- Curso 1 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/PythonLogo.png" alt="Curso 1">
-                    <h3>Curso de Programación en Python</h3>
-                    <p>Aprende las bases de la programación con Python, uno de los lenguajes más populares en el mundo.</p>
-                </div>
-            </a>
-
-            <!-- Curso 2 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/DesWeb.png" alt="Curso 2">
-                    <h3>Curso de Desarrollo Web</h3>
-                    <p>Domina HTML, CSS y JavaScript para crear sitios web dinámicos y atractivos.</p>
-                </div>
-            </a>
-
-            <!-- Curso 3 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/DisGraf.png" alt="Curso 3">
-                    <h3>Curso de Diseño Gráfico</h3>
-                    <p>Desarrolla habilidades para diseñar logotipos, folletos y material visual con herramientas profesionales.</p>
-                </div>
-            </a>
-
-            <!-- Curso 4 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/Animacion.png" alt="Curso 4">
-                    <h3>Curso de Animacion</h3>
-                    <p>Aprende animación profesional: domina técnicas clave y crea impresionantes proyectos.</p>
-                </div>
-            </a>
-
-            <!-- Curso 5 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/IA.png" alt="Curso 5">
-                    <h3>Curso de Inteligencia Artificial</h3>
-                    <p>Aprende a desarrollar proyectos de IA y machine learning con técnicas avanzadas.</p>
-                </div>
-            </a>
-
-            <!-- Curso 6 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/DataBase.png" alt="Curso 6">
-                    <h3>Curso de Bases de Datos</h3>
-                    <p>Comprende los fundamentos de las bases de datos SQL y NoSQL para gestionar grandes volúmenes de datos.</p>
-                </div>
-            </a>
-
-            <!-- Curso 7 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/CiberSeg.png" alt="Curso 7">
-                    <h3>Curso de Ciberseguridad</h3>
-                    <p>Protege sistemas y redes de ciberataques y aprende las mejores prácticas en seguridad informática.</p>
-                </div>
-            </a>
-
-            <!-- Curso 8 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/Apps.png" alt="Curso 8">
-                    <h3>Curso de Desarrollo de Apps Móviles</h3>
-                    <p>Crea aplicaciones móviles para Android e iOS utilizando lenguajes y frameworks populares.</p>
-                </div>
-            </a>
-
-            <!-- Curso 9 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/BlockChain.png" alt="Curso 9">
-                    <h3>Curso de Blockchain</h3>
-                    <p>Descubre cómo funcionan las tecnologías detrás de las criptomonedas y las aplicaciones deblockchain. </p>
-                </div>
-            </a>
-
-            <!-- Curso 10 -->
-            <a href="curso_pyton.html" class="curso-link">
-                <div class="curso-item">
-                    <img src="../assets/cursos/img/Dibujo.webp" alt="Curso 10">
-                    <h3>Curso de dibujo</h3>
-                    <p>Domina el arte del dibujo: mejora tu técnica y creatividad al máximo.</p>
-                </div>
-            </a>
-
+            <?php
+            require_once '../.Controlador/Curso.php';
+            $controller->showCourses();
+            ?>
         </div>
     </main>
-
 
     <div id="footer-container"></div>
 

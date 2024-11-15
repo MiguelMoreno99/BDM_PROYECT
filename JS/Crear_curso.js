@@ -1,12 +1,14 @@
+let nivelActual = 0;  // Empieza en 0, porque no hay ningún nivel al inicio
+
 document.getElementById('tipo-precio').addEventListener('change', function() {
   const precioCompletoGroup = document.getElementById('precio-completo-group');
   const contenedorNiveles = document.getElementById('contenedor-niveles');
 
-  if (this.value === 'completo') {
+  if (this.value === '1') {
     // Mostrar solo el precio completo
     precioCompletoGroup.style.display = 'block';
     contenedorNiveles.querySelectorAll('.precio-nivel').forEach(el => el.style.display = 'none');
-  } else if (this.value === 'nivel') {
+  } else if (this.value === '2') {
     // Ocultar el precio completo y mostrar los precios por nivel
     precioCompletoGroup.style.display = 'none';
     contenedorNiveles.querySelectorAll('.precio-nivel').forEach(el => el.style.display = 'block');
@@ -16,8 +18,6 @@ document.getElementById('tipo-precio').addEventListener('change', function() {
     contenedorNiveles.querySelectorAll('.precio-nivel').forEach(el => el.style.display = 'none');
   }
 });
-
-let nivelActual = 0;  // Empieza en 0, porque no hay ningún nivel al inicio
 
 function agregarNivel() {
   nivelActual++;
@@ -56,7 +56,7 @@ function agregarNivel() {
 
   // Si está seleccionado "Precio por cada nivel", mostrar los campos de precio en los nuevos niveles
   const tipoPrecio = document.getElementById('tipo-precio').value;
-  if (tipoPrecio === 'nivel') {
+  if (tipoPrecio === '2') {
     nuevaSeccion.querySelector('.precio-nivel').style.display = 'block';
   }
 }
@@ -64,4 +64,28 @@ function agregarNivel() {
 function eliminarNivel(elemento) {
   const nivel = elemento.closest('.seccion');
   nivel.remove();
+  actualizarNumerosNiveles();
+}
+
+function actualizarNumerosNiveles() {
+  const contenedorNiveles = document.getElementById('contenedor-niveles');
+  const secciones = contenedorNiveles.getElementsByClassName('seccion');
+  nivelActual = 0;
+
+  Array.from(secciones).forEach((seccion, index) => {
+    nivelActual = index + 1;
+    seccion.setAttribute('data-nivel', nivelActual);
+    seccion.querySelector('.seccion-titulo h3').innerHTML = `Nivel ${nivelActual}: <input type="text" name="nivel-titulo-${nivelActual}" placeholder="Título del nivel" required>`;
+    seccion.querySelector('textarea').setAttribute('name', `contenido-nivel-${nivelActual}`);
+    seccion.querySelector('label[for^="linkpdf"]').setAttribute('for', `linkpdf-nivel-${nivelActual}`);
+    seccion.querySelector('input[name^="linkpdf"]').setAttribute('name', `linkpdf-nivel-${nivelActual}`);
+    seccion.querySelector('label[for^="imagen"]').setAttribute('for', `imagen-nivel-${nivelActual}`);
+    seccion.querySelector('input[name^="imagen"]').setAttribute('name', `imagen-nivel-${nivelActual}`);
+    seccion.querySelector('label[for^="linkpagina"]').setAttribute('for', `linkpagina-nivel-${nivelActual}`);
+    seccion.querySelector('input[name^="linkpagina"]').setAttribute('name', `linkpagina-nivel-${nivelActual}`);
+    seccion.querySelector('label[for^="linkyoutube"]').setAttribute('for', `linkyoutube-nivel-${nivelActual}`);
+    seccion.querySelector('input[name^="linkyoutube"]').setAttribute('name', `linkyoutube-nivel-${nivelActual}`);
+    seccion.querySelector('label[for^="precio"]').setAttribute('for', `precio-nivel-${nivelActual}`);
+    seccion.querySelector('input[name^="precio"]').setAttribute('name', `precio-nivel-${nivelActual}`);
+  });
 }

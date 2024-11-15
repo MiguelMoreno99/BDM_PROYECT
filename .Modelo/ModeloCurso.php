@@ -54,5 +54,13 @@ class Modelo_Curso
         $stmt = $this->db->callProcedure('PROCBorrarCurso', $CourseData);
         $stmt->closeCursor();
     }
+
+    public function checkCategoryExists($category)
+    {
+        $stmt = $this->db->callProcedure('PROCValidarCategoria', [$category]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result;
+    }
 }
 ?>

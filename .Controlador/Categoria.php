@@ -141,27 +141,28 @@ class CategoryController
                 <h3>No hay Ninguna Categoria Creada</h3>
                 <p>Primero cree una categoria para poder filtar los cursos</p>
             </div>
-            </a>
             ";
         }
     }
 
     public function showCategory()
     {
-
         // Obtener el titulo de la categoría
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
-
         $category = $this->categoryModel->checkCategoryExists($titulo);
+        $tipo_usuario = $_SESSION['usuario']['tipo_usuario'];
 
-        echo "
-        <h2 id='nombre_categoria'>" . $category['nombre_categoria'] . "</h2>
-        <p class='descripcion'>
-          " . $category['descripcion_categoria'] . "
-        </p>
-
-        <a href='#' class='btn-eliminar'>Eliminar Categoria</a>
-        <a href='Editar_Categoria.php?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>";
+        echo "  <h2 id='nombre_categoria'>" . $category['nombre_categoria'] . "</h2>
+                <p class='descripcion'>" . $category['descripcion_categoria'] . "</p>";
+        if ($tipo_usuario == 1) {
+        }
+        if ($tipo_usuario == 2) {
+        }
+        if ($tipo_usuario == 3) {
+            echo "<a href='#' class='btn-eliminar'>Eliminar Categoria</a>
+                  <a href='Editar_Categoria.php?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>
+                  ";
+        }
     }
 
     public function getCategoryInfo()
