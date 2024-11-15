@@ -158,3 +158,35 @@ END //
 DELIMITER ;
 
 CALL PROCMostrarCursosPorCategoria(23);
+
+DELIMITER //
+CREATE PROCEDURE PROCBusquedaAvanzadaCursos(
+    IN p_id_categoria_curso INT,
+    IN p_titulo_curso VARCHAR(255),
+    IN p_id_instructor_creacion_curso INT,
+    IN p_fecha_inicio DATE,
+    IN p_fecha_fin DATE
+)
+BEGIN
+    SELECT 
+	id_curso,
+	titulo_curso,
+    id_categoria_curso,
+    niveles_curso,
+    manejo_precio_curso,
+    precio_curso,
+    descripcion_curso,
+	imagen_curso,
+    id_instructor_creacion_curso,
+    fecha_creacion_curso
+    FROM tabla_cursos
+    WHERE (p_id_categoria_curso IS NULL OR id_categoria_curso = p_id_categoria_curso)
+      AND (p_titulo_curso IS NULL OR titulo_curso LIKE CONCAT('%', p_titulo_curso, '%'))
+      AND (p_id_instructor_creacion_curso IS NULL OR id_instructor_creacion_curso = p_id_instructor_creacion_curso)
+      AND (p_fecha_inicio IS NULL OR fecha_creacion_curso >= p_fecha_inicio)
+      AND (p_fecha_fin IS NULL OR fecha_creacion_curso <= p_fecha_fin)
+      AND curso_deshabilitado = 0;
+END //
+DELIMITER ;
+
+CALL PROCBusquedaAvanzadaCursos(NULL, 'de', 3, '2024-01-01 00:00:00', '2024-11-15 00:00:00');
