@@ -22,13 +22,13 @@ $usuario = $_SESSION['usuario'];
                 <?php endif; ?>  
 
                 <?php if (isset($_SESSION['usuario'])): ?>
-                    <li><a href="dms.html">Mensajes</a></li>
+                    <li><a href="dms.php">Mensajes</a></li>
                 <?php else: ?>
 
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 2): ?>
-                   <li><a href="MisCursos.html">Mis Cursos</a></li>
+                   <li><a href="MisCursos.php">Mis Cursos</a></li>
                 <?php else: ?>
 
                 <?php endif; ?>

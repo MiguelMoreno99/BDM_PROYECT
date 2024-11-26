@@ -66,47 +66,53 @@ button.btn:hover {
     background-color: #351d3f;
 }
 
-        /* Estilos básicos para el modal */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed; 
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
-        }
-        .modal-contenido {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 50%;
-            text-align: center;
-        }
-        .cerrar-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .cerrar-modal:hover,
-        .cerrar-modal:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
+/* Estilos básicos para el modal */
+.modal {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo oscuro */
+}
 
-        .cerrar-modal2 {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .cerrar-modal2:hover,
-        .cerrar-modal2:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
+.modal-contenido {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+}
+
+.cerrar-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cerrar-modal:hover,
+.cerrar-modal:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cerrar-modal2 {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cerrar-modal2:hover,
+.cerrar-modal2:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

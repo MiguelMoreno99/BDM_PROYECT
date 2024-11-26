@@ -6,7 +6,7 @@
 
         <!-- Campo oculto para enviar la imagen actual -->
         <input type="hidden" name="imagen_actual" value="<?php echo base64_encode($usuario['imagen_usuario']); ?>">
-        
+
         <!-- Campos ocultos para los placeholders -->
         <input type="hidden" name="placeholder_nombre" value="<?php echo $usuario['nombre_usuario']; ?>">
         <input type="hidden" name="placeholder_apellido_paterno" value="<?php echo $usuario['apellido_paterno']; ?>">
@@ -41,8 +41,8 @@
 
         <div class="form-group">
             <label for="profile_picture">Foto de Perfil:</label>
-            <img src="data:image/jpeg;base64,<?php echo base64_encode($usuario['imagen_usuario']); ?>" 
-                alt="Imagen de perfil" 
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($usuario['imagen_usuario']); ?>"
+                alt="Imagen de perfil"
                 style="width: 150px; height: 150px; object-fit: cover; margin-bottom: 10px;">
             <input type="file" id="profile_picture" name="imagen_usuario" accept="image/*">
         </div>

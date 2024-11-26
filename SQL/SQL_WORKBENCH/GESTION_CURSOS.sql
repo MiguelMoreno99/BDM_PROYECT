@@ -39,7 +39,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL PROCAltaNivel(3,"Introduccion a la Programacion Web JavaScript","linkdocumento","linkvideo",0,1,"Esta es la informacion del nivel 1 de programacion web javascript",null,"link referencias nivel");
+CALL PROCAltaNivel(1,"Introduccion a la Programacion Web JavaScript","linkdocumento","linkvideo",0,1,"Esta es la informacion del nivel 1 de programacion web javascript",null,"link referencias nivel");
 
 DELIMITER //
 CREATE PROCEDURE PROCValidarCurso
@@ -134,6 +134,7 @@ END //
 DELIMITER ;
 
 CALL PROCMostrarCursos();
+
 DELIMITER //
 CREATE PROCEDURE PROCMostrarCursosPorCategoria
 (
@@ -190,3 +191,81 @@ END //
 DELIMITER ;
 
 CALL PROCBusquedaAvanzadaCursos(NULL, 'de', 3, '2024-01-01 00:00:00', '2024-11-15 00:00:00');
+
+DELIMITER $$
+
+CREATE PROCEDURE PROCobtener_precio_y_niveles(
+    IN p_titulo_curso VARCHAR(255) -- Recibe el título del curso como parámetro
+)
+BEGIN
+    -- Combinamos los resultados de curso y niveles buscando por el título del curso
+    SELECT 
+        'Curso' AS tipo, 
+        titulo_curso AS titulo, 
+        precio_curso AS costo,
+        manejo_precio_curso AS manejo_precio_curso,
+        id_curso AS id
+    FROM tabla_cursos
+    WHERE titulo_curso = p_titulo_curso -- Compara con el título del curso
+
+    UNION ALL
+
+    SELECT 
+        'Nivel' AS tipo, 
+        titulo_nivel AS titulo, 
+        costo_nivel AS costo, 
+        NULL AS manejo_precio_curso, -- Añadimos una columna "dummy" para que coincidan
+        id_nivel AS id -- Incluimos el id del nivel
+    FROM tabla_niveles
+    WHERE id_curso_nivel = (
+        SELECT id_curso -- Busca el id_curso asociado al título
+        FROM tabla_cursos
+        WHERE titulo_curso = p_titulo_curso
+        LIMIT 1
+    );
+END $$
+
+DELIMITER ;
+
+CALL PROCobtener_precio_y_niveles('C# de cero a 100');
+
+DELIMITER $$
+
+CREATE PROCEDURE PROCInsertarInscripcion(
+    IN p_id_estudiante_inscripcion INT,
+    IN p_id_curso_inscripcion INT,
+    IN p_metodo_pago_inscripcion INT,
+    IN p_precio_pagado FLOAT
+)
+BEGIN
+    INSERT INTO tabla_inscripciones (
+        id_estudiante_inscripcion, 
+        id_curso_inscripcion,  
+        metodo_pago_inscripcion, 
+        Precio_pagado, 
+        porcentaje_avance_curso
+    ) VALUES (
+        p_id_estudiante_inscripcion, 
+        p_id_curso_inscripcion, 
+        p_metodo_pago_inscripcion, 
+        p_precio_pagado
+    );
+END $$
+
+DELIMITER //
+
+DELIMITER $$
+
+CREATE PROCEDURE PROCInsertarNivelInscripcion
+(
+    IN p_id_nivel INT,
+    IN p_titulo_nivel VARCHAR(255)
+)
+BEGIN
+    INSERT INTO tabla_niveles_inscripcion (id_nivel, titulo_nivel) 
+    VALUES (p_id_nivel, p_titulo_nivel);
+END $$
+
+DELIMITER ;
+
+CALL PROCobtener_precio_y_niveles('C# de cero a 100');

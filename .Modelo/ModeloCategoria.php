@@ -33,7 +33,7 @@ class Modelo_Categoria
 
     public function showAllCategorys()
     {
-        $stmt = $this->db->callProcedure('PROCMostrarCategorias',[]);
+        $stmt = $this->db->callProcedure('PROCMostrarCategorias', []);
         return $stmt;
     }
 
@@ -43,4 +43,3 @@ class Modelo_Categoria
         $stmt->closeCursor();
     }
 }
-?>

@@ -73,22 +73,22 @@
     </form>
   </div>
 
-    <!-- Tabla para Estudiantes -->
-    <div id="reporte_estudiante" class="reporte" style="display:none;">
-      <h2>Desbloquear</h2>
-      <form method="post" action="../.Controlador/Usuario.php">
+  <!-- Tabla para Estudiantes -->
+  <div id="reporte_estudiante" class="reporte" style="display:none;">
+    <h2>Desbloquear</h2>
+    <form method="post" action="../.Controlador/Usuario.php">
       <input type="hidden" name="accion" value="Desbloquear_usuarios">
-        <table>
-          <thead>
-            <tr>
-              <th>Seleccionar</th>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Fecha de ingreso</th>
-            </tr>
-          </thead>
-          <tbody>
+      <table>
+        <thead>
+          <tr>
+            <th>Seleccionar</th>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Fecha de ingreso</th>
+          </tr>
+        </thead>
+        <tbody>
           <?php
           if (isset($_SESSION['admin_user_data']) && !empty($_SESSION['admin_user_data'])) {
             foreach ($_SESSION['admin_user_data'] as $usuario) {
@@ -106,10 +106,10 @@
           }
           ?>
         </tbody>
-        </table>
-        <button type="submit" class="btn-submit">Desbloquear seleccionados</button>
-      </form>
-    </div>
+      </table>
+      <button type="submit" class="btn-submit">Desbloquear seleccionados</button>
+    </form>
+  </div>
 
-  </section>
+</section>
 </section>

@@ -9,4 +9,3 @@ session_destroy();
 header("Location: ../HTML/inicio_sesion.html");
 exit();
 ?>
-

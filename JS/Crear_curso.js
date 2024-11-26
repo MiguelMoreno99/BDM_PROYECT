@@ -1,6 +1,7 @@
 let nivelActual = 0;  // Empieza en 0, porque no hay ningún nivel al inicio
 
-document.getElementById('tipo-precio').addEventListener('change', function() {
+document.getElementById('tipo-precio').addEventListener('change', function() 
+{
   const precioCompletoGroup = document.getElementById('precio-completo-group');
   const contenedorNiveles = document.getElementById('contenedor-niveles');
 
@@ -41,7 +42,7 @@ function agregarNivel() {
         <input type="file" id="imagen-nivel-${nivelActual}" name="imagen-nivel-${nivelActual}" accept="image/*" required>
         
         <label for="linkpagina-nivel-${nivelActual}">Link a página externa:</label>
-        <input type="url" id="linkpagina-nivel-${nivelActual}" name="linkpagina-nivel-${nivelActual}" placeholder="https://www.w3schools.com/css/..." required>
+        <input type="url" id="linkpagina-nivel-${nivelActual}" name="linkpagina-nivel-${nivelActual}" placeholder="https://www.w3schools.com/css/..." >
         
         <label for="linkyoutube-nivel-${nivelActual}">Link Youtube Video:</label>
         <input type="url" id="linkyoutube-nivel-${nivelActual}" name="linkyoutube-nivel-${nivelActual}" placeholder="https://www.youtube.com/watch..." required>

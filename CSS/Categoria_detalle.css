@@ -106,13 +106,13 @@
     font-size: 16px;
     transition: background-color 0.3s ease;
     margin-top: 20px;
-  }
-  
-  .btn-inscribirse:hover{
-    background-color: #583069;
-  }
+}
 
-  /* Botón de inscripción */
+.btn-inscribirse:hover {
+    background-color: #583069;
+}
+
+/* Botón de inscripción */
 .btn-eliminar {
     display: inline-block;
     background-color: #723c8a;
@@ -123,11 +123,11 @@
     font-size: 16px;
     transition: background-color 0.3s ease;
     margin-top: 20px;
-  }
-  
-  .btn-eliminar:hover {
+}
+
+.btn-eliminar:hover {
     background-color: #583069;
-  }
+}
 
 /* Sección de Comentarios */
 .comentarios {
@@ -185,34 +185,36 @@
 
 /* Estilos para el modal */
 .modal {
-    display: none; /* Oculto por defecto */
+    display: none;
+    /* Oculto por defecto */
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo oscuro */
     justify-content: center;
     align-items: center;
-  }
-  
-  .modal-contenido {
+}
+
+.modal-contenido {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     width: 400px;
     max-width: 90%;
     text-align: center;
-  }
-  
-  .modal-contenido h3 {
+}
+
+.modal-contenido h3 {
     margin-bottom: 15px;
     font-size: 18px;
     color: #333;
-  }
-  
-  #razon-borrar {
+}
+
+#razon-borrar {
     width: 100%;
     height: 100px;
     margin-bottom: 15px;
@@ -221,14 +223,14 @@
     border: 1px solid #ccc;
     font-size: 14px;
     resize: none;
-  }
-  
-  .modal-buttons {
+}
+
+.modal-buttons {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .btn-cancelar {
+}
+
+.btn-cancelar {
     background-color: #6c757d;
     color: white;
     border: none;
@@ -236,13 +238,13 @@
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
-  }
-  
-  .btn-cancelar:hover {
-    background-color: #5a6268;
-  }
+}
 
-  .comentario-eliminado {
+.btn-cancelar:hover {
+    background-color: #5a6268;
+}
+
+.comentario-eliminado {
     text-align: center;
     padding: 20px;
     background-color: #f8d7da;
@@ -250,8 +252,8 @@
     border: 1px solid #f5c6cb;
     border-radius: 5px;
     font-weight: bold;
-  }
-  
-  .seccion.eliminado {
+}
+
+.seccion.eliminado {
     opacity: 0.7;
-  }
+}

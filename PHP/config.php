@@ -1,13 +1,11 @@
 <?php
-
 return [
     "database" => [
-        "host" => "127.0.0.1",
+        "host" => "localhost",
         "user" => "root",
         "password" => "",
         "dbname" => "db_leveluplearning",
         "port" => "3306",
     ],
 ];
-
 ?>

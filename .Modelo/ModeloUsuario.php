@@ -89,5 +89,32 @@ class Modelo_Usuario
         $stmt = $this->db->callProcedure('PROCDesbloquearUsuario', [$id_usuario]);
         $stmt->closeCursor();
     }
+
+    public function buscarUsuariosChat($terminoBusqueda)
+    {
+        $stmt = $this->db->callProcedure('PROCBuscarUsuarios_CHAT', [$terminoBusqueda]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result;
+    }
+
+    public function obtenerMensajesEntreUsuarios($idUsuario1, $idUsuario2)
+    {
+        $stmt = $this->db->callProcedure('PROCObtenerMensajes_Chat', [$idUsuario1, $idUsuario2]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertarMensaje($id_usuario1, $id_usuario2, $texto_mensaje, $fecha_creacion)
+    {
+
+        // Llamamos al procedimiento para insertar el mensaje en la base de datos
+        $stmt = $this->db->callProcedure('PROCInsertarMensaje', [
+            $id_usuario1,
+            $id_usuario2,
+            $texto_mensaje,
+            $fecha_creacion
+        ]);
+        // Cerrar el cursor de la consulta
+        $stmt->closeCursor();
+    }
 }
-?>

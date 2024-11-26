@@ -202,7 +202,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE PROCEditarUsuario
 (
-    IN p_id_usuario INT,
+    IN p_id_usuario INT,  -- Buscamos por ID de usuario (parÃ¡metro renombrado)
     IN p_imagen_usuario LONGBLOB,
     IN p_nombre_usuario VARCHAR(50),
     IN p_apellido_paterno_usuario VARCHAR(50),
@@ -230,35 +230,111 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE PROCAltaUsuario
 (
-	IN p_tipo_usuario INT,	
-	IN p_imagen_usuario longblob,
-	IN p_nombre_usuario VARCHAR(50),
-	IN p_apellido_paterno VARCHAR(50),
-	IN p_apellido_materno VARCHAR(50),
-	IN p_genero_usuario int,
-	IN p_nacimiento_usuario date,
-	IN p_correo_usuario VARCHAR(255),
-	IN p_contrasenia_usuario VARCHAR(255)
+	IN tipo_usuario INT,	
+	IN imagen_usuario longblob,
+	IN nombre_usuario VARCHAR(50),
+	IN apellido_paterno VARCHAR(50),
+	IN apellido_materno VARCHAR(50),
+	IN genero_usuario int,
+	IN nacimiento_usuario date,
+	IN correo_usuario VARCHAR(255),
+	IN contrasenia_usuario VARCHAR(255)
 )
 BEGIN
     -- Insert the new user
     INSERT INTO tabla_usuario(tipo_usuario, imagen_usuario, nombre_usuario, apellido_paterno, apellido_materno, genero_usuario, nacimiento_usuario,
-    correo_usuario, contrasenia_usuario)
-    VALUES (p_tipo_usuario, p_imagen_usuario, p_nombre_usuario, p_apellido_paterno, p_apellido_materno, p_genero_usuario, p_nacimiento_usuario,
-    p_correo_usuario, p_contrasenia_usuario);
+    correo_usuario, contrasenia_usuario, registro_usuario)
+    VALUES (tipo_usuario, imagen_usuario, nombre_usuario, apellido_paterno, apellido_materno, genero_usuario, nacimiento_usuario,
+    correo_usuario, contrasenia_usuario, registro_usuario);
 
 END //
 DELIMITER ;
 
-DELIMITER //
+-- Procedure Traer_usuarios_Chat
 
-CREATE TRIGGER TRAltaUsuario
-BEFORE INSERT ON tabla_usuario
-FOR EACH ROW
+DELIMITER $$
+
+CREATE PROCEDURE PROCBuscarUsuarios_CHAT
+(
+    IN p_termino_busqueda VARCHAR(255)
+)
 BEGIN
-  SET NEW.usuario_bloqueado = 0;
-  SET NEW.registro_usuario = NOW();
-  SET NEW.Hora_usuario = NOW();
-END //
+    SELECT 
+        id_usuario, 
+        nombre_usuario, 
+        apellido_paterno, 
+        apellido_materno,
+        tipo_usuario
+    FROM tabla_usuario
+    WHERE 
+        (nombre_usuario LIKE CONCAT('%', p_termino_busqueda, '%'))
+        OR (apellido_paterno LIKE CONCAT('%', p_termino_busqueda, '%'))
+        OR (apellido_materno LIKE CONCAT('%', p_termino_busqueda, '%'));
+END$$
 
 DELIMITER ;
+
+-- Procedure traer_mensajes
+
+DELIMITER $$
+
+CREATE PROCEDURE PROCObtenerMensajes_Chat
+(
+    IN p_usuario1 INT, -- Primer usuario
+    IN p_usuario2 INT  -- Segundo usuario
+)
+BEGIN
+    SELECT 
+        id_mensaje,
+        texto_mensaje,
+        id_usuario1_mensaje,
+        id_usuario2_mensaje,
+        fecha_creacion_mensaje
+    FROM 
+        tabla_mensajes
+    WHERE 
+        (id_usuario1_mensaje = p_usuario1 AND id_usuario2_mensaje = p_usuario2)
+        OR (id_usuario1_mensaje = p_usuario2 AND id_usuario2_mensaje = p_usuario1)
+    ORDER BY fecha_creacion_mensaje ASC; -- Ordenar por fecha de creación
+END$$
+
+DELIMITER ;
+
+-- Procedure Insertar_mensajes
+
+DELIMITER $$
+
+CREATE PROCEDURE PROCInsertarMensaje
+(
+    IN p_id_usuario1 INT,           -- ID del usuario que envía el mensaje
+    IN p_id_usuario2 INT,           -- ID del usuario que recibe el mensaje
+    IN p_texto_mensaje VARCHAR(255),-- El texto del mensaje
+    IN p_fecha_creacion DATETIME    -- Fecha de creación del mensaje
+)
+BEGIN
+    -- Insertar el mensaje en la tabla de mensajes
+    INSERT INTO tabla_mensajes (texto_mensaje, id_usuario1_mensaje, id_usuario2_mensaje, fecha_creacion_mensaje)
+    VALUES (p_texto_mensaje, p_id_usuario1, p_id_usuario2, p_fecha_creacion);
+    
+END$$
+
+DELIMITER ;
+SELECT * FROM tabla_usuario;
+CALL PROCInsertarMensaje(4,1,"hola",now());
+
+DELIMITER $$
+
+CREATE PROCEDURE PROCInsertarNivelInscripcion(
+    IN p_id_inscripcion INT,
+    IN p_id_nivel INT,
+    IN p_titulo_nivel VARCHAR(255)
+)
+BEGIN
+    INSERT INTO tabla_niveles_inscripcion (id_inscripcion, id_nivel, titulo_nivel) 
+    VALUES (p_id_inscripcion, p_id_nivel, p_titulo_nivel);
+        
+END$$
+
+DELIMITER ;
+
+

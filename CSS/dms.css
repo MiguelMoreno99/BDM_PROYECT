@@ -8,8 +8,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin: 20px auto; 
-    flex-grow: 1; 
+    margin: 20px auto;
+    flex-grow: 1;
 }
 
 /* DMS PARA ABRIR */
@@ -116,4 +116,42 @@
 
 #send-btn:hover {
     background-color: #8a2be2;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo del input de búsqueda */
+#Usuario {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo del botón de búsqueda */
+.btn-search {
+    padding: 10px 20px;
+    background-color: blueviolet;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-search:hover {
+    background-color: #8a2be2;
+}
+
+.message-date {
+    font-size: 0.8em;
+    color: gray;
+    margin-left: 10px;
 }
