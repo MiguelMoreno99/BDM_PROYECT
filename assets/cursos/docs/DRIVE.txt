@@ -1,0 +1,18 @@
+        https://drive.google.com/drive/folders/1vH0X5mYXQGLNuPhhEYoCtysjWfqIgANV?usp=sharing
+                       ESTE ES EL ID DE DRIVE /                                 ? 
+
+https://drive.google.com/embeddedfolderview?id=ID_DE_LA_CARPETA#grid
+             AQUI SE PONE EL ID DE LA CARPETA
+
+NIVEL 1 PYTON ID DRIVE: 1vH0X5mYXQGLNuPhhEYoCtysjWfqIgANV
+NIVEL 2 PYTON ID DRIVE: 1wGXURwwATmnlhHrnZ7AI-M_Xd8hwZeji
+
+https://www.youtube.com/embed/
+ AQUI SE PONE EL ID DEL VIDEO/
+
+VIDEO TUTORIAL 1: UNREAL ENGINE 5 https://youtu.be/B9brMftPsio
+VIDEO TUTORIAL 2: UNREAL ENGINE 5 https://youtu.be/ViKqaz0YCMI
+VIDEO TUTORIAL 3: UNREAL ENGINE 5 https://youtu.be/ALNqkc4EvK4
+
+VIDEO TUTORIAL 1: C++ https://youtu.be/zpa5QNQm6Lg
+VIDEO TUTORIAL 1: C++ https://youtu.be/8o_ML66ojpo

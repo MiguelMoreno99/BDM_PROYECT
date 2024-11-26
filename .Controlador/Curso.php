@@ -25,7 +25,7 @@ class CourseController
         $niveles_curso = 0;
         foreach ($_POST as $nombreCampo => $valor) {
             if (preg_match('/^nivel-titulo-(\d+)$/', $nombreCampo, $matches)) {
-                $niveles_curso = max($niveles_curso, (int)$matches[1]);
+                $niveles_curso = max($niveles_curso, (int) $matches[1]);
             }
         }
 
@@ -41,7 +41,7 @@ class CourseController
         $descripcion_curso = $_POST['descripcion-curso'];
 
         // Convertir la imagen a BLOB
-        $imagen_curso  = isset($_FILES['imagen_curso']) && $_FILES['imagen_curso']['error'] == 0
+        $imagen_curso = isset($_FILES['imagen_curso']) && $_FILES['imagen_curso']['error'] == 0
             ? file_get_contents($_FILES['imagen_curso']['tmp_name'])
             : null;
 
@@ -75,7 +75,7 @@ class CourseController
         $niveles_curso = 0;
         foreach ($_POST as $nombreCampo => $valor) {
             if (preg_match('/^nivel-titulo-(\d+)$/', $nombreCampo, $matches)) {
-                $niveles_curso = max($niveles_curso, (int)$matches[1]);
+                $niveles_curso = max($niveles_curso, (int) $matches[1]);
             }
         }
 
@@ -94,7 +94,7 @@ class CourseController
             $titulo_nivel = $_POST["nivel-titulo-$nivel"] ?? '';
             $informacion_nivel = $_POST["contenido-nivel-$nivel"] ?? '';
             $documento_nivel = $_POST["linkpdf-nivel-$nivel"] ?? '';
-            $imagen_nivel  = isset($_FILES["imagen-nivel-$nivel"]) && $_FILES["imagen-nivel-$nivel"]['error'] == 0
+            $imagen_nivel = isset($_FILES["imagen-nivel-$nivel"]) && $_FILES["imagen-nivel-$nivel"]['error'] == 0
                 ? file_get_contents($_FILES["imagen-nivel-$nivel"]['tmp_name'])
                 : null;
             $referencias_nivel = $_POST["linkpagina-nivel-$nivel"] ?? '';
@@ -194,6 +194,7 @@ class CourseController
         // Validar que se encontró el curso
         if (!$course || !is_array($course)) {
             echo "<p>Error: No se encontró información para el curso seleccionado.</p>";
+            echo $titulo;
             return; // Salir de la función si no hay datos válidos
         }
 
@@ -281,106 +282,69 @@ class CourseController
     {
         // Obtener el título del curso desde la URL
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
-
+        $course = $this->courseModel->checkCourseExists($titulo);
+        $id_curso = $course['id_curso'];
+        $niveles = [];
+        $manejoPrecio = $course['manejo_precio_curso'];
         // Obtener los detalles del curso y niveles desde el modelo
-        $courseData = $this->courseModel->obtenerPrecioYNiveles($titulo);
+        $courseData = $this->courseModel->obtenerNivelesPorCurso($id_curso);
 
         if (empty($courseData)) {
-            echo "<p>No se encontraron detalles para este curso.</p>";
+            echo "<script>alert('No se encontraron detalles para este curso!.'); window.location.href = '../HTML/index.php';</script>";
             return;
         }
 
-        $curso = null;
-        $niveles = [];
-
-        foreach ($courseData as $row) {
-            if ($row['tipo'] === 'Curso') {
-                $curso = $row;
-            } elseif ($row['tipo'] === 'Nivel') {
-                $niveles[] = $row;
-            }
-        }
-
-        if (!$curso) {
-            echo "<p>Detalles del curso no disponibles.</p>";
-            return;
-        }
-
-        $manejoPrecio = $curso['manejo_precio_curso'];
-
-        // Dentro de la función obtenerPrecioCursosYNiveles()
-        // Dentro de la función obtenerPrecioCursosYNiveles()
         echo "<div class='compra-detalle'>";
         echo "<h1>Detalles del Curso</h1>";
-        echo "<button class='btn-compra-tipo' onclick='showCompleteCourse()'>Comprar curso completo</button>";
-        echo "<button class='btn-compra-tipo' onclick='showCourseLevels()'>Comprar niveles de curso</button>";
         echo "<div class='compra-tipo'>";
 
         if ($manejoPrecio == 0) {
             echo "<div id='completeCourse'>
-            <h1>¡Curso Gratis!</h1>
-            <h2>Costo Total: <span id='totalCost'>0</span></h2>";
-
-            // Mostrar los niveles incluidos
+                  <h1>¡Curso Gratis!</h1>
+                  <h2>Costo Total: <span id='totalCost'> 0 </span></h2>";
             echo "<h3>Niveles incluidos en el curso gratuito:</h3>";
-            if (!empty($niveles)) {
-                echo "<ul id='niveles-list'>";
-                $nivelesTexto = [];
-                foreach ($niveles as $nivel) {
-                    echo "<li>Id: " . htmlspecialchars($nivel['id']) . " - " . htmlspecialchars($nivel['titulo']) . "</li>";
-                    $nivelesTexto[] = htmlspecialchars($nivel['titulo']);
-                }
-                echo "</ul>";
-                // Campo oculto para pasar niveles al JavaScript
-                echo "<input type='hidden' id='nivelesOcultos' value='" . htmlspecialchars(json_encode($nivelesTexto)) . "'>";
-            } else {
-                echo "<p>No hay niveles disponibles para este curso.</p>";
+            echo "<ul id='niveles-list'>";
+            foreach ($courseData as $row) {
+                echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
+                      <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
+                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()'  checked disabled>
+                      <label>Seleccionar Nivel</label>
+                      <hr>";
             }
-
+            echo "</ul>";
             echo "</div>";
         }
-
         // Curso completo
         elseif ($manejoPrecio == 1) {
             echo "<div id='completeCourse'>
-            <h2>Costo Total: $<span id='totalCost'>" . htmlspecialchars($curso['costo']) . "</span></h2>";
-
-            // Mostrar los niveles incluidos
+            <h1>Curso se vende Completo!</h1>
+            <h2>Costo Total del Cursp: $ <span id='totalCost'>" . htmlspecialchars($course['precio_curso']) . "</span></h2>";
             echo "<h3>Niveles incluidos en el curso completo:</h3>";
-            if (!empty($niveles)) {
-                echo "<ul id='niveles-list'>";
-                $nivelesTexto = [];
-                foreach ($niveles as $nivel) {
-                    echo "<li>Id: " . htmlspecialchars($nivel['id']) . " - " . htmlspecialchars($nivel['titulo']) . "</li>";
-                    $nivelesTexto[] = htmlspecialchars($nivel['titulo']);
-                }
-                echo "</ul>";
-                // Campo oculto para pasar niveles al JavaScript
-                echo "<input type='hidden' id='nivelesOcultos' value='" . htmlspecialchars(json_encode($nivelesTexto)) . "'>";
-            } else {
-                echo "<p>No hay niveles disponibles para este curso.</p>";
+            echo "<ul id='niveles-list'>";
+            foreach ($courseData as $row) {
+                echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
+                      <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
+                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()'  checked disabled>
+                      <label>Seleccionar Nivel</label>
+                      <hr>";
             }
-
+            echo "</ul>";
             echo "</div>";
         }
-
         // Curso por niveles
         elseif ($manejoPrecio == 2) {
             echo "<div id='courseLevels'>
-            <h2>Selecciona los niveles del curso:</h2>";
-
-            if (!empty($niveles)) {
-                foreach ($niveles as $nivel) {
-                    echo "<label>
-                    <input type='checkbox' class='level' data-id-nivel='" . htmlspecialchars($nivel['id']) . "' value='" . htmlspecialchars($nivel['costo']) . "' data-name='" . htmlspecialchars($nivel['titulo']) . "'> 
-                    " . htmlspecialchars($nivel['id']) . " - $" . htmlspecialchars($nivel['titulo']) . " - $" . htmlspecialchars($nivel['costo']) . "
-                  </label>";
-                }
-                echo "<h2>Costo Total: $<span id='totalCost'>0</span></h2>";
-            } else {
-                echo "<p>No hay niveles disponibles para este curso.</p>";
+            <h1>Curso se vende por Separado!</h1>
+            <h2>Selecciona los niveles del curso que desees comprar:</h2>";
+            echo "<ul id='niveles-list'>";
+            foreach ($courseData as $row) {
+                echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
+                      <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
+                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()' checked>
+                      <label>Seleccionar Nivel</label>
+                      <hr>";
             }
-
+            echo "</ul>";
             echo "</div>";
         }
         echo "</div>";
@@ -391,32 +355,14 @@ class CourseController
     {
         // Obtener el título del curso desde la URL
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        $course = $this->courseModel->checkCourseExists($titulo);
+        $manejoPrecio = $course['manejo_precio_curso'];
+        // // Obtener los detalles del curso desde el modelo
+        // $courseData = $this->courseModel->obtenerNivelesPorCurso($titulo);
 
-        // Obtener los detalles del curso desde el modelo
-        $courseData = $this->courseModel->obtenerPrecioYNiveles($titulo);
-
-        if (empty($courseData)) {
-            echo "<p>No se encontraron detalles para este curso.</p>";
-            return;
-        }
-
-        // Identificar el curso principal y sus niveles
-        $curso = null;
-        foreach ($courseData as $row) {
-            if ($row['tipo'] === 'Curso') {
-                $curso = $row;
-                break;
-            }
-        }
-
-        if (!$curso) {
-            echo "<p>Detalles del curso no disponibles.</p>";
-            return;
-        }
-
-        // Manejo del precio del curso
-        $manejoPrecio = $curso['manejo_precio_curso'];
-        $costo = $manejoPrecio == 0 ? 0 : $curso['costo'];
+        // // Manejo del precio del curso
+        // $manejoPrecio = $curso['manejo_precio_curso'];
+        // $costo = $manejoPrecio == 0 ? 0 : $curso['costo'];
 
         // Construir las opciones de pago
         echo '<select id="paymentMethod" name="metodo_pago" onchange="togglePaymentFields()">';
@@ -432,8 +378,8 @@ class CourseController
         }
         echo '</select>';
 
-        // Enviar valores adicionales al formulario
-        echo '<input type="hidden" name="precio_pagado" value="' . htmlspecialchars($costo) . '">';
+        // // Enviar valores adicionales al formulario
+        // echo '<input type="hidden" name="precio_pagado" value="' . htmlspecialchars($costo) . '">';
     }
 
 

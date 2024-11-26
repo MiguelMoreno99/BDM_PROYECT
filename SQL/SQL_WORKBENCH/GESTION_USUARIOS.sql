@@ -319,8 +319,6 @@ BEGIN
 END$$
 
 DELIMITER ;
-SELECT * FROM tabla_usuario;
-CALL PROCInsertarMensaje(4,1,"hola",now());
 
 DELIMITER $$
 

@@ -14,7 +14,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL PROCAltaCategoria("Programacion","Esta es una descripcion de la categoria programacion",null,1);
+-- CALL PROCAltaCategoria("Programacion","Esta es una descripcion de la categoria programacion",null,1);
 
 DELIMITER //
 CREATE PROCEDURE PROCValidarCategoria
@@ -34,7 +34,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL PROCValidarCategoria("Programacion");
+-- CALL PROCValidarCategoria("Programacion");
 
 DELIMITER //
 CREATE PROCEDURE PROCMostrarCategorias
@@ -53,7 +53,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL PROCMostrarCategorias();
+-- CALL PROCMostrarCategorias();
 
 DELIMITER //
 CREATE PROCEDURE PROCBorrarCategoria
@@ -72,7 +72,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL PROCBorrarCategoria('Arte',1);
+-- CALL PROCBorrarCategoria('Arte',1);
 
 DELIMITER //
 CREATE PROCEDURE PROCEditarCategoria
@@ -93,4 +93,4 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);
+-- CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);

@@ -63,9 +63,9 @@ class Modelo_Curso
         return $result;
     }
 
-    public function obtenerPrecioYNiveles($titulo_curso)
+    public function obtenerNivelesPorCurso($id_curso)
     {
-        $stmt = $this->db->callProcedure('PROCobtener_precio_y_niveles', [$titulo_curso]);
+        $stmt = $this->db->callProcedure('PROCMostrarNivelesPorCurso', [$id_curso]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         return $result;

@@ -24,13 +24,6 @@ END $$
 
 DELIMITER //
 
-CALL PROCInsertarInscripcion(
-    11,   -- p_id_estudiante_inscripcion (reemplaza con el ID real del estudiante)
-    4,   -- p_id_curso_inscripcion (reemplaza con el ID real del curso)
-    1,     -- p_metodo_pago_inscripcion (reemplaza con el valor adecuado del método de pago, por ejemplo 1)
-    199.99 -- p_precio_pagado (reemplaza con el precio pagado real)
-);
-
 -- Insertar niveles de la inscripcion
 
 DELIMITER $$
@@ -58,8 +51,6 @@ BEGIN
 END$$
 
 DELIMITER ;
-
-CALL PROCInsertar_nivel_inscripcion(1, 6, 'Primer paso');
 
 -- Trayendo informacion de la inscripcion
 
@@ -109,7 +100,3 @@ BEGIN
 END //
 
 DELIMITER ;
-
-CALL PROCObtenerInformacionCurso(11);
-
-
