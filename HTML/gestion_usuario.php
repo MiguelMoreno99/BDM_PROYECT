@@ -26,7 +26,9 @@ $usuario = $_SESSION['usuario'];
     <h2>Kardex</h2>
 
     <!-- Filtros de Reporte -->
-    <form action="" class="filtros">
+    <form action="../.Controlador/Curso.php" method="post" class="filtros">
+    <input type="hidden" name="accion" value="Alumnos_Cursos">
+
       <label for="fecha_inicio">Fecha inicio:</label>
       <input type="date" id="fecha_inicio" name="fecha_inicio">
 
@@ -35,26 +37,26 @@ $usuario = $_SESSION['usuario'];
 
       <label for="categoria">Categoría:</label>
       <select id="categoria" name="categoria">
-        <option value="todas">Todas</option>
+        <option value="">Todas</option>
         <option value="Programacion">Programacion</option>
         <option value="Arte">Modelado 3d</option>
       </select>
 
-      <label for="categoria">Cursos:</label>
-      <select id="categoria" name="categoria">
+      <label for="cursos">Cursos:</label>
+      <select id="cursos" name="cursos">
         <option value="todas">Todas</option>
-        <option value="IT">Cursos Terminados</option>
-        <option value="Marketing">Cursos sin terminar</option>
+        <option value="0">Cursos sin terminar</option>
+        <option value="1">Cursos terminados</option>
       </select>
 
       <label for="estado">Estado:</label>
       <select id="estado" name="estado">
-        <option value="todos">Todos los cursos</option>
-        <option value="activos">Cursos Activos</option>
-        <option value="inactivos">Cursos Inactivos</option>
+        <option value="">Todos los cursos</option>
+        <option value="0">Cursos Activos</option>
+        <option value="1">Cursos Inactivos</option>
       </select>
 
-      <button type="" class="btn-submit">Aplicar filtros</button>
+      <button type="submit" class="btn-submit">Aplicar filtros</button>
     </form>
 
     <!-- Lista de Cursos -->
@@ -73,43 +75,23 @@ $usuario = $_SESSION['usuario'];
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Programacion</td>
-            <td>Python</td>
-            <td>5/19/2024</td>
-            <td>9/19/2024</td>
-            <td>9/19/2024</td>
-            <td>100%</td>
-            <td><a href="curso_finalizado.html">Finalizado</a></td>
-          </tr>
-          <tr>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-          </tr>
-          <tr>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-          </tr>
-          <tr>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-          </tr>
-        </tbody>
+    <?php
+    if (isset($_SESSION['Alumno_datos']) && !empty($_SESSION['Alumno_datos'])) {
+        foreach ($_SESSION['Alumno_datos'] as $curso) {
+            echo "
+                <tr>
+                    <td>{$curso['nombre_categoria']}</td>
+                    <td>{$curso['titulo_curso']}</td>
+                    <td>{$curso['fecha_inscripcion']}</td>
+                    <td>{$curso['ultima_fecha_ingreso']}</td>
+                    <td>{$curso['fecha_terminacion_inscripcion']}</td>
+                    <td>{$curso['porcentaje_avance_curso']}%</td>
+                    <td>" . ($curso['inscripcion_finalizada'] ? 'Finalizado' : 'En progreso') . "</td>
+                </tr>";
+        }
+    }
+    ?>
+</tbody>
       </table>
     </div>
 

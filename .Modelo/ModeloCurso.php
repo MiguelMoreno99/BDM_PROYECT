@@ -98,4 +98,58 @@ class Modelo_Curso
         $stmt->closeCursor(); // Libera el cursor
         return $courses; // Retorna los cursos
     }
+
+    public function GetCursoInfo($start_date, $end_date, $category_name, $curso_deshabilitado, $ID_Instructor)
+    {
+        $params = [
+            $start_date ?: null,
+            $end_date ?: null,
+            $category_name ?: null,
+            $curso_deshabilitado ?: null,
+            $ID_Instructor ?: null,
+        ];
+
+        $stmt = $this->db->callProcedure('GetCursoInfo', $params);
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $result;
+    }
+
+    public function GetCursoAlumno($ID_Curso)
+    {
+        $params = [
+            $ID_Curso ?: null,
+        ];
+
+        $stmt = $this->db->callProcedure('ObtenerDatosInscripcionPorCurso', $params);
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $result;
+    }
+
+    public function GetEstudianteInfo($id_estudiante, $fecha_inscripcion, $ultima_fecha, $nombre_categoria, $inscripcion_finalizada, $estado)
+    {
+        $params = [
+            $id_estudiante ?: null,
+            $fecha_inscripcion ?: null,
+            $ultima_fecha ?: null,
+            $nombre_categoria ?: null,
+            $inscripcion_finalizada ?: null,
+            $estado ?: null
+        ];
+    
+        // Llamar al procedimiento almacenado para obtener los resultados
+        $stmt = $this->db->callProcedure('GetDetallesCursoPorEstudianteConFechas', $params);
+    
+        // Obtener los resultados y cerrar el cursor
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+    
+        return $result;
+    }
 }
+?>

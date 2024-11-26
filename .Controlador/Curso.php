@@ -194,7 +194,6 @@ class CourseController
         // Validar que se encontró el curso
         if (!$course || !is_array($course)) {
             echo "<p>Error: No se encontró información para el curso seleccionado.</p>";
-            echo $titulo;
             return; // Salir de la función si no hay datos válidos
         }
 
@@ -474,9 +473,98 @@ class CourseController
         }
         echo '</div>';
     }
+
+    public function CursoInfo()
+    {
+        $start_date = $_POST['fecha_inicio'] ?? null;
+        $end_date = $_POST['fecha_fin'] ?? null;
+        $category_name = $_POST['categoria'] ?? null;
+        $curso_deshabilitado = $_POST['estado'] ?? null;
+
+        $id_instructor_creacion_curso = $_SESSION['usuario']['id_usuario'];
+
+        if (!is_null($curso_deshabilitado)) {
+            $curso_deshabilitado = (int) $curso_deshabilitado;
+        }
+
+        $resultados = $this->courseModel->GetCursoInfo(
+            $start_date,
+            $end_date,
+            $category_name,
+            $curso_deshabilitado,
+            $id_instructor_creacion_curso,
+
+        );
+
+        $_SESSION['curso_data'] = $resultados;
+
+        header('Location: ../HTML/gestion_instructor.php');
+        exit();
+    }
+
+    public function CursoAlumno()
+    {
+        // Obtener el id del curso seleccionado desde el formulario
+        $ID_Curso = $_POST['curso_seleccionado'] ?? null;
+
+        // Verificar que se haya recibido un ID de curso válido
+        if ($ID_Curso) {
+            // Obtener los datos de los estudiantes para el curso seleccionado
+            $resultados = $this->courseModel->GetCursoAlumno($ID_Curso);
+
+            // Almacenar los resultados en la sesión
+            $_SESSION['curso_Alumno'] = $resultados;
+
+            // Redirigir al mismo formulario con los resultados cargados
+            header('Location: ../HTML/gestion_instructor.php');
+            exit();
+        } else {
+            // Si no se ha seleccionado un curso, redirigir con un mensaje de error
+            $_SESSION['error'] = 'Por favor, seleccione un curso.';
+            header('Location: ../HTML/gestion_instructor.php');
+            exit();
+        }
+    }
+
+    public function AlumnosCursos()
+    {
+        // Obtener el id del estudiante desde la sesión
+        $id_estudiante = $_SESSION['usuario']['id_usuario'];
+
+        // Obtener los valores de los filtros desde el formulario
+        $fecha_inscripcion = $_POST['fecha_inicio'] ?? null;
+        $ultima_fecha = $_POST['fecha_fin'] ?? null;
+        $nombre_categoria = $_POST['categoria'] ?? null;
+        $inscripcion_finalizada = $_POST['cursos'] ?? null;
+        $estado = $_POST['estado'] ?? null;
+
+
+        if (!is_null($inscripcion_finalizada)) {
+            $inscripcion_finalizada = (int) $inscripcion_finalizada;
+            if ($inscripcion_finalizada !== 0 && $inscripcion_finalizada !== 1) {
+                $inscripcion_finalizada = null;
+            }
+        }
+
+        if (!is_null($estado)) {
+            $estado = (int) $estado;
+        }
+
+        $resultados = $this->courseModel->GetEstudianteInfo(
+            $id_estudiante,
+            $fecha_inscripcion,
+            $ultima_fecha,
+            $nombre_categoria,
+            $inscripcion_finalizada,
+            $estado
+        );
+
+        $_SESSION['Alumno_datos'] = $resultados;
+
+        header('Location: ../HTML/gestion_usuario.php');
+        exit();
+    }
 }
-
-
 
 // Uso en index.php:
 $config = require '../PHP/config.php';
@@ -495,6 +583,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'registro_inscripcion':
             $controller->registrarInscripcion();
             $controller->registerInscripcion_niveles();
+            break;
+        case 'Curso_Info':
+            $controller->CursoInfo();
+            break;
+        case 'Curso_Alumno':
+            $controller->CursoAlumno();
+            break;
+
+        case 'Alumnos_Cursos':
+            $controller->AlumnosCursos();
             break;
     }
 }

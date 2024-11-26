@@ -168,8 +168,6 @@ class UserController
                 exit();
             }
         }
-
-        exit();
     }
 
     public function Gestiondeadmin()

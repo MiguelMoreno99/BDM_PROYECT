@@ -39,7 +39,8 @@ $usuario = $_SESSION['usuario'];
     </form>
 
     <!-- Filtros de Reporte -->
-    <form action="" method="post" class="filtros">
+    <form action="../.Controlador/Curso.php" method="post" class="filtros">
+      <input type="hidden" name="accion" value="Curso_Info">
       <label for="fecha_inicio">Fecha inicio:</label>
       <input type="date" id="fecha_inicio" name="fecha_inicio">
 
@@ -48,16 +49,16 @@ $usuario = $_SESSION['usuario'];
 
       <label for="categoria">Categoría:</label>
       <select id="categoria" name="categoria">
-        <option value="todas">Todas</option>
+        <option value="">Todas</option>
         <option value="Programacion">Programacion</option>
         <option value="Arte">Modelado 3d</option>
       </select>
 
       <label for="estado">Estado:</label>
       <select id="estado" name="estado">
-        <option value="todos">Todos los cursos</option>
-        <option value="activos">Cursos Activos</option>
-        <option value="inactivos">Cursos Inactivos</option>
+        <option value="">Todos los cursos</option>
+        <option value="0">Cursos Activos</option>
+        <option value="1">Cursos Inactivos</option>
       </select>
 
       <button type="submit" class="btn-submit">Aplicar filtros</button>
@@ -65,66 +66,86 @@ $usuario = $_SESSION['usuario'];
 
     <!-- Lista de Cursos -->
     <div class="lista-cursos">
-      <h1>Nombre de usuario</h1>
-      <h2>Resumen de Ventas por Curso</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Seleccionar</th>
-            <th>Categoria</th>
-            <th>Curso</th>
-            <th>Estado</th>
-            <th>Fecha de creacion</th>
-            <th>Alumnos Inscritos</th>
-            <th>Nivel Promedio</th>
-            <th>Ingresos Generados</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="checkbox" name="usuario_seleccionado" value="usuario1"></td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" name="usuario_seleccionado" value="usuario2"></td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-            <td>""</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="7">Total de Pago con tarjeta de credito</td>
-            <td>$""</td>
-          </tr>
-          <tr>
-            <td colspan="7">Total de Pago con tarjeta de debito</td>
-            <td>$""</td>
-          </tr>
-          <tr>
-            <td colspan="7">Total de Pago con paypal</td>
-            <td>$""</td>
-          </tr>
-          <tr>
-            <td colspan="7">Total de Ingresos</td>
-            <td>$""</td>
-          </tr>
-        </tfoot>
-      </table>
-      <!-- El botón que cambiará su texto dinámicamente -->
-      <button type="submit" id="accion-curso-btn" class="btn-submit">Desactivar curso</button>
-      <br>
-      <br>
+      <form action="../.Controlador/Curso.php" method="post" class="filtros">
+        <input type="hidden" name="accion" value="Curso_Alumno">
+        <h1>Nombre de usuario</h1>
+        <h2>Resumen de Ventas por Curso</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Seleccionar</th>
+              <th>Categoria</th>
+              <th>Curso</th>
+              <th>Estado</th>
+              <th>Fecha de creacion</th>
+              <th>Alumnos Inscritos</th>
+              <th>Nivel Promedio</th>
+              <th>Ingresos Generados</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            if (isset($_SESSION['curso_data']) && !empty($_SESSION['curso_data'])) {
+              foreach ($_SESSION['curso_data'] as $curso) {
+                echo "
+                  <tr>
+                      <td>
+                         <input type='radio' name='curso_seleccionado' value='{$curso['IdCurso']}'>
+                      </td>
+                      <td>{$curso['Categoria']}</td>
+                      <td>{$curso['Curso']}</td>
+                      <td>" . ($curso['CursoDeshabilitado'] ? 'Inactivo' : 'Activo') . "</td>
+                      <td>{$curso['FechaCreacion']}</td>
+                      <td>{$curso['TotalAlumnos']}</td>
+                      <td>{$curso['PromedioAvance']}%</td>
+                      <td>$ {$curso['TotalIngresos']}</td>
+                  </tr>";
+              }
+            }
+            ?>
+
+          </tbody>
+          <tfoot>
+            <?php
+            $totalTarjetaCredito = 0;
+            $totalTarjetaDebito = 0;
+            $totalPayPal = 0;
+            $totalIngresos = 0;
+
+            if (isset($_SESSION['curso_data']) && !empty($_SESSION['curso_data'])) {
+              foreach ($_SESSION['curso_data'] as $curso) {
+                $totalTarjetaCredito += $curso['TotalTarjetaCredito'];
+                $totalTarjetaDebito += $curso['TotalTarjetaDebito'];
+                $totalPayPal += $curso['TotalPayPal'];
+                $totalIngresos += $curso['TotalIngresos'];
+              }
+            }
+            ?>
+            <tr>
+              <td colspan="7">Total de Pago con tarjeta de crédito</td>
+              <td>$<?php echo number_format($totalTarjetaCredito, 2); ?></td>
+            </tr>
+            <tr>
+              <td colspan="7">Total de Pago con tarjeta de débito</td>
+              <td>$<?php echo number_format($totalTarjetaDebito, 2); ?></td>
+            </tr>
+            <tr>
+              <td colspan="7">Total de Pago con PayPal</td>
+              <td>$<?php echo number_format($totalPayPal, 2); ?></td>
+            </tr>
+            <tr>
+              <td colspan="7">Total de Ingresos</td>
+              <td>$<?php echo number_format($totalIngresos, 2); ?></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <!-- El botón que cambiará su texto dinámicamente -->
+        <button type="submit" id="accion-curso-btn" class="btn-submit">Desactivar curso</button>
+        <br>
+        <button type="submit" class="btn-submit">Traer usuarios</button>
+        <br>
+        <br>
     </div>
 
     <!-- Detalle de Alumnos por Curso -->
@@ -133,7 +154,8 @@ $usuario = $_SESSION['usuario'];
       <table>
         <thead>
           <tr>
-            <th>Alumno</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
             <th>Fecha de Inscripción</th>
             <th>Nivel de Avance</th>
             <th>Precio Pagado</th>
@@ -141,30 +163,55 @@ $usuario = $_SESSION['usuario'];
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Juan Pérez</td>
-            <td>01 Ene 2023</td>
-            <td>100%</td>
-            <td>$100.00</td>
-            <td>Tarjeta de Crédito</td>
-          </tr>
-          <tr>
-            <td>María López</td>
-            <td>15 Feb 2023</td>
-            <td>75%</td>
-            <td>$150.00</td>
-            <td>PayPal</td>
-          </tr>
+          <?php
+          // Verificar si hay datos en la sesión para los alumnos del curso
+          $totalIngresosAlumno = 0;
+          if (isset($_SESSION['curso_Alumno']) && !empty($_SESSION['curso_Alumno'])) {
+            foreach ($_SESSION['curso_Alumno'] as $curso) {
+              $totalIngresosAlumno += $curso['Precio_pagado'];
+              echo "
+            <tr>
+                <td>{$curso['nombre_usuario']}</td>
+                <td>{$curso['apellido_paterno']}</td>
+                <td>{$curso['fecha_inscripcion']}</td>
+                <td>{$curso['porcentaje_avance_curso']}%</td>
+                <td>$ {$curso['Precio_pagado']}</td>
+                <td>" . getMetodoPago($curso['metodo_pago_inscripcion']) . "</td>
+            </tr>";
+            }
+          }
+          ?>
         </tbody>
+
         <tfoot>
           <tr>
-            <td colspan="3">Total Ingresos del Curso</td>
-            <td>$250.00</td>
+            <td colspan="4">Total Ingresos del Curso</td>
+            <td>$<?php echo number_format($totalIngresosAlumno, 2); ?></td>
             <td></td>
           </tr>
         </tfoot>
+
       </table>
     </div>
+
+    <?php
+    // Función para traducir el método de pago
+    function getMetodoPago($metodo_pago)
+    {
+      switch ($metodo_pago) {
+        case 0:
+          return "Tarjeta Débito";
+        case 1:
+          return "Tarjeta Crédito";
+        case 2:
+          return "PayPal";
+        case 3:
+          return "Gratis";
+        default:
+          return "Desconocido";
+      }
+    }
+    ?>
 
   </section>
 
