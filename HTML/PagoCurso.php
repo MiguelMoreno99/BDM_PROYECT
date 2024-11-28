@@ -107,28 +107,21 @@ $usuario = $_SESSION['usuario'];
             <div class="metodo-pago-div">
                 <h1>Información de compra</h1>
 
-                <input type="text" name="id_usuario_1" id="hiddenID_USUARIO"
-                    value="<?php echo htmlspecialchars($usuario['id_usuario']); ?>">
-
-                <input type="text" name="id_curso" id="displayIDCurso" value="" readonly>
-
+                <input type="text" class="hidden" name="id_curso" id="displayIDCurso" value="" readonly>
                 <h2 id="displayTituloCurso">Curso Seleccionado</h2>
-
+                <br>
                 <!-- Costo total -->
-                <input type="hidden" name="costo_total" id="hiddenTotalCost" value="">
-                <h2>Costo Total: <span id="displayTotalCost">0</span></h2>
-
+                <!-- <input type="hidden" name="costo_total" id="hiddenTotalCost" value="">
+                <h2>Costo Total: <span id="displayTotalCost">0</span></h2> -->
+                <br>
                 <!-- Forma de pago -->
-                <input type="text" name="forma_de_pago2" id="hiddenFormadePago" value="">
+                <input type="text" class="hidden" name="forma_de_pago2" id="hiddenFormadePago" value="">
                 <h2>Forma de pago: <span id="FormadePagoID"></span></h2>
 
                 <br>
-                <!-- Niveles seleccionados -->
-                <input type="text" name="nivelesSeleccionados" id="hiddenNivelesSeleccionados" value="[]">
-                <h2 id="displayNiveles">Niveles seleccionados (0): Ninguno</h2>
 
                 <button type="submit" class="btn-compra">Inscribir Curso</button>
-                <a href="index.php" class="btn-compra">Cancelar</a>
+                <a href="index.php" class="btn-compra" >Cancelar</a>
             </div>
         </form>
         <br>

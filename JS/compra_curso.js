@@ -20,7 +20,6 @@ document.querySelectorAll('.level').forEach(checkbox => {
         let total = 0;
         let selectedLevels = [];
         let levelsCount = 0; // Contador de niveles seleccionados
-
         // Calcular el total y obtener los niveles seleccionados
         document.querySelectorAll('.level:checked').forEach(checkedBox => {
             total += parseInt(checkedBox.value);
@@ -49,7 +48,7 @@ function updatePaymentMethod()
 {
     let paymentMethod = document.getElementById('paymentMethod').value;
     let paymentMethodDisplay = document.getElementById('FormadePagoID');
-
+    inscribir();
     switch (paymentMethod) 
     {
         case '1':
@@ -199,3 +198,47 @@ document.querySelectorAll('.level').forEach(checkbox => {
         document.getElementById('hiddenNivelesSeleccionados').value = JSON.stringify(selectedLevels);
     });
 });
+
+function actualizarTotal() {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    let total = 0;
+    checkboxes.forEach(checkbox => {
+        total += parseFloat(checkbox.dataset.costo);
+    });
+    document.getElementById('displayTotalCost').textContent = `Total: $${total.toFixed(2)}`;
+}
+
+async function inscribir() {
+    // Obtiene los checkboxes seleccionados
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    
+    // Extrae los IDs de los niveles seleccionados
+    const idsSeleccionados = Array.from(checkboxes).map(checkbox => parseInt(checkbox.value));
+
+    if (idsSeleccionados.length === 0) {
+        alert("Por favor, selecciona al menos un nivel.");
+        return;
+    }
+
+    try {
+        // Envía los datos al servidor mediante POST
+        const response = await fetch('procesar_inscripcion.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ niveles: idsSeleccionados })
+        });
+
+        // Maneja la respuesta del servidor
+        const resultado = await response.json();
+        if (response.ok) {
+            alert("Inscripción exitosa: " + resultado.mensaje);
+        } else {
+            alert("Error: " + resultado.error);
+        }
+    } catch (error) {
+        console.error("Error al inscribir:", error);
+        //alert("Hubo un problema al procesar la inscripción.");
+    }
+}

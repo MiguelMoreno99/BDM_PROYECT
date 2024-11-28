@@ -65,7 +65,7 @@ $usuario = $_SESSION['usuario'];
 
                 
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 3): ?>
-                    <li><a href="reportes.html">Reportes</a></li>
+                    <!-- <li><a href="reportes.html">Reportes</a></li> -->
                 <?php else: ?>
 
                 <?php endif; ?>

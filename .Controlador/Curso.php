@@ -281,6 +281,7 @@ class CourseController
     {
         // Obtener el título del curso desde la URL
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        $_SESSION['titulo_curso'] = $titulo; // Guardar el título en la sesión
         $course = $this->courseModel->checkCourseExists($titulo);
         $id_curso = $course['id_curso'];
         $niveles = [];
@@ -305,9 +306,7 @@ class CourseController
             echo "<ul id='niveles-list'>";
             foreach ($courseData as $row) {
                 echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
-                      <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
                       <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()'  checked disabled>
-                      <label>Seleccionar Nivel</label>
                       <hr>";
             }
             echo "</ul>";
@@ -322,9 +321,7 @@ class CourseController
             echo "<ul id='niveles-list'>";
             foreach ($courseData as $row) {
                 echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
-                      <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
                       <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()'  checked disabled>
-                      <label>Seleccionar Nivel</label>
                       <hr>";
             }
             echo "</ul>";
@@ -339,7 +336,7 @@ class CourseController
             foreach ($courseData as $row) {
                 echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
                       <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
-                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()' checked>
+                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()' checked disabled>
                       <label>Seleccionar Nivel</label>
                       <hr>";
             }
@@ -384,9 +381,24 @@ class CourseController
 
     public function registrarInscripcion()
     {
-        $id_usuario = $_POST['id_usuario_1'] ?? null;
-        $id_curso = $_POST['id_curso'] ?? null;
-        $costo_total = $_POST['costo_total'] ?? 0;
+        // Obtener el título del curso desde la URL
+        $titulo = $_SESSION['titulo_curso'];
+        $course = $this->courseModel->checkCourseExists($titulo);
+        $id_curso = $course['id_curso'];
+        $nivelesCurso = $this->courseModel->obtenerNivelesPorCurso($id_curso);
+        $id_usuario = $_SESSION['usuario']['id_usuario'];
+        $manejoPrecio = $course['manejo_precio_curso'];
+        if ($manejoPrecio === 0) {
+            $costo_total = 0;
+        }
+        if ($manejoPrecio === 1) {
+            $costo_total = $course['precio_curso'];
+        }
+        if ($manejoPrecio === 2) {
+            foreach ($nivelesCurso as $row) {
+                $costo_total = $costo_total + $row['costo_nivel'];
+            }
+        }
         $forma_de_pago = $_POST['forma_de_pago2'] ?? null;
 
         if ($forma_de_pago) {
@@ -400,7 +412,8 @@ class CourseController
             $costo_total,
         ]);
 
-        echo "<p>Detalles del curso no disponibles.</p>";
+        echo "<script>alert('Se Inscribió Correctamente!.'); window.location.href = '../HTML/index.php';</script>";
+        return;
     }
 
     public function registerInscripcion_niveles()
@@ -467,11 +480,56 @@ class CourseController
             echo '</div>';
             echo '<br><br>';
             echo '<div class="boton-div">';
-            echo '<a href="../HTML/curso.html">ENTRAR</a>';
+            echo '<a href="../HTML/cursoinscrito.php?titulo=' . htmlspecialchars($course['titulo_curso']) . '">ENTRAR</a>';
             echo '</div>';
             echo '</div>';
         }
         echo '</div>';
+    }
+
+    public function misniveles()
+    {
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        $curso = $this->courseModel->checkCourseExists($titulo);
+        $niveles = $this->courseModel->obtenerNivelesPorCurso($curso['id_curso']);
+        foreach ($niveles as $row) {
+            echo "    <div class='main-curso'>
+        <div class='titulo-curso'>
+            <h1>" . $titulo . "</h1>
+        </div>
+        <div class='nivel-curso'>
+            <h2>Titulo de nivel: " . $row['titulo_nivel']. "</h2>
+            <br>
+            <p>Descripcion del nivel: " . $row['informacion_nivel']. "</p>
+            <br>
+            <br>
+            <div class='video-curso'>
+                <iframe width='560' height='315' 
+                        src='https://www.youtube.com/embed/" . $row['link_video_nivel']. "' 
+                        title='YouTube video player' 
+                        frameborder='0' 
+                        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <br>
+            <div class='recursos-curso'>
+                <h2>Recursos:</h2>
+                <br>
+                    <iframe src='https://drive.google.com/embeddedfolderview?id=" . $row['documento_nivel']. "#grid' 
+                            width='100%' 
+                            height='500' 
+                            frameborder='0'>
+                    </iframe>
+                <br>
+                <p>Link a pagina externa: <a href='" . $row['referencias_nivel']. "'>" . $row['referencias_nivel']. "</a></p>
+            </div>
+            <br>
+            <br>
+            <button type='submit' class='btn_enviar'>Completar Curso</button>
+        </div>
+    </div>";
+        }
     }
 
     public function CursoInfo()
@@ -582,7 +640,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         case 'registro_inscripcion':
             $controller->registrarInscripcion();
-            $controller->registerInscripcion_niveles();
+            //$controller->registerInscripcion_niveles();
             break;
         case 'Curso_Info':
             $controller->CursoInfo();
