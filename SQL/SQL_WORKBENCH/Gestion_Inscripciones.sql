@@ -24,33 +24,40 @@ END $$
 
 DELIMITER //
 
+--CALL PROCInsertarInscripcion(
+--    11,   -- p_id_estudiante_inscripcion (reemplaza con el ID real del estudiante)
+--    4,   -- p_id_curso_inscripcion (reemplaza con el ID real del curso)
+--    1,     -- p_metodo_pago_inscripcion (reemplaza con el valor adecuado del método de pago, por ejemplo 1)
+--    199.99 -- p_precio_pagado (reemplaza con el precio pagado real)
+--);
+
 -- Insertar niveles de la inscripcion
 
-DELIMITER $$
+DELIMITER //
 
-CREATE PROCEDURE PROCInsertar_nivel_inscripcion 
-(
+CREATE PROCEDURE PROCInsertarNivelInscripcion(
     IN p_id_inscripcion INT,
     IN p_id_nivel INT,
     IN p_titulo_nivel VARCHAR(255)
 )
 BEGIN
-    -- Inserta un registro en la tabla `tabla_niveles_inscripcion`
-    INSERT INTO tabla_niveles_inscripcion 
-    (
+    -- Insertar un nuevo registro en la tabla `tabla_niveles_inscripcion`
+    INSERT INTO tabla_niveles_inscripcion (
         id_inscripcion,
         id_nivel,
         titulo_nivel
     )
-    VALUES 
-    (
+    VALUES (
         p_id_inscripcion,
         p_id_nivel,
         p_titulo_nivel
     );
-END$$
+END;
+//
 
 DELIMITER ;
+
+--CALL PROCInsertar_nivel_inscripcion(1, 6, 'Primer paso');
 
 -- Trayendo informacion de la inscripcion
 
@@ -147,7 +154,7 @@ END$$
 
 DELIMITER ;
 
--- CALL GetCursoInfo(NULL, NULL, 'Programación', 0, 13);
+--CALL GetCursoInfo(NULL, NULL, 'Programación', 0, 13);
 
 DELIMITER $$
 
@@ -199,8 +206,8 @@ BEGIN
         tabla_categorias cat ON cur.id_categoria_curso = cat.id_categoria
     WHERE
         (ins.id_estudiante_inscripcion = p_id_estudiante OR p_id_estudiante IS NULL)
-        AND (ins.fecha_inscripcion = p_fecha_inscripcion OR p_fecha_inscripcion IS NULL)
-        AND (ins.ultima_fecha_ingreso = p_ultima_fecha_ingreso OR p_ultima_fecha_ingreso IS NULL)
+        AND (p_fecha_inscripcion IS NULL OR DATE(ins.fecha_inscripcion) = p_fecha_inscripcion)
+        AND (p_ultima_fecha_ingreso IS NULL OR DATE(ins.ultima_fecha_ingreso) = p_ultima_fecha_ingreso)
         AND (cat.nombre_categoria = p_nombre_categoria OR p_nombre_categoria IS NULL)
         AND (ins.inscripcion_finalizada = p_inscripcion_finalizada OR p_inscripcion_finalizada IS NULL)
         AND (cur.curso_deshabilitado = p_curso_deshabilitado OR p_curso_deshabilitado IS NULL);
@@ -208,4 +215,5 @@ END $$
 
 DELIMITER ;
 
--- CALL GetDetallesCursoPorEstudianteConFechas(11, '2024-11-25', NULL, 'programacion', NULL, NULL);
+
+--CALL GetDetallesCursoPorEstudianteConFechas(11, '2024-11-25', NULL, 'programacion', NULL, NULL);

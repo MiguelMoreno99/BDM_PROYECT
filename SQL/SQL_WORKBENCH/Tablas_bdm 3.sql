@@ -1,5 +1,7 @@
 create database db_leveluplearning;
+
 use db_leveluplearning;
+
 CREATE TABLE tabla_usuario
 (
 	id_usuario int NOT NULL AUTO_INCREMENT PRIMARY KEY,			-- ID USUARIO como llave primaria y autoincrementable
@@ -54,6 +56,7 @@ CREATE TABLE tabla_cursos
     FOREIGN KEY (id_instructor_eliminacion_curso) REFERENCES tabla_usuario(id_usuario) -- FK a la tabla "usuarios" (elimina)
 );
 
+
 CREATE TABLE tabla_niveles 
 (
     id_nivel int NOT NULL AUTO_INCREMENT PRIMARY KEY,                  -- ID NIVEL como llave primaria y autoincrementable
@@ -96,7 +99,7 @@ CREATE TABLE tabla_niveles_inscripcion
     id_inscripcion INT NOT NULL,                                  -- FK a la tabla de inscripciones
     id_nivel INT NOT NULL,                                        -- FK al nivel específico
 	titulo_nivel VARCHAR(255) NOT NULL,	
-    Curso_terminado BIT DEFAULT 0,
+    Nivel_terminado BIT DEFAULT 0,
     FOREIGN KEY (id_inscripcion) REFERENCES tabla_inscripciones(id_inscripcion), -- FK inscripción
     FOREIGN KEY (id_nivel) REFERENCES tabla_niveles(id_nivel)                     -- FK nivel
 );
@@ -125,8 +128,6 @@ CREATE TABLE tabla_diplomas
     id_curso_diploma INT NOT NULL,                           -- ID CURSO DIPLOMA (llave foránea a la tabla "cursos")
     id_estudiante_diploma INT NOT NULL,					     -- ID USUARIO ESTUDIANTE DIPLOMA (llave foránea a la tabla "usuarios")
     id_instructor_diploma INT NOT NULL,						 -- ID USUARIO INSTRUCTOR DIPLOMA (llave foránea a la tabla "usuarios")
-    imagen_curso_diploma longblob,                              -- Imagen del diploma en formato BLOB
-    promedio_diploma FLOAT DEFAULT 0.0,                      -- Promedio obtenido en el curso
     FOREIGN KEY (id_curso_diploma) REFERENCES tabla_cursos(id_curso),					-- FK a la tabla "cursos"
     FOREIGN KEY (id_estudiante_diploma) REFERENCES tabla_usuario(id_usuario),  -- FK a la tabla "usuarios" (estudiante)
     FOREIGN KEY (id_instructor_diploma) REFERENCES tabla_usuario(id_usuario)   -- FK a la tabla "usuarios" (instructor)
