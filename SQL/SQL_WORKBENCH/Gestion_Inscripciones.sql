@@ -24,12 +24,12 @@ END $$
 
 DELIMITER //
 
---CALL PROCInsertarInscripcion(
+-- CALL PROCInsertarInscripcion(
 --    11,   -- p_id_estudiante_inscripcion (reemplaza con el ID real del estudiante)
 --    4,   -- p_id_curso_inscripcion (reemplaza con el ID real del curso)
 --    1,     -- p_metodo_pago_inscripcion (reemplaza con el valor adecuado del método de pago, por ejemplo 1)
 --    199.99 -- p_precio_pagado (reemplaza con el precio pagado real)
---);
+-- );
 
 -- Insertar niveles de la inscripcion
 
@@ -57,7 +57,7 @@ END;
 
 DELIMITER ;
 
---CALL PROCInsertar_nivel_inscripcion(1, 6, 'Primer paso');
+-- CALL PROCInsertar_nivel_inscripcion(1, 6, 'Primer paso');
 
 -- Trayendo informacion de la inscripcion
 
@@ -90,21 +90,21 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE PROCObtenerInformacionCurso(
-    IN idEstudiante INT
-)
-BEGIN
-    SELECT 
-        c.imagen_curso,                  -- Foto del curso
-        c.titulo_curso,                 -- Nombre del curso
-        i.porcentaje_avance_curso       -- Porcentaje de avance del curso
-    FROM 
-        tabla_inscripciones i
-    INNER JOIN 
-        tabla_cursos c ON i.id_curso_inscripcion = c.id_curso
-    WHERE 
-        i.id_estudiante_inscripcion = idEstudiante; -- Filtra por el ID del estudiante
-END //
+-- CREATE PROCEDURE PROCObtenerInformacionCurso(
+--     IN idEstudiante INT
+-- )
+-- BEGIN
+--     SELECT 
+--         c.imagen_curso,                  -- Foto del curso
+--         c.titulo_curso,                 -- Nombre del curso
+--         i.porcentaje_avance_curso       -- Porcentaje de avance del curso
+--     FROM 
+--         tabla_inscripciones i
+--     INNER JOIN 
+--         tabla_cursos c ON i.id_curso_inscripcion = c.id_curso
+--     WHERE 
+--         i.id_estudiante_inscripcion = idEstudiante; -- Filtra por el ID del estudiante
+-- END //
 
 DELIMITER ;
 
@@ -154,7 +154,7 @@ END$$
 
 DELIMITER ;
 
---CALL GetCursoInfo(NULL, NULL, 'Programación', 0, 13);
+-- CALL GetCursoInfo(NULL, NULL, 'Programación', 0, 13);
 
 DELIMITER $$
 
@@ -216,4 +216,4 @@ END $$
 DELIMITER ;
 
 
---CALL GetDetallesCursoPorEstudianteConFechas(11, '2024-11-25', NULL, 'programacion', NULL, NULL);
+-- CALL GetDetallesCursoPorEstudianteConFechas(11, '2024-11-25', NULL, 'programacion', NULL, NULL);

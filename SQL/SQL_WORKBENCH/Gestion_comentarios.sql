@@ -62,7 +62,7 @@ END $$
 
 DELIMITER ;
 
---CALL PROCObtenerComentariosConUsuario(4);
+-- CALL PROCObtenerComentariosConUsuario(4);
 
 -- Borrar comentario
 
@@ -86,4 +86,4 @@ END //
 
 DELIMITER ;
 
---CALL PROCEliminarComentario(3, 'Contenido ofensivo', 15);
+-- CALL PROCEliminarComentario(3, 'Contenido ofensivo', 15);

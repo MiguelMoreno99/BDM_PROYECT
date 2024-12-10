@@ -319,16 +319,16 @@ END$$
 
 DELIMITER ;
 
-CREATE PROCEDURE PROCInsertarNivelInscripcion(
-    IN p_id_inscripcion INT,
-    IN p_id_nivel INT,
-    IN p_titulo_nivel VARCHAR(255)
-)
-BEGIN
-    INSERT INTO tabla_niveles_inscripcion (id_inscripcion, id_nivel, titulo_nivel) 
-    VALUES (p_id_inscripcion, p_id_nivel, p_titulo_nivel)
-        
-END $$
+-- CREATE PROCEDURE PROCInsertarNivelInscripcion(
+--     IN p_id_inscripcion INT,
+--     IN p_id_nivel INT,
+--     IN p_titulo_nivel VARCHAR(255)
+-- )
+-- BEGIN
+--     INSERT INTO tabla_niveles_inscripcion (id_inscripcion, id_nivel, titulo_nivel) 
+--     VALUES (p_id_inscripcion, p_id_nivel, p_titulo_nivel)
+--         
+-- END $$
 
 DELIMITER ;
 
@@ -336,43 +336,43 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE PROCEDURE GetCursoInfo(
-    IN start_date DATETIME,         -- Fecha inicial del rango
-    IN end_date DATETIME,           -- Fecha final del rango
-    IN category_name VARCHAR(255),  -- Nombre de la categoría (puede ser NULL para no filtrar)
-    IN curso_deshabilitado INT,     -- Filtro de cursos deshabilitados (puede ser NULL para no filtrar)
-    IN ID_Instructor INT            -- ID del instructor (puede ser NULL para no filtrar)
-)
-BEGIN
-    SELECT 
-        c.nombre_categoria AS Categoria,
-        cr.titulo_curso AS Curso,
-        cr.curso_deshabilitado AS CursoDeshabilitado,
-        cr.fecha_creacion_curso AS FechaCreacion,
-        COUNT(i.id_inscripcion) AS TotalAlumnos,
-        COALESCE(AVG(i.porcentaje_avance_curso), 0) AS PromedioAvance
-    FROM 
-        tabla_categorias c
-    INNER JOIN 
-        tabla_cursos cr ON c.id_categoria = cr.id_categoria_curso
-    LEFT JOIN 
-        tabla_inscripciones i ON cr.id_curso = i.id_curso_inscripcion
-    WHERE 
-        (start_date IS NULL OR cr.fecha_creacion_curso >= start_date) AND
-        (end_date IS NULL OR cr.fecha_creacion_curso <= end_date) AND
-        (category_name IS NULL OR c.nombre_categoria = category_name) AND
-        (curso_deshabilitado IS NULL OR cr.curso_deshabilitado = curso_deshabilitado) AND
-        (ID_Instructor IS NULL OR cr.id_instructor_creacion_curso = ID_Instructor)
-    GROUP BY 
-        c.nombre_categoria, cr.titulo_curso, cr.curso_deshabilitado, cr.fecha_creacion_curso
-    ORDER BY 
-        cr.fecha_creacion_curso DESC;
-END $$
+-- CREATE PROCEDURE GetCursoInfo(
+--     IN start_date DATETIME,         -- Fecha inicial del rango
+--     IN end_date DATETIME,           -- Fecha final del rango
+--     IN category_name VARCHAR(255),  -- Nombre de la categoría (puede ser NULL para no filtrar)
+--     IN curso_deshabilitado INT,     -- Filtro de cursos deshabilitados (puede ser NULL para no filtrar)
+--     IN ID_Instructor INT            -- ID del instructor (puede ser NULL para no filtrar)
+-- )
+-- BEGIN
+--     SELECT 
+--         c.nombre_categoria AS Categoria,
+--         cr.titulo_curso AS Curso,
+--         cr.curso_deshabilitado AS CursoDeshabilitado,
+--         cr.fecha_creacion_curso AS FechaCreacion,
+--         COUNT(i.id_inscripcion) AS TotalAlumnos,
+--         COALESCE(AVG(i.porcentaje_avance_curso), 0) AS PromedioAvance
+--     FROM 
+--         tabla_categorias c
+--     INNER JOIN 
+--         tabla_cursos cr ON c.id_categoria = cr.id_categoria_curso
+--     LEFT JOIN 
+--         tabla_inscripciones i ON cr.id_curso = i.id_curso_inscripcion
+--     WHERE 
+--         (start_date IS NULL OR cr.fecha_creacion_curso >= start_date) AND
+--         (end_date IS NULL OR cr.fecha_creacion_curso <= end_date) AND
+--         (category_name IS NULL OR c.nombre_categoria = category_name) AND
+--         (curso_deshabilitado IS NULL OR cr.curso_deshabilitado = curso_deshabilitado) AND
+--         (ID_Instructor IS NULL OR cr.id_instructor_creacion_curso = ID_Instructor)
+--     GROUP BY 
+--         c.nombre_categoria, cr.titulo_curso, cr.curso_deshabilitado, cr.fecha_creacion_curso
+--     ORDER BY 
+--         cr.fecha_creacion_curso DESC;
+-- END $$
 
 DELIMITER ;
 
 
---CALL GetCursoInfo('2024-11-23', NULL, 'Programación', 0);
+-- CALL GetCursoInfo('2024-11-23', NULL, 'Programación', 0);
 
 -- Informacion del reporte de administradores
 
@@ -399,7 +399,7 @@ END //
 
 DELIMITER ;
 
---CALL PROCObtenerReporteUsuario1();
+-- CALL PROCObtenerReporteUsuario1();
 
 -- Informacion del reporte de estudiante
 
@@ -425,7 +425,7 @@ END //
 
 DELIMITER ;
 
---CALL PROCObtenerReporteUsuarios2();
+-- CALL PROCObtenerReporteUsuarios2();
 
 -- Obtener informacion para la busqueda
 
@@ -471,4 +471,4 @@ END //
 DELIMITER ;
 
 
---CALL PROCObtenerCursosBusqueda(NULL, NULL, NULL, '2024-11-22', NULL);
+-- CALL PROCObtenerCursosBusqueda(NULL, NULL, NULL, '2024-11-22', NULL);

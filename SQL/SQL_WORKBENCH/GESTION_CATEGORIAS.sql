@@ -93,7 +93,7 @@ BEGIN
 END //
 DELIMITER ;
 
---CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);
+-- CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);
 
 DELIMITER //
 
