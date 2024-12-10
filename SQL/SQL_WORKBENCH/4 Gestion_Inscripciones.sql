@@ -59,6 +59,36 @@ DELIMITER ;
 
 -- CALL PROCInsertar_nivel_inscripcion(1, 6, 'Primer paso');
 
+DELIMITER //
+
+CREATE PROCEDURE PROCValidarNivelInscripcion(
+    IN p_id_inscripcion INT,
+    IN p_id_nivel INT,
+    IN p_id_estudiante INT
+)
+BEGIN
+    SELECT 
+        ti.id_inscripcion AS inscripcion,
+        tu.id_usuario AS estudiante,
+        tn.id_nivel AS nivel,
+        tn.titulo_nivel AS nombre_nivel
+    FROM 
+        tabla_niveles_inscripcion tni
+    INNER JOIN 
+        tabla_inscripciones ti ON tni.id_inscripcion = ti.id_inscripcion
+    INNER JOIN 
+        tabla_niveles tn ON tni.id_nivel = tn.id_nivel
+    INNER JOIN 
+        tabla_usuario tu ON ti.id_estudiante_inscripcion = tu.id_usuario
+    WHERE 
+        tni.id_inscripcion = p_id_inscripcion
+        AND tni.id_nivel = p_id_nivel
+        AND tu.id_usuario = p_id_estudiante;
+END;
+//
+
+DELIMITER ;
+
 -- Trayendo informacion de la inscripcion
 
 DELIMITER $$

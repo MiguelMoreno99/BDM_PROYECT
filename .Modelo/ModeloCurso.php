@@ -140,6 +140,14 @@ class Modelo_Curso
         $stmt->closeCursor();
     }
 
+    public function validarInscripcion_niveles($InscripcionData)
+    {
+        $stmt = $this->db->callProcedure('PROCValidarNivelInscripcion', $InscripcionData);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result;
+    }
+
     public function registerInscripcion_niveles($InscripcionData)
     {
         $stmt = $this->db->callProcedure('PROCInsertarNivelInscripcion', $InscripcionData);

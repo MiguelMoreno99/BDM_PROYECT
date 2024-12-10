@@ -96,7 +96,7 @@ class CourseController
             $informacion_nivel = $_POST["contenido-nivel-$nivel"] ?? '';
             $documento_nivel = $_POST["linkpdf-nivel-$nivel"] ?? '';
             $idDrive = $this->courseModel->extraerIdDeGoogleDrive($documento_nivel);
-            if($idDrive == null){
+            if ($idDrive == null) {
                 echo "<script>alert('Ingrese un link de Google Drive Valido!.');</script>";
                 exit();
             }
@@ -106,7 +106,7 @@ class CourseController
             $referencias_nivel = $_POST["linkpagina-nivel-$nivel"] ?? '';
             $link_video_nivel = $_POST["linkyoutube-nivel-$nivel"] ?? '';
             $idYT = $this->courseModel->extraerIdDeYouTube($link_video_nivel);
-            if($idDrive == null){
+            if ($idDrive == null) {
                 echo "<script>alert('Ingrese un link de YouTube Valido!.');</script>";
                 exit();
             }
@@ -183,7 +183,7 @@ class CourseController
         if ($empty == 1) {
             echo "
             <div class='curso-item'>
-                <h3>No hay Ningun Curso Creado!</h3>
+                <h3>No hay Ningun Curso Calificado!</h3>
                 <p>Primero cree algun curso para poder ver mas informacion</p>
             </div>
             ";
@@ -217,7 +217,7 @@ class CourseController
         if ($empty) {
             echo "
             <div class='curso-item'>
-                <h3>No hay Ningun Curso Creado!</h3>
+                <h3>No hay Ningun Curso con alumnos inscritos!</h3>
                 <p>Primero cree algun curso para poder ver mas informacion</p>
             </div>
             ";
@@ -426,6 +426,11 @@ class CourseController
 
         // Registrar los niveles seleccionados
         foreach ($nivelesSeleccionados as $nivel) {
+            $result = $this->courseModel->validarInscripcion_niveles([$id_inscripcion, $nivel['levelID'], $id_usuario]);
+            if ($result['nombre_nivel'] != "") {
+                echo "<script>alert('Ya tuvo una inscripcion con este nivel: " . $result['nombre_nivel'] . ".'); window.history.back();</script>";
+                return;
+            }
             $this->courseModel->registerInscripcion_niveles([
                 $id_inscripcion,         // ID de inscripción
                 $nivel['levelID'],       // ID del nivel
@@ -433,7 +438,7 @@ class CourseController
             ]);
         }
 
-        echo "<script>alert('Curso inscrito.'); window.location.href = '../HTML/curso_detalle.php?titulo=" . urlencode($titulo_curso) . "';</script>";
+        echo "<script>alert('Curso inscrito. " . $nivel['levelID'] . " " . $id_inscripcion . " " . $id_usuario . " " . $result[0]['inscripcion'] . "'); window.location.href = '../HTML/curso_detalle.php?titulo=" . urlencode($titulo_curso) . "';</script>";
     }
 
     public function miscursos()
