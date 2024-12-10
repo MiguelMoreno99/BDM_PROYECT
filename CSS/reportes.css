@@ -41,3 +41,24 @@ table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
     color: #2E3B4D;
 }
+
+/* Estilo para el botón */
+.btn-aplicar {
+    background-color: #5a3d8a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-aplicar:hover {
+    background-color: #4c3076;
+    transform: scale(1.05);
+}
+
+.btn-aplicar:active {
+    background-color: #3b2460;
+}

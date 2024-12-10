@@ -39,7 +39,7 @@ class Modelo_Categoria
 
     public function DeleteCategory($CategoryData)
     {
-        $stmt = $this->db->callProcedure('PROCBorrarCategoria', $CategoryData);
+        $stmt = $this->db->callProcedure('EliminarCategoriaConCursos', $CategoryData);
         $stmt->closeCursor();
     }
 }

@@ -6,7 +6,6 @@ $usuario = $_SESSION['usuario'];
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,14 +15,12 @@ $usuario = $_SESSION['usuario'];
   <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
   <link rel="stylesheet" href="../CSS/gestion_instructor.css">
 </head>
-
 <body>
   <!-- Header -->
   <div id="header-container"></div>
 
   <!-- Gestion Instructor -->
   <section class="ventas">
-
     <br>
     <br>
     <h1>Reporte de Ventas</h1>
@@ -48,11 +45,7 @@ $usuario = $_SESSION['usuario'];
       <input type="date" id="fecha_fin" name="fecha_fin">
 
       <label for="categoria">Categoría:</label>
-      <select id="categoria" name="categoria">
-        <option value="">Todas</option>
-        <option value="Programacion">Programacion</option>
-        <option value="Arte">Modelado 3d</option>
-      </select>
+      <input type="text" name="categoria">
 
       <label for="estado">Estado:</label>
       <select id="estado" name="estado">
@@ -66,8 +59,8 @@ $usuario = $_SESSION['usuario'];
 
     <!-- Lista de Cursos -->
     <div class="lista-cursos">
-      <form action="../.Controlador/Curso.php" method="post" class="filtros">
-        <input type="hidden" name="accion" value="Curso_Alumno">
+      <form id="accionCursoForm1" action="../.Controlador/Curso.php" method="post" class="filtros">
+        <input type="hidden" name="accion" id="accionCurso" value="Curso_Alumno">
         <h1>Nombre de usuario</h1>
         <h2>Resumen de Ventas por Curso</h2>
         <table>
@@ -77,7 +70,7 @@ $usuario = $_SESSION['usuario'];
               <th>Categoria</th>
               <th>Curso</th>
               <th>Estado</th>
-              <th>Fecha de creacion</th>
+              <th>Fecha de creación</th>
               <th>Alumnos Inscritos</th>
               <th>Nivel Promedio</th>
               <th>Ingresos Generados</th>
@@ -103,7 +96,6 @@ $usuario = $_SESSION['usuario'];
               }
             }
             ?>
-
           </tbody>
           <tfoot>
             <?php
@@ -141,11 +133,25 @@ $usuario = $_SESSION['usuario'];
         </table>
 
         <!-- El botón que cambiará su texto dinámicamente -->
-        <button type="submit" id="accion-curso-btn" class="btn-submit">Desactivar curso</button>
         <br>
         <button type="submit" class="btn-submit">Traer usuarios</button>
         <br>
         <br>
+      </form>
+
+      <form id="accionCursoForm2" action="../.Controlador/Curso.php" method="post" class="filtros">
+  <input type="hidden" name="accion" value="Desactivarcurso">
+  <input type="hidden" name="curso_seleccionado" value="">
+  <button type="submit" class="btn-submit" onclick="enviarFormulario('accionCursoForm2')">Desactivar curso</button>
+</form>
+
+<form id="accionCursoForm3" action="../.Controlador/Curso.php" method="post" class="filtros">
+  <input type="hidden" name="accion" value="ActivarCurso">
+  <input type="hidden" name="curso_seleccionado" value="">
+  <button type="submit" class="btn-submit" onclick="enviarFormulario('accionCursoForm3')">Activar curso</button>
+</form>
+
+
     </div>
 
     <!-- Detalle de Alumnos por Curso -->
@@ -164,7 +170,6 @@ $usuario = $_SESSION['usuario'];
         </thead>
         <tbody>
           <?php
-          // Verificar si hay datos en la sesión para los alumnos del curso
           $totalIngresosAlumno = 0;
           if (isset($_SESSION['curso_Alumno']) && !empty($_SESSION['curso_Alumno'])) {
             foreach ($_SESSION['curso_Alumno'] as $curso) {
@@ -195,7 +200,6 @@ $usuario = $_SESSION['usuario'];
     </div>
 
     <?php
-    // Función para traducir el método de pago
     function getMetodoPago($metodo_pago)
     {
       switch ($metodo_pago) {
@@ -217,6 +221,23 @@ $usuario = $_SESSION['usuario'];
 
   <!-- Footer -->
   <div id="footer-container"></div>
+
+
+  <script>
+  function enviarFormulario(formularioId) {
+    const formulario = document.getElementById(formularioId);
+    const cursoSeleccionado = document.querySelector('input[name="curso_seleccionado"]:checked');
+
+    if (cursoSeleccionado) {
+      formulario.querySelector('input[name="curso_seleccionado"]').value = cursoSeleccionado.value;
+      formulario.submit();
+    } else {
+      alert('Por favor, selecciona un curso.');
+    }
+  }
+</script>
+
+
 
   <script src="../JS/templates.js"></script>
   <script src="../JS/Cambiar_activo.js"></script>

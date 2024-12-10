@@ -275,6 +275,33 @@ class UserController
         echo json_encode(['success' => 'Mensaje enviado correctamente.']);
         exit();
     }
+
+    public function showReporteInstructor()
+    {
+        // Obtener los resultados usando el modelo
+        $resultados = $this->userModel->getReporteInstructor();
+        
+        // Almacenar resultados en la sesión
+        $_SESSION['Reporte_Instructor'] = $resultados;
+
+        // Redirigir a la página de gestión
+        header('Location: ../HTML/reportes.php');
+        exit();
+    }
+
+    public function showReporteEstudiante()
+    {
+        // Obtener los resultados usando el modelo
+        $resultados = $this->userModel->getReporteEstudiante();
+        
+        // Almacenar resultados en la sesión
+        $_SESSION['Reporte_Estudiante'] = $resultados;
+
+        // Redirigir a la página de gestión
+        header('Location: ../HTML/reportes.php');
+        exit();
+    }
+
 }
 
 // Uso en index.php:
@@ -291,6 +318,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'Gestion_admin':
             $controller->Gestiondeadmin();
+            break;
+        case 'Reporte_instructor':
+            $controller->showReporteInstructor();
+            break;
+
+        case 'Reporte_estudiante':
+            $controller->showReporteEstudiante();
             break;
         case 'Editar_usuario':
             $controller->editUser();

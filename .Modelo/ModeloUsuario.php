@@ -117,4 +117,32 @@ class Modelo_Usuario
         // Cerrar el cursor de la consulta
         $stmt->closeCursor();
     }
+
+    public function getReporteInstructor() 
+    {
+        $stmt = $this->db->callProcedure('PROCObtenerReporteUsuario1', []);
+        
+        // Obtener todos los resultados
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Cerrar el cursor para liberar recursos
+        $stmt->closeCursor();
+    
+        // Retornar los resultados al controlador
+        return $result;
+    }
+
+    public function getReporteEstudiante() 
+    {
+        $stmt = $this->db->callProcedure('PROCObtenerReporteUsuarios2', []);
+        
+        // Obtener todos los resultados
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Cerrar el cursor para liberar recursos
+        $stmt->closeCursor();
+    
+        // Retornar los resultados al controlador
+        return $result;
+    }
 }

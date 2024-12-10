@@ -1,7 +1,6 @@
 let nivelActual = 0;  // Empieza en 0, porque no hay ningún nivel al inicio
 
-document.getElementById('tipo-precio').addEventListener('change', function() 
-{
+document.getElementById('tipo-precio').addEventListener('change', function() {
   const precioCompletoGroup = document.getElementById('precio-completo-group');
   const contenedorNiveles = document.getElementById('contenedor-niveles');
 
@@ -33,7 +32,7 @@ function agregarNivel() {
     </div>
     <div class="clase">
       <p>Contenido del nivel ${nivelActual}:</p>
-      <textarea name="contenido-nivel-${nivelActual}" placeholder="Escribe el contenido del nivel aquí" required></textarea>
+      <textarea name="contenido-nivel-${nivelActual}" placeholder="Escribe el contenido del nivel aquí" required maxlength="100"></textarea>
       <div class="adjuntos">
         <label for="linkpdf-nivel-${nivelActual}">Link de drive del PDF:</label>
         <input type="url" id="linkpdf-nivel-${nivelActual}" name="linkpdf-nivel-${nivelActual}" placeholder="https://drive.google.com/file/..." required>
@@ -44,7 +43,7 @@ function agregarNivel() {
         <label for="linkpagina-nivel-${nivelActual}">Link a página externa:</label>
         <input type="url" id="linkpagina-nivel-${nivelActual}" name="linkpagina-nivel-${nivelActual}" placeholder="https://www.w3schools.com/css/..." >
         
-        <label for="linkyoutube-nivel-${nivelActual}">Link Youtube Video:</label>
+        <label for="linkyoutube-nivel-${nivelActual}">Link YouTube Video:</label>
         <input type="url" id="linkyoutube-nivel-${nivelActual}" name="linkyoutube-nivel-${nivelActual}" placeholder="https://www.youtube.com/watch..." required>
       </div>
       <div class="precio-nivel" style="display: none;">
@@ -59,6 +58,39 @@ function agregarNivel() {
   const tipoPrecio = document.getElementById('tipo-precio').value;
   if (tipoPrecio === '2') {
     nuevaSeccion.querySelector('.precio-nivel').style.display = 'block';
+  }
+
+  // Agregar validaciones en tiempo real
+  nuevaSeccion.querySelector('textarea').addEventListener('input', validarDescripcionNivel);
+  nuevaSeccion.querySelector('input[name^="linkyoutube"]').addEventListener('input', validarLinkYoutube);
+  nuevaSeccion.querySelector('input[name^="linkpdf"]').addEventListener('input', validarLinkDrive);
+}
+
+function validarDescripcionNivel(event) {
+  const maxLength = 100;
+  const currentLength = event.target.value.length;
+  if (currentLength > maxLength) {
+    event.target.value = event.target.value.slice(0, maxLength);
+  }
+}
+
+function validarLinkYoutube(event) {
+  const link = event.target.value;
+  const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+
+  if (!youtubePattern.test(link)) {
+    alert("Por favor, ingrese un enlace válido de YouTube.");
+    event.target.value = '';
+  }
+}
+
+function validarLinkDrive(event) {
+  const link = event.target.value;
+  const drivePattern = /^(https?:\/\/)?(www\.)?(drive\.google\.com)\/.+$/;
+
+  if (!drivePattern.test(link)) {
+    alert("Por favor, ingrese un enlace válido de Google Drive.");
+    event.target.value = '';
   }
 }
 
@@ -90,3 +122,20 @@ function actualizarNumerosNiveles() {
     seccion.querySelector('input[name^="precio"]').setAttribute('name', `precio-nivel-${nivelActual}`);
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Agregar validación de longitud de descripción para los niveles existentes al cargar la página
+  document.querySelectorAll('textarea[name^="contenido-nivel"]').forEach(textarea => {
+    textarea.addEventListener('input', validarDescripcionNivel);
+  });
+
+  // Agregar validación de link de YouTube para los niveles existentes al cargar la página
+  document.querySelectorAll('input[name^="linkyoutube"]').forEach(input => {
+    input.addEventListener('input', validarLinkYoutube);
+  });
+
+  // Agregar validación de link de Google Drive para los niveles existentes al cargar la página
+  document.querySelectorAll('input[name^="linkpdf"]').forEach(input => {
+    input.addEventListener('input', validarLinkDrive);
+  });
+});

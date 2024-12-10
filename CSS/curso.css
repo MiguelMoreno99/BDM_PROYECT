@@ -11,6 +11,30 @@ padding-block: 1%;
     border-radius: 8px;
 }
 
+.Boton_diploma{
+    margin-block: 2%;
+    padding: 1%;
+    background-color: rgb(230, 243, 255);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.Div-Progreso{
+    margin-block: 2%;
+    padding: 1%;
+    background-color: rgb(122, 122, 122);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.curso{
+    margin-block: 2%;
+    padding: 2%;
+    background-color: rgb(230, 243, 255);
+    border-radius: 8px;
+    text-align: center;
+}
+
 .nivel-curso{
     margin-block: 2%;
     padding: 2%;
@@ -23,6 +47,14 @@ padding-block: 1%;
     background-color: rgba(177, 177, 177, 0.692);
     padding: 1%;
     border-radius: 8px;
+}
+
+.imagen-curso {
+    max-width: 30%; /* Ajusta el ancho máximo al 50% del contenedor */
+    height: auto;   /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Opcional: da bordes redondeados */
+    display: block; /* Centra la imagen si se combina con margin */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
 }
 
 .recursos-curso{

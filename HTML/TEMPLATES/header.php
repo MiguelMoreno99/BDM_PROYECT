@@ -13,7 +13,7 @@ $usuario = $_SESSION['usuario'];
             <ul>
                 <li><a href="index.php">Inicio</a></li>
 
-                <li><a href="busqueda.html">Busqueda</a></li>
+                <li><a href="busqueda.php">Busqueda</a></li>
 
                 <?php if (isset($_SESSION['usuario'])): ?>
                 <li><a href="Editar_Perfil.php">Editar Perfil</a></li>
@@ -65,7 +65,7 @@ $usuario = $_SESSION['usuario'];
 
                 
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 3): ?>
-                    <!-- <li><a href="reportes.html">Reportes</a></li> -->
+                    <li><a href="reportes.php">Reportes</a></li> 
                 <?php else: ?>
 
                 <?php endif; ?>

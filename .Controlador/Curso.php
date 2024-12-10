@@ -276,77 +276,6 @@ class CourseController
         exit();
     }
 
-
-    public function obtenerPrecioCursosYNiveles()
-    {
-        // Obtener el título del curso desde la URL
-        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
-        $_SESSION['titulo_curso'] = $titulo; // Guardar el título en la sesión
-        $course = $this->courseModel->checkCourseExists($titulo);
-        $id_curso = $course['id_curso'];
-        $niveles = [];
-        $manejoPrecio = $course['manejo_precio_curso'];
-        // Obtener los detalles del curso y niveles desde el modelo
-        $courseData = $this->courseModel->obtenerNivelesPorCurso($id_curso);
-
-        if (empty($courseData)) {
-            echo "<script>alert('No se encontraron detalles para este curso!.'); window.location.href = '../HTML/index.php';</script>";
-            return;
-        }
-
-        echo "<div class='compra-detalle'>";
-        echo "<h1>Detalles del Curso</h1>";
-        echo "<div class='compra-tipo'>";
-
-        if ($manejoPrecio == 0) {
-            echo "<div id='completeCourse'>
-                  <h1>¡Curso Gratis!</h1>
-                  <h2>Costo Total: <span id='totalCost'> 0 </span></h2>";
-            echo "<h3>Niveles incluidos en el curso gratuito:</h3>";
-            echo "<ul id='niveles-list'>";
-            foreach ($courseData as $row) {
-                echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
-                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()'  checked disabled>
-                      <hr>";
-            }
-            echo "</ul>";
-            echo "</div>";
-        }
-        // Curso completo
-        elseif ($manejoPrecio == 1) {
-            echo "<div id='completeCourse'>
-            <h1>Curso se vende Completo!</h1>
-            <h2>Costo Total del Cursp: $ <span id='totalCost'>" . htmlspecialchars($course['precio_curso']) . "</span></h2>";
-            echo "<h3>Niveles incluidos en el curso completo:</h3>";
-            echo "<ul id='niveles-list'>";
-            foreach ($courseData as $row) {
-                echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
-                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()'  checked disabled>
-                      <hr>";
-            }
-            echo "</ul>";
-            echo "</div>";
-        }
-        // Curso por niveles
-        elseif ($manejoPrecio == 2) {
-            echo "<div id='courseLevels'>
-            <h1>Curso se vende por Separado!</h1>
-            <h2>Selecciona los niveles del curso que desees comprar:</h2>";
-            echo "<ul id='niveles-list'>";
-            foreach ($courseData as $row) {
-                echo "<h3>Titulo del Nivel: " . htmlspecialchars($row['titulo_nivel']) . "</h3>
-                      <p>Precio del Nivel: $" . htmlspecialchars($row['costo_nivel']) . "</p>
-                      <input type='checkbox' name='niveles[]' value='" . htmlspecialchars($row['id_nivel']) . "' data-costo='" . htmlspecialchars($row['costo_nivel']) . "' onchange='actualizarTotal()' checked disabled>
-                      <label>Seleccionar Nivel</label>
-                      <hr>";
-            }
-            echo "</ul>";
-            echo "</div>";
-        }
-        echo "</div>";
-        echo "</div>";
-    }
-
     public function obtenerFormasdepago()
     {
         // Obtener el título del curso desde la URL
@@ -381,79 +310,58 @@ class CourseController
 
     public function registrarInscripcion()
     {
-        // Obtener el título del curso desde la URL
-        $titulo = $_SESSION['titulo_curso'];
-        $course = $this->courseModel->checkCourseExists($titulo);
-        $id_curso = $course['id_curso'];
-        $nivelesCurso = $this->courseModel->obtenerNivelesPorCurso($id_curso);
-        $id_usuario = $_SESSION['usuario']['id_usuario'];
-        $manejoPrecio = $course['manejo_precio_curso'];
-        if ($manejoPrecio === 0) {
-            $costo_total = 0;
-        }
-        if ($manejoPrecio === 1) {
-            $costo_total = $course['precio_curso'];
-        }
-        if ($manejoPrecio === 2) {
-            foreach ($nivelesCurso as $row) {
-                $costo_total = $costo_total + $row['costo_nivel'];
-            }
-        }
-        $forma_de_pago = $_POST['forma_de_pago2'] ?? null;
 
-        if ($forma_de_pago) {
-            echo "<p>$forma_de_pago</p>";
-        }
+        $id_usuario_ins = $_POST['id_usuario'];
+        $id_curso_ins = $_POST['id_curso'];
+        $manejoPrecio_ins = $_POST['forma_pago'];
+        $costo_total_ins = $_POST['costo_total'];
 
         $this->courseModel->registerInscripcion([
-            $id_usuario,
-            $id_curso,
-            $forma_de_pago,
-            $costo_total,
+            $id_usuario_ins,
+            $id_curso_ins,
+            $manejoPrecio_ins,
+            $costo_total_ins,
         ]);
 
-        echo "<script>alert('Se Inscribió Correctamente!.'); window.location.href = '../HTML/index.php';</script>";
-        return;
     }
 
     public function registerInscripcion_niveles()
     {
-        // Obtener el ID de usuario, curso, y los niveles seleccionados del POST
-        $id_usuario = $_POST['id_usuario_1'];
+        // Obtener el ID de usuario, curso, y niveles seleccionados del POST
+        $titulo_curso = $_POST['titulo_curso'];
+        $id_usuario = $_POST['id_usuario'];
         $id_curso = $_POST['id_curso'];
-        $nivelesSeleccionados = json_decode($_POST['nivelesSeleccionados'], true); // Decodificar el JSON
-
+        $nivelesSeleccionados = json_decode($_POST['nivelesSeleccionados'], true); // Decodificar los niveles seleccionados
+    
         // Validar que los datos requeridos estén presentes
         if (!$id_usuario || !$id_curso || empty($nivelesSeleccionados)) {
             echo json_encode(['error' => 'Datos insuficientes para registrar la inscripción.']);
             return;
         }
-
+    
         // Verificar si existe una inscripción previa para el usuario y curso
         $inscripcionExists = $this->courseModel->checkInscripcionExista($id_usuario, $id_curso);
-
+    
         // Si la inscripción no existe, manejar el error
         if (!$inscripcionExists) {
             echo json_encode(['error' => 'La inscripción no existe.']);
             return;
         }
-
+    
+        // Obtener el ID de inscripción existente
         $id_inscripcion = $inscripcionExists['id_inscripcion'];
-
-        // Registrar cada nivel en la base de datos
-        foreach ($nivelesSeleccionados as $nivel) {
-            $id_nivel = $nivel['id'];
-            $titulo_nivel = $nivel['title'];
-
-            // Llamar al modelo para insertar el nivel
+    
+        // Registrar los niveles seleccionados
+        foreach ($nivelesSeleccionados as $nivel) 
+        {
             $this->courseModel->registerInscripcion_niveles([
-                'p_id_inscripcion' => $id_inscripcion,
-                'p_id_nivel' => $id_nivel,
-                'p_titulo_nivel' => $titulo_nivel
+                $id_inscripcion,         // ID de inscripción
+                $nivel['levelID'],       // ID del nivel
+                $nivel['levelName'],     // Título del nivel
             ]);
         }
-
-        echo json_encode(['success' => 'Niveles registrados correctamente.']);
+    
+        echo "<script>alert('Curso inscrito.'); window.location.href = '../HTML/curso_detalle.php?titulo=" . urlencode($titulo_curso) . "';</script>";
     }
 
     public function miscursos()
@@ -464,73 +372,119 @@ class CourseController
         // Obtener los cursos del estudiante desde el modelo
         $courses = $this->courseModel->getCoursesByStudent($id_student);
 
-        // Mostrar la información en HTML
-        echo '<div class="main-cursos">';
-        foreach ($courses as $course) {
-            echo '<div class="seccion-curso">';
-            echo '<img src="data:image/jpeg;base64,' . base64_encode($course['imagen_curso']) . '" alt="imagen del curso">';
-            echo '<div class="titulo-curso">';
-            echo '<h1>' . htmlspecialchars($course['titulo_curso']) . '</h1>';
-            echo '</div>';
-            echo '<br><br>';
-            echo '<div class="progreso-curso">';
-            echo '<h2>Progreso</h2>';
-            echo '<br>';
-            echo '<progress value="' . htmlspecialchars($course['porcentaje_avance_curso']) . '" max="100"></progress>';
-            echo '</div>';
-            echo '<br><br>';
-            echo '<div class="boton-div">';
-            echo '<a href="../HTML/cursoinscrito.php?titulo=' . htmlspecialchars($course['titulo_curso']) . '">ENTRAR</a>';
-            echo '</div>';
-            echo '</div>';
-        }
-        echo '</div>';
+        return is_array($courses) ? $courses : [];
+
     }
 
-    public function misniveles()
+    public function misniveles() 
     {
+        // Obtén el ID del estudiante de la sesión
+        $id_estudiante = isset($_SESSION['usuario']['id_usuario']) ? $_SESSION['usuario']['id_usuario'] : null;
+    
+        if (!$id_estudiante) {
+            die("Error: No se pudo obtener el ID del usuario.");
+        }
+    
+        // Valida el título del curso
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
         $curso = $this->courseModel->checkCourseExists($titulo);
-        $niveles = $this->courseModel->obtenerNivelesPorCurso($curso['id_curso']);
-        foreach ($niveles as $row) {
-            echo "    <div class='main-curso'>
-        <div class='titulo-curso'>
-            <h1>" . $titulo . "</h1>
-        </div>
-        <div class='nivel-curso'>
-            <h2>Titulo de nivel: " . $row['titulo_nivel']. "</h2>
-            <br>
-            <p>Descripcion del nivel: " . $row['informacion_nivel']. "</p>
-            <br>
-            <br>
-            <div class='video-curso'>
-                <iframe width='560' height='315' 
-                        src='https://www.youtube.com/embed/" . $row['link_video_nivel']. "' 
-                        title='YouTube video player' 
-                        frameborder='0' 
-                        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' 
-                        allowfullscreen>
-                </iframe>
-            </div>
-            <br>
-            <div class='recursos-curso'>
-                <h2>Recursos:</h2>
-                <br>
-                    <iframe src='https://drive.google.com/embeddedfolderview?id=" . $row['documento_nivel']. "#grid' 
-                            width='100%' 
-                            height='500' 
-                            frameborder='0'>
-                    </iframe>
-                <br>
-                <p>Link a pagina externa: <a href='" . $row['referencias_nivel']. "'>" . $row['referencias_nivel']. "</a></p>
-            </div>
-            <br>
-            <br>
-            <button type='submit' class='btn_enviar'>Completar Curso</button>
-        </div>
-    </div>";
+    
+        if (!$curso || !isset($curso['id_curso'])) {
+            die("Error: No se encontró el curso con el título especificado.");
         }
+    
+        $id_curso = $curso['id_curso'];
+
+        // Obtén la inscripción
+        $inscripcion = $this->courseModel->obtenerInscripcion($id_curso, $id_estudiante);
+
+        $id_inscripcion = $inscripcion['id_inscripcion'];
+
+        $Niveles_inscripcion = $this->courseModel->obtenerNivelesInscrpcion($id_inscripcion);
+
+        // Devuelve un array de comentarios o vacío
+        return is_array($Niveles_inscripcion) ? $Niveles_inscripcion : [];
+        
     }
+
+    public function porcentajeInscripcion() 
+    {
+        // Obtén el ID del estudiante de la sesión
+        $id_estudiante = isset($_SESSION['usuario']['id_usuario']) ? $_SESSION['usuario']['id_usuario'] : null;
+    
+        if (!$id_estudiante) {
+            die("Error: No se pudo obtener el ID del usuario.");
+        }
+    
+        // Valida el título del curso
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        $curso = $this->courseModel->checkCourseExists($titulo);
+    
+        if (!$curso || !isset($curso['id_curso'])) {
+            die("Error: No se encontró el curso con el título especificado.");
+        }
+    
+        $id_curso = $curso['id_curso'];
+
+        // Obtén la inscripción
+        $inscripcion = $this->courseModel->obtenerInscripcion($id_curso, $id_estudiante);
+
+        return [
+
+            'porcentaje_avance_curso' => $inscripcion['porcentaje_avance_curso'],
+            'id_inscripcion' => $inscripcion['id_inscripcion'],
+            'inscripcion_finalizada' => $inscripcion['inscripcion_finalizada'],
+        ];
+
+
+    }
+
+    public function actualizar_progreso()
+    {
+        
+        // Obtener los datos del formulario POST
+        $id_estudiante = $_SESSION['usuario']['id_usuario'] ?? null;
+        $progresocurso = $_POST['progreso_curso'];
+        $id_inscripcion = $_POST['id_inscripcion'] ?? null;
+        $titulo = $_POST['titulo_curso'] ?? null;
+    
+        $this->courseModel->ActualizarAvanceCurso($id_inscripcion, $progresocurso);
+        echo "<script>window.location.href = '../HTML/cursoinscrito.php?titulo=" . urlencode($titulo) . "';</script>";
+
+        exit();
+    }
+
+    public function Actualizar_UltimoIngreso()
+    {    
+        // Obtener los datos del formulario POST
+        $id_inscripcion = $_POST['id_inscripcion'] ?? null;
+        $titulo = $_POST['Titulo'] ?? null;
+    
+        $this->courseModel->ActualizarUltimoIngreso($id_inscripcion);
+        echo "<script>window.location.href = '../HTML/cursoinscrito.php?titulo=" . urlencode($titulo) . "';</script>";
+
+        exit();
+    }
+
+    
+    public function NivelCompletado()
+    {
+      // Obtener los datos del formulario POST
+      $id_inscripcion = $_POST['id_inscripcion'] ?? null;
+      $titulo = $_POST['titulo_curso'] ?? null;
+
+      if ($id_inscripcion) 
+      {
+        $this->courseModel->Actualizarnivelterminado($id_inscripcion);
+        echo "<script> window.location.href = '../HTML/cursoinscrito.php?titulo=" . urlencode($titulo) . "';</script>";
+      } else 
+      {
+        echo "<script>alert('Faltan datos.'); window.location.href = '../HTML/cursoinscrito.php?titulo=" . urlencode($titulo) . "';</script>";
+      }
+
+    exit();
+   }
+
 
     public function CursoInfo()
     {
@@ -566,7 +520,8 @@ class CourseController
         $ID_Curso = $_POST['curso_seleccionado'] ?? null;
 
         // Verificar que se haya recibido un ID de curso válido
-        if ($ID_Curso) {
+        if ($ID_Curso) 
+        {
             // Obtener los datos de los estudiantes para el curso seleccionado
             $resultados = $this->courseModel->GetCursoAlumno($ID_Curso);
 
@@ -582,6 +537,34 @@ class CourseController
             header('Location: ../HTML/gestion_instructor.php');
             exit();
         }
+    }
+
+    public function Desactivar_curso() {
+        $ID_Curso = $_POST['curso_seleccionado'] ?? null;
+    
+        if ($ID_Curso) {
+            $this->courseModel->DeshabilitarCurso($ID_Curso);
+            $_SESSION['success'] = 'Curso desactivado con éxito.';
+        } else {
+            $_SESSION['error'] = 'No se seleccionó un curso para desactivar.';
+        }
+    
+        header('Location: ../HTML/gestion_instructor.php');
+        exit();
+    }
+    
+    public function Activar_Curso() {
+        $ID_Curso = $_POST['curso_seleccionado'] ?? null;
+    
+        if ($ID_Curso) {
+            $this->courseModel->HabilitarCurso($ID_Curso);
+            $_SESSION['success'] = 'Curso activado con éxito.';
+        } else {
+            $_SESSION['error'] = 'No se seleccionó un curso para activar.';
+        }
+    
+        header('Location: ../HTML/gestion_instructor.php');
+        exit();
     }
 
     public function AlumnosCursos()
@@ -622,6 +605,256 @@ class CourseController
         header('Location: ../HTML/gestion_usuario.php');
         exit();
     }
+
+    public function Cursofinalizado() 
+    {
+        $titulo_curso_finalizado = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        
+        if (empty($titulo_curso_finalizado)) {
+            return ['error' => 'Error: Título del curso no proporcionado.'];
+        }
+    
+        $course = $this->courseModel->ObtenerCursoPorTitulo($titulo_curso_finalizado);
+        
+        if (!$course) {
+            return ['error' => 'Error: Curso no encontrado.'];
+        }
+    
+        $imagen_curso = isset($course['imagen_curso']) ? 'data:image/png;base64,' . base64_encode($course['imagen_curso']) : '';
+    
+        return [
+            'id_curso' => $course['id_curso'],
+            'titulo_curso' => $course['titulo_curso'],
+            'imagen_curso' => $imagen_curso,
+            'id_instructor' => $course['id_instructor_creacion_curso'],
+        ];
+    }
+
+    public function ShowCursoInscripcion()
+    {
+        // Obtener el título del curso
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        $_SESSION['titulo_curso'] = $titulo; // Guardar el título en la sesión
+
+        $course = $this->courseModel->checkCourseExists($titulo);
+
+        $imagen_curso = isset($course['imagen_curso']) ? 'data:image/png;base64,' . base64_encode($course['imagen_curso']) : '';
+        $tipo_usuario = $_SESSION['usuario']['tipo_usuario'];
+
+        return [
+            'id_curso' => $course['id_curso'],
+            'titulo_curso' => $course['titulo_curso'],
+            'imagen_curso' => $imagen_curso,
+            'precio_curso' => $course['precio_curso'],
+            'niveles_curso' => $course['niveles_curso'],
+            'manejo_precio_curso' => $course['manejo_precio_curso'],
+            'descripcion_curso' => $course['descripcion_curso']
+        ];
+    }
+
+    public function obtenerPrecioCursosYNiveles() 
+    {
+        // Obtener el título del curso desde la URL
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        $_SESSION['titulo_curso'] = $titulo;
+    
+        // Verificar si el curso existe
+        $course = $this->courseModel->checkCourseExists($titulo);
+    
+        if (!$course) {
+            throw new Exception('El curso no existe.');
+        }
+    
+        $id_curso = $course['id_curso'];
+        $niveles = $this->courseModel->obtenerNivelesPorCurso($id_curso);
+    
+        return is_array($niveles) ? $niveles : [];
+    }
+
+
+    public function Cursoinstructor() 
+    {
+        $titulo_curso_finalizado = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+        
+        if (empty($titulo_curso_finalizado)) {
+            return ['error' => 'Error: Título del curso no proporcionado.'];
+        }
+    
+        $course = $this->courseModel->ObtenerCursoPorTitulo($titulo_curso_finalizado);
+        
+        if (!$course) {
+            return ['error' => 'Error: Curso no encontrado.'];
+        }
+
+        $id_instructo = $course['id_instructor_creacion_curso'] ?? null;
+    
+        $Instructor = $this->courseModel->ObtenerinfoInstructor($id_instructo);
+
+        return [
+            'id_usuario' => $Instructor['id_usuario'],
+            'nombre_usuario' => $Instructor['nombre_usuario']
+        ];
+    }
+
+
+    public function Insertarcomentario()   
+    {
+        // Obtener los datos del formulario POST    
+        $id_estudiante = $_SESSION['usuario']['id_usuario'] ?? null;
+        $estrellas = $_POST['star'] ?? null;
+        $Comentarios = $_POST['Comentario'] ?? null;
+    
+        // Obtener el título del curso desde el parámetro POST
+        $titulo_curso_finalizado = isset($_POST['titulo']) ? trim($_POST['titulo']) : '';
+    
+        if (empty($titulo_curso_finalizado)) {
+            echo 'Error: Título no encontrado o datos inválidos.';
+            exit;
+        }
+    
+        // Obtener el curso por el título
+        $course = $this->courseModel->ObtenerCursoPorTitulo($titulo_curso_finalizado);
+    
+        if (!$course) {
+            echo 'Error: Curso no encontrado.';
+            exit;
+        }
+    
+        // Obtener el ID del curso
+        $id_curso = $course['id_curso'];
+    
+        // Insertar el comentario en la base de datos a través del modelo
+        $resultado = $this->courseModel->ModeloInsertarComentario(
+            $Comentarios,
+            $id_curso,
+            $id_estudiante,
+            $estrellas
+        );
+    
+        if ($resultado) {
+            echo "<script>alert('Comentario registrado correctamente.'); window.location.href = '../HTML/curso_finalizado.php?titulo=" . urlencode($titulo_curso_finalizado) . "';</script>";
+
+        } else {
+            echo "<script>alert('Comentario registrado correctamente.'); window.location.href = '../HTML/curso_finalizado.php?titulo=" . urlencode($titulo_curso_finalizado) . "';</script>";
+        }
+    }
+
+    public function Insertardiploma()   
+    {
+        // Obtener los datos del formulario POST    
+        $id_estudiante = $_SESSION['usuario']['id_usuario'] ?? null;
+        $id_instructor = $_POST['id_instructor'] ?? null;
+        $id_curso = $_POST['id_curso'] ?? null;
+        $titulo = $_POST['titulo'] ?? null;
+    
+        // Insertar el comentario en la base de datos a través del modelo
+        $resultado = $this->courseModel->insertar_diploma(
+            $id_curso,
+            $id_estudiante,
+            $id_instructor
+        );
+    
+        if ($resultado) 
+        {
+            echo "<script>alert('diploma listo.'); window.location.href = '../HTML/curso_finalizado.php?titulo=" . urlencode($titulo) . "';</script>";
+
+        } else 
+        {
+            echo "<script>alert('diploma listo.'); window.location.href = '../HTML/curso_finalizado.php?titulo=" . urlencode($titulo) . "';</script>";
+        }
+    }
+
+    public function MostrarCurso()
+    {
+        // Obtener el título del curso desde los parámetros
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
+
+        // Obtener el curso desde el modelo
+        $course = $this->courseModel->checkCourseExists($titulo);
+
+        // Validar que se encontró el curso
+        if (!$course || !is_array($course)) {
+            return [
+                'error' => 'No se encontró información para el curso seleccionado.',
+            ];
+        }
+
+        // Validar si la imagen del curso está disponible
+        $imagen_curso = isset($course['imagen_curso']) ? base64_encode($course['imagen_curso']) : null;
+
+        // Obtener datos del usuario
+        $tipo_usuario = isset($_SESSION['usuario']['tipo_usuario']) ? $_SESSION['usuario']['tipo_usuario'] : null;
+
+        return [
+            'titulo_curso' => $course['titulo_curso'] ?? 'Sin título',
+            'imagen_curso' => $imagen_curso,
+            'niveles_curso' => $course['niveles_curso'] ?? 'No especificado',
+            'manejo_precio_curso' => $course['manejo_precio_curso'] ?? 0,
+            'precio_curso' => $course['precio_curso'] ?? 0,
+            'descripcion_curso' => $course['descripcion_curso'] ?? 'Sin descripción',
+            'tipo_usuario' => $tipo_usuario,
+        ];
+    }
+    
+    public function Mostrar_comentarios() 
+    {
+        $id_estudiante = $_SESSION['usuario']['id_usuario'] ?? null;
+        $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : null;
+    
+        if (!$titulo) {
+            echo 'Error: Título no proporcionado o inválido.';
+            return [];
+        }
+    
+        $course = $this->courseModel->ObtenerCursoPorTitulo($titulo);
+        if (!$course) {
+            echo 'Error: Curso no encontrado.';
+            return [];
+        }
+    
+        $id_curso = $course['id_curso'] ?? null;
+        if (!$id_curso) {
+            echo 'Error: ID del curso no encontrado.';
+            return [];
+        }
+    
+        // Obtener todos los comentarios relacionados con el curso
+        $comentarios = $this->courseModel->Obtenerinfocomentarios($id_curso);
+    
+        // Devuelve un array de comentarios o vacío
+        return is_array($comentarios) ? $comentarios : [];
+    }
+
+    public function Borrar_comentario()
+    {
+        $id_administrador = $_SESSION['usuario']['id_usuario'] ?? null;
+        $razon_borrar = $_POST['razon-borrar'] ?? null;
+        $id_comentario = $_POST['comentario_id'] ?? null;
+
+        if (!$id_comentario) 
+        {
+            echo "<script>alert('Falta el id_comentario.');</script>";
+            return;
+        }
+
+        if (!$razon_borrar) 
+        {
+            echo "<script>alert('Falta la razon.');</script>";
+            return;
+        }
+
+        if (!$id_administrador) 
+        {
+            echo "<script>alert('Falta el id administrador.');</script>";
+            return;
+        }
+    
+        // Llama al método en el modelo
+        $this->courseModel->eliminarComentario($id_comentario, $razon_borrar, $id_administrador);
+
+        echo "<script>alert('Se elimino el comentario.'); window.location.href = '../HTML/index.php';</script>";
+        return;
+    }
 }
 
 // Uso en index.php:
@@ -634,13 +867,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->registerCourse();
             $controller->registerLevel();
             break;
-
         case 'Traer_informacion_pago':
             $controller->obtenerFormasdepago();
-
         case 'registro_inscripcion':
             $controller->registrarInscripcion();
-            //$controller->registerInscripcion_niveles();
+            $controller->registerInscripcion_niveles();
             break;
         case 'Curso_Info':
             $controller->CursoInfo();
@@ -648,9 +879,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'Curso_Alumno':
             $controller->CursoAlumno();
             break;
-
+        case 'Desactivarcurso':
+            $controller->Desactivar_curso();
+            break;
+        case 'ActivarCurso':
+            $controller->Activar_Curso();
+            break;
         case 'Alumnos_Cursos':
             $controller->AlumnosCursos();
+            break;
+        case 'Insertar_comentario':
+            $controller->Insertarcomentario();
+            break;            
+        case 'Curso_finalizado':
+            $controller->Cursofinalizado();
+            break;
+        case 'BorrarComentario':
+            $controller->Borrar_comentario();
+            break;
+        case 'Insertar_diploma':
+            $controller->Insertardiploma();
+            break;
+        case 'actualizarprogreso':
+            $controller->actualizar_progreso();
+            break;
+        case 'Nivel_completado':
+            $controller->NivelCompletado();
+            break;
+        case 'ActualizarUltimoIngreso':
+            $controller->Actualizar_UltimoIngreso();
             break;
     }
 }

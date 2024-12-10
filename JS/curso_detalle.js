@@ -1,54 +1,35 @@
-// Variables para el comentario que se quiere borrar y el modal
-let comentarioSeleccionado = null;
-const modal = document.getElementById('modal-borrar');
-const razonBorrarInput = document.getElementById('razon-borrar');
+// Referencias a elementos clave del DOM
+const modal = document.getElementById('modal-borrar'); // Modal de confirmación
+const razonBorrarInput = document.getElementById('razon-borrar'); // Campo de texto para la razón
+const modalComentarioId = document.getElementById('comentario-id'); // Campo oculto para el ID del comentario
+const cancelarBorrarBtn = document.getElementById('cancelar-borrar'); // Botón de cancelar
 
-// Mostrar el modal cuando se presiona el botón de borrar
+// Mostrar el modal al hacer clic en un botón de borrar
 document.querySelectorAll('.btn-borrar').forEach(button => {
   button.addEventListener('click', function () {
-    comentarioSeleccionado = this.closest('.comentario-item'); // Guarda el comentario a eliminar
-    modal.style.display = 'flex'; // Mostrar el modal
-  });
-});
-
-// Cerrar el modal al presionar el botón de cancelar
-document.getElementById('cancelar-borrar').addEventListener('click', function () {
-  modal.style.display = 'none';
-  razonBorrarInput.value = ''; // Limpiar el campo de texto
-});
-
-// Confirmar el borrado con la razón
-document.getElementById('confirmar-borrar').addEventListener('click', function () {
-  const razon = razonBorrarInput.value.trim();
-  if (razon !== '') {
-    console.log('Razón de borrado:', razon); // Puedes hacer algo con la razón (e.g., enviarla a un servidor)
-    comentarioSeleccionado.remove(); // Elimina el comentario
-    modal.style.display = 'none'; // Cierra el modal
-    razonBorrarInput.value = ''; // Limpiar el campo de texto
-  } else {
-    alert('Por favor, escribe una razón para borrar el comentario.');
-  }
-});
-
-// Seleccionar todos los botones de eliminar con la clase .btn-eliminar
-const botonesEliminar = document.querySelectorAll('.btn-eliminar');
-
-// Añadir un evento de clic a cada botón
-botonesEliminar.forEach(boton => {
-  boton.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevenir la acción por defecto del enlace
-
-    // Mostrar el mensaje de confirmación
-    const confirmacion = confirm("¿Estás seguro de que deseas eliminar este Curso?");
-
-    if (confirmacion) {
-      // Si el usuario confirma, puedes proceder con la eliminación
-      var nombre_curso = document.getElementById('titulo-curso').innerText;
-      var href = '../PHP/delete_course.php?titulo=' + nombre_curso;
-      window.location.href = href;
+    const comentarioId = this.getAttribute('data-id'); // Obtener el ID del comentario desde el atributo data-id
+    if (comentarioId) {
+      modalComentarioId.value = comentarioId; // Asignar el ID al campo oculto
+      console.log('ID del comentario asignado:', comentarioId); // Confirmar en la consola
+      modal.style.display = 'flex'; // Mostrar el modal
     } else {
-      // Si el usuario cancela, no hacer nada
-      alert("El Curso NO ha sido eliminado.");
+      console.error('No se pudo obtener el ID del comentario.');
     }
   });
 });
+
+// Cerrar el modal al hacer clic en el botón de cancelar
+cancelarBorrarBtn.addEventListener('click', function () {
+  modal.style.display = 'none'; // Ocultar el modal
+  razonBorrarInput.value = ''; // Limpiar el campo de texto
+  modalComentarioId.value = ''; // Limpiar el ID del comentario
+});
+
+// Para depuración, confirma que los datos se envían correctamente al servidor
+const formulario = document.querySelector('form');
+formulario.addEventListener('submit', function (e) {
+  console.log('Datos enviados al servidor:', new FormData(this));
+  // Elimina la línea de preventDefault() en producción
+  // e.preventDefault();
+});
+
