@@ -383,7 +383,7 @@ END $$
 
 DELIMITER ;
 
-CALL GetCursoInfo('2024-11-23', NULL, 'Programación', 0, 13);
+-- CALL GetCursoInfo('2024-11-23', NULL, 'Programación', 0, 13);
 
 -- Informacion del reporte de administradores
 
