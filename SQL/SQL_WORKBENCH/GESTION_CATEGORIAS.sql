@@ -93,4 +93,57 @@ BEGIN
 END //
 DELIMITER ;
 
--- CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);
+--CALL PROCEditarCategoria('Artee','Arte','En esta categd', null);
+
+DELIMITER //
+
+CREATE PROCEDURE EliminarCategoriaConCursos (
+    IN nombre_categoria VARCHAR(255)
+)
+BEGIN
+    DECLARE cat_id INT;
+
+    -- Obtener el ID de la categoría basada en el nombre
+    SELECT id_categoria INTO cat_id
+    FROM tabla_categorias
+    WHERE nombre_categoria = nombre_categoria;
+
+    -- Verificar si la categoría existe
+    IF cat_id IS NOT NULL THEN
+        -- Eliminar diplomas asociados a inscripciones en cursos de la categoría
+        DELETE d FROM tabla_diplomas d
+        JOIN tabla_inscripciones i ON d.id_curso_diploma = i.id_curso_inscripcion
+        JOIN tabla_cursos c ON i.id_curso_inscripcion = c.id_curso
+        WHERE c.id_categoria_curso = cat_id;
+
+        -- Eliminar comentarios asociados a los cursos de la categoría
+        DELETE com FROM tabla_comentarios com
+        JOIN tabla_cursos c ON com.id_curso_comentario = c.id_curso
+        WHERE c.id_categoria_curso = cat_id;
+
+        -- Eliminar niveles asociados a inscripciones de los cursos de la categoría
+        DELETE ni FROM tabla_niveles_inscripcion ni
+        JOIN tabla_inscripciones i ON ni.id_inscripcion = i.id_inscripcion
+        JOIN tabla_cursos c ON i.id_curso_inscripcion = c.id_curso
+        WHERE c.id_categoria_curso = cat_id;
+
+        -- Eliminar inscripciones asociadas a los cursos de la categoría
+        DELETE i FROM tabla_inscripciones i
+        JOIN tabla_cursos c ON i.id_curso_inscripcion = c.id_curso
+        WHERE c.id_categoria_curso = cat_id;
+
+        -- Eliminar niveles asociados a los cursos de la categoría
+        DELETE n FROM tabla_niveles n
+        WHERE n.id_curso_nivel IN (SELECT id_curso FROM tabla_cursos WHERE id_categoria_curso = cat_id);
+
+        -- Eliminar cursos de la categoría
+        DELETE FROM tabla_cursos
+        WHERE id_categoria_curso = cat_id;
+
+        -- Eliminar la categoría
+        DELETE FROM tabla_categorias
+        WHERE id_categoria = cat_id;
+    END IF;
+END //
+
+DELIMITER ;
