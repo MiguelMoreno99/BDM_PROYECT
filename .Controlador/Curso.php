@@ -95,11 +95,21 @@ class CourseController
             $titulo_nivel = $_POST["nivel-titulo-$nivel"] ?? '';
             $informacion_nivel = $_POST["contenido-nivel-$nivel"] ?? '';
             $documento_nivel = $_POST["linkpdf-nivel-$nivel"] ?? '';
+            $idDrive = $this->courseModel->extraerIdDeGoogleDrive($documento_nivel);
+            if($idDrive == null){
+                echo "<script>alert('Ingrese un link de Google Drive Valido!.');</script>";
+                exit();
+            }
             $imagen_nivel = isset($_FILES["imagen-nivel-$nivel"]) && $_FILES["imagen-nivel-$nivel"]['error'] == 0
                 ? file_get_contents($_FILES["imagen-nivel-$nivel"]['tmp_name'])
                 : null;
             $referencias_nivel = $_POST["linkpagina-nivel-$nivel"] ?? '';
             $link_video_nivel = $_POST["linkyoutube-nivel-$nivel"] ?? '';
+            $idYT = $this->courseModel->extraerIdDeYouTube($link_video_nivel);
+            if($idDrive == null){
+                echo "<script>alert('Ingrese un link de YouTube Valido!.');</script>";
+                exit();
+            }
             if ($manejo_precio_curso === '0' || $manejo_precio_curso === '1') {
                 $costo_nivel = 0;
             }

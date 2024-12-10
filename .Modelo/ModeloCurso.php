@@ -23,6 +23,30 @@ class Modelo_Curso
         $stmt->closeCursor();
     }
 
+    public function extraerIdDeGoogleDrive($url) {
+        // Expresión regular para buscar el ID
+        $patron = '/\/folders\/([a-zA-Z0-9_-]+)/';
+        
+        // Buscar coincidencias
+        if (preg_match($patron, $url, $coincidencias)) {
+            return $coincidencias[1]; // El ID está en el primer grupo de captura
+        }
+        
+        return null; // Retorna null si no se encuentra un ID válido
+    }
+
+    function extraerIdDeYouTube($url) {
+        // Expresión regular para buscar el ID en el formato corto de YouTube
+        $patron = '/youtu\.be\/([a-zA-Z0-9_-]+)/';
+        
+        // Buscar coincidencias
+        if (preg_match($patron, $url, $coincidencias)) {
+            return $coincidencias[1]; // El ID está en el primer grupo de captura
+        }
+        
+        return null; // Retorna null si no se encuentra un ID válido
+    }
+
     public function checkCourseExists($name_course)
     {
         $stmt = $this->db->callProcedure('PROCValidarCurso2', [$name_course]);
