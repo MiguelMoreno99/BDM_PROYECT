@@ -1,222 +1,222 @@
 /* Estilos del formulario de creación de curso */
 .crear-curso-form {
-    width: 90%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    background-color: #fff;
-    transition: border 0.3s ease;
-  }
-  
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border: 1px solid #723c8a;
-    outline: none;
-  }
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-  .seccion-curso {
-    width: 80%;
-    min-height: 800px;
-    margin: 2rem auto;
-    text-align: center;
-    background: #7e5ca0db;
-    border-radius: 10px;
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #fff;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border: 1px solid #723c8a;
+  outline: none;
+}
+
+.seccion-curso {
+  width: 80%;
+  min-height: 800px;
+  margin: 2rem auto;
+  text-align: center;
+  background: #7e5ca0db;
+  border-radius: 10px;
 }
 
 .seccion-curso h1 {
-    margin: 10px;
+  margin: 10px;
 }
-  
-  /* Estilo mejorado para los títulos de los niveles */
-  .seccion-titulo h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #723c8a;
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .seccion-titulo input {
-    width: 60%;
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    transition: border 0.3s ease;
-  }
-  
-  .seccion-titulo input:focus {
-    border: 1px solid #723c8a;
-  }
-  
-  /* Estilos mejorados para el contenido del nivel */
-  .clase p {
-    font-size: 18px;
-    font-weight: bold;
-    color: #4a4a4a;
-    margin-bottom: 10px;
-  }
-  
-  .clase textarea {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    resize: vertical;
-    transition: border 0.3s ease;
-  }
-  
-  .clase textarea:focus {
-    border: 1px solid #723c8a;
-  }
-  
-  /* Estilos mejorados para los inputs de adjuntos */
-  .adjuntos label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #4a4a4a;
-    margin-bottom: 5px;
-    display: block;
-  }
-  
-  .adjuntos input {
-    display: block;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    transition: border 0.3s ease;
-  }
-  
-  .adjuntos input:focus {
-    border: 1px solid #723c8a;
-  }
-  
-  /* Estilos para los botones */
-  button {
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Botón para agregar nivel */
-  .btn-agregar-seccion {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .btn-agregar-seccion:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Botón para eliminar nivel */
-  .btn-borrar {
-    background-color: transparent;
-    border: none;
-    color: #ff4d4d;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .btn-borrar:hover {
-    color: #d11a2a;
-  }
-  
-  /* Estilos mejorados para el botón de crear curso */
-  .btn-crear-curso {
-    background-color: #723c8a;
-    color: white;
-    padding: 15px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .btn-crear-curso:hover {
-    background-color: #583069;
-    transform: scale(1.05);
-  }
-  
-  .btn-crear-curso:active {
-    background-color: #3f2153;
-    transform: scale(1);
-  }
-  
-  /* Estilos generales del contenedor de la sección */
-  .seccion {
-    background-color: #f0f0f0;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  .seccion-titulo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .clase {
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-  }
-  
-  .clase textarea {
-    margin-top: 10px;
-    width: 100%;
-    border-radius: 8px;
-  }
-  
-  .acciones {
-    margin-top: 20px;
-  }
-  
-  button:hover {
-    background-color: #4CAF50;
-  }
 
-  .CoursePreview{
-    width: 250px;
-    height: 250px;
-  }
+/* Estilo mejorado para los títulos de los niveles */
+.seccion-titulo h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #723c8a;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.seccion-titulo input {
+  width: 60%;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease;
+}
+
+.seccion-titulo input:focus {
+  border: 1px solid #723c8a;
+}
+
+/* Estilos mejorados para el contenido del nivel */
+.clase p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin-bottom: 10px;
+}
+
+.clase textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  resize: vertical;
+  transition: border 0.3s ease;
+}
+
+.clase textarea:focus {
+  border: 1px solid #723c8a;
+}
+
+/* Estilos mejorados para los inputs de adjuntos */
+.adjuntos label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.adjuntos input {
+  display: block;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease;
+}
+
+.adjuntos input:focus {
+  border: 1px solid #723c8a;
+}
+
+/* Estilos para los botones */
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón para agregar nivel */
+.btn-agregar-seccion {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-agregar-seccion:hover {
+  background-color: #0056b3;
+}
+
+/* Botón para eliminar nivel */
+.btn-borrar {
+  background-color: transparent;
+  border: none;
+  color: #ff4d4d;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.btn-borrar:hover {
+  color: #d11a2a;
+}
+
+/* Estilos mejorados para el botón de crear curso */
+.btn-crear-curso {
+  background-color: #723c8a;
+  color: white;
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-crear-curso:hover {
+  background-color: #583069;
+  transform: scale(1.05);
+}
+
+.btn-crear-curso:active {
+  background-color: #3f2153;
+  transform: scale(1);
+}
+
+/* Estilos generales del contenedor de la sección */
+.seccion {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.seccion-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.clase {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.clase textarea {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.acciones {
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #4CAF50;
+}
+
+.CoursePreview {
+  width: 250px;
+  height: 250px;
+}

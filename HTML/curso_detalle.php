@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once '../.Controlador/Curso.php';
 
 $controller = new CourseController($config);
@@ -23,21 +23,21 @@ $comentarios = $controller->Mostrar_comentarios();
 
 <body>
 
-  <!-- Modal para Confirmación de Borrado -->
-  <form action="../.Controlador/Curso.php" method="POST">
-   <input type="hidden" name="accion" value="BorrarComentario">
-   <div id="modal-borrar" class="modal" style="display: none;">
-    <div class="modal-contenido">
-        <h3>¿Por qué quieres borrar este comentario?</h3>
-        <textarea id="razon-borrar" name="razon-borrar" placeholder="Escribe la razón aquí..."></textarea>
-        <input type="hidden" name="comentario_id" id="comentario-id" value="">
-        <div class="modal-buttons">
-            <button type="submit" id="confirmar-borrar" class="btn-borrar">Borrar</button>
-            <button type="button" id="cancelar-borrar" class="btn-cancelar">Cancelar</button>
+    <!-- Modal para Confirmación de Borrado -->
+    <form action="../.Controlador/Curso.php" method="POST">
+        <input type="hidden" name="accion" value="BorrarComentario">
+        <div id="modal-borrar" class="modal" style="display: none;">
+            <div class="modal-contenido">
+                <h3>¿Por qué quieres borrar este comentario?</h3>
+                <textarea id="razon-borrar" name="razon-borrar" placeholder="Escribe la razón aquí..."></textarea>
+                <input type="hidden" name="comentario_id" id="comentario-id" value="">
+                <div class="modal-buttons">
+                    <button type="submit" id="confirmar-borrar" class="btn-borrar">Borrar</button>
+                    <button type="button" id="cancelar-borrar" class="btn-cancelar">Cancelar</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-</form>
+    </form>
 
     <!-- Header -->
     <div id="header-container"></div>
@@ -73,33 +73,33 @@ $comentarios = $controller->Mostrar_comentarios();
             <?php endif; ?>
         </div>
 
-<!-- Sección de Calificaciones y Comentarios -->
-<section class="comentarios">
-    <h3>Reseñas y Calificaciones</h3>
+        <!-- Sección de Calificaciones y Comentarios -->
+        <section class="comentarios">
+            <h3>Reseñas y Calificaciones</h3>
 
-    <?php if (!empty($comentarios)): ?>
-        <?php foreach ($comentarios as $comentario): ?>
-            <div class="comentario-item" id="comentario-<?php echo $comentario['id_comentario']; ?>">
-                <p><strong><?php echo htmlspecialchars($comentario['nombre_usuario'] ?? 'Usuario desconocido'); ?></strong></p>
+            <?php if (!empty($comentarios)): ?>
+                <?php foreach ($comentarios as $comentario): ?>
+                    <div class="comentario-item" id="comentario-<?php echo $comentario['id_comentario']; ?>">
+                        <p><strong><?php echo htmlspecialchars($comentario['nombre_usuario'] ?? 'Usuario desconocido'); ?></strong></p>
 
-                <?php if ($comentario['comentario_eliminado'] == 1): ?>
-                    <p><em>Comentario eliminado</em></p>
-                    <p><strong>Causa:</strong> <?php echo htmlspecialchars($comentario['causa_eliminacion_comentario'] ?? 'No especificada'); ?></p>
-                <?php else: ?>
-                    <p><?php echo htmlspecialchars($comentario['descripcion_comentario'] ?? 'Sin comentario'); ?></p>
-                    <p>Calificación: <?php echo htmlspecialchars($comentario['calificacion_curso'] ?? 0); ?> ⭐</p>
-                <?php endif; ?>
+                        <?php if ($comentario['comentario_eliminado'] == 1): ?>
+                            <p><em>Comentario eliminado</em></p>
+                            <p><strong>Causa:</strong> <?php echo htmlspecialchars($comentario['causa_eliminacion_comentario'] ?? 'No especificada'); ?></p>
+                        <?php else: ?>
+                            <p><?php echo htmlspecialchars($comentario['descripcion_comentario'] ?? 'Sin comentario'); ?></p>
+                            <p>Calificación: <?php echo htmlspecialchars($comentario['calificacion_curso'] ?? 0); ?> ⭐</p>
+                        <?php endif; ?>
 
-                <?php if (isset($curso_finalizado['tipo_usuario']) && $curso_finalizado['tipo_usuario'] == 3 && $comentario['comentario_eliminado'] == 0): ?>
-                    <!-- Mostrar botón solo para usuarios tipo 3 -->
-                    <button class="btn-borrar" data-id="<?php echo $comentario['id_comentario']; ?>">Borrar</button>
-                <?php endif; ?>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No hay comentarios para este curso aún.</p>
-    <?php endif; ?>
-</section>
+                        <?php if (isset($curso_finalizado['tipo_usuario']) && $curso_finalizado['tipo_usuario'] == 3 && $comentario['comentario_eliminado'] == 0): ?>
+                            <!-- Mostrar botón solo para usuarios tipo 3 -->
+                            <button class="btn-borrar" data-id="<?php echo $comentario['id_comentario']; ?>">Borrar</button>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No hay comentarios para este curso aún.</p>
+            <?php endif; ?>
+        </section>
 
     </main>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,17 +11,19 @@
     <link rel="stylesheet" href="../CSS/registro.css">
 
     <script src="../JS/templates.js"></script>
-    <script src="../JS/registro_usuario.js"></script> 
+    <script src="../JS/registro_usuario.js"></script>
 </head>
+
 <body>
     <!-- Header -->
     <div id="header-container"></div>
 
     <!-- Contenedor central -->
-    <main class="registro-contenedor"> 
+    <main class="registro-contenedor">
         <div class="registro-caja">
             <h2>Registro de Usuario</h2>
-            <form id="registroForm" action="../.Controlador/Usuario.php" method="POST" enctype="multipart/form-data" onsubmit="return Llenardatos_creacion(event);">
+            <form id="registroForm" action="../.Controlador/Usuario.php" method="POST" enctype="multipart/form-data"
+                onsubmit="return Llenardatos_creacion(event);">
                 <!-- Campo oculto para indicar que es un registro -->
                 <input type="hidden" name="accion" value="registro">
 
@@ -57,7 +60,8 @@
                     <input type="date" id="fecha" name="nacimiento_usuario">
                 </div>
                 <div class="form-grupo">
-                    <img class="profilePreview" id="profilePreview" src="../assets/images/perfil.webp" alt="Foto de perfil">
+                    <img class="profilePreview" id="profilePreview" src="../assets/images/perfil.webp"
+                        alt="Foto de perfil">
                     <input type="file" id="Foto" name="imagen_usuario" accept="image/*" onchange="loadFile(event)">
                 </div>
                 <div class="form-grupo">
@@ -87,4 +91,5 @@
     </script>
 
 </body>
+
 </html>

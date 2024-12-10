@@ -1,4 +1,4 @@
-#titulo{
+#titulo {
     color: white;
     background-color: rgba(82, 180, 245, 0.742);
     border-radius: 8px;
@@ -10,7 +10,7 @@
 }
 
 /*Seccion de curso*/
-.seccion-curso{
+.seccion-curso {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +22,7 @@
     width: 80%;
 }
 
-.seccion-curso img{
+.seccion-curso img {
     width: 120px;
     height: 120px;
     object-fit: cover;
@@ -30,32 +30,36 @@
     margin-bottom: 20px;
 }
 
-.titulo-curso{
+.titulo-curso {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.progreso-curso{
+.progreso-curso {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.progreso-curso progress{
-    width: 200px; /* Ancho deseado */
-    height: 20px; /* Altura deseada */
-    border: 2px solid #ffffff00; /* Borde */
-    border-radius: 10px; /* Bordes redondeados */
+.progreso-curso progress {
+    width: 200px;
+    /* Ancho deseado */
+    height: 20px;
+    /* Altura deseada */
+    border: 2px solid #ffffff00;
+    /* Borde */
+    border-radius: 10px;
+    /* Bordes redondeados */
 }
 
 .progreso-curso progress::-webkit-progress-value {
     background-color: rgb(107, 248, 26);
 }
 
-.boton-div{
+.boton-div {
     text-align: center;
 }
 
-.boton-div a{
+.boton-div a {
     display: inline-block;
     background-color: #7f00b6;
     color: rgba(255, 255, 255, 0.748);
@@ -66,7 +70,7 @@
     transition: background-color 0.3s ease;
 }
 
-.boton-div a:hover{
+.boton-div a:hover {
     background-color: #3f00b3;
 }
 
@@ -84,7 +88,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.boton:hover{
+.boton:hover {
     background-color: #3f00b3;
     transform: scale(1.05);
 }

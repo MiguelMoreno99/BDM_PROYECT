@@ -1,20 +1,21 @@
-.main-div{
+.main-div {
     background-color: rgba(255, 255, 255, 0.742);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-top: 5%;;
+    margin-top: 5%;
+    ;
     margin-inline: 15%;
     gap: 20px;
     justify-content: center;
 }
 
-.mensaje{
+.mensaje {
     text-align: center;
 }
 
 /*Curso*/
-.contenido-curso{
+.contenido-curso {
     display: flex;
     flex-wrap: wrap;
     background-color: rgba(255, 255, 255, 0.742);
@@ -25,7 +26,7 @@
     gap: 20px;
 }
 
-.contenido-curso img{
+.contenido-curso img {
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -33,14 +34,14 @@
     flex-shrink: 0;
 }
 
-.contenido-curso h1{
+.contenido-curso h1 {
     margin-top: 7%;
     max-width: 600px;
     text-align: center;
 }
 
 /*Diploma*/
-.diploma-div{
+.diploma-div {
     background-color: rgba(255, 255, 255, 0.742);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -50,7 +51,7 @@
     text-align: center;
 }
 
-.diploma-div img{
+.diploma-div img {
     width: 70%;
     object-fit: cover;
     border-radius: 8px;
@@ -58,7 +59,7 @@
 }
 
 /*Calificacion y comentarios del curso*/
-.Calificacion-div{
+.Calificacion-div {
     background-color: rgba(255, 255, 255, 0.742);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -113,11 +114,11 @@ textarea {
     cursor: pointer;
 }
 
-.stars input[type="radio"]:checked ~ label {
+.stars input[type="radio"]:checked~label {
     color: #f5b301;
 }
 
 .stars label:hover,
-.stars label:hover ~ label {
+.stars label:hover~label {
     color: #f5b301;
 }

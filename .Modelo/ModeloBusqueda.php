@@ -28,5 +28,4 @@ class Modelo_Busqueda
 
         return $result;
     }
-
 }

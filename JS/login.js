@@ -4,10 +4,10 @@ function llenardatos_inicio() {
 
     if (correo === "") {
         alert("Introduce el correo");
-        return false; 
+        return false;
     } else if (contrasenia === "") {
         alert("Introduce la contraseña");
-        return false; 
+        return false;
     } else {
         // Permite que el formulario se envíe normalmente
         return true;

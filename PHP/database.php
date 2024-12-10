@@ -36,5 +36,3 @@ class Database
         return $stmt;
     }
 }
-
-?>            

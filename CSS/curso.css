@@ -1,17 +1,17 @@
-.main-curso{
-margin-block: 2%;
-margin-inline: 20%;
-padding-inline: 5%;
-padding-block: 1%;
+.main-curso {
+    margin-block: 2%;
+    margin-inline: 20%;
+    padding-inline: 5%;
+    padding-block: 1%;
 }
 
-.titulo-curso{
+.titulo-curso {
     text-align: center;
     background-color: rgb(143, 160, 255);
     border-radius: 8px;
 }
 
-.Boton_diploma{
+.Boton_diploma {
     margin-block: 2%;
     padding: 1%;
     background-color: rgb(230, 243, 255);
@@ -19,7 +19,7 @@ padding-block: 1%;
     text-align: center;
 }
 
-.Div-Progreso{
+.Div-Progreso {
     margin-block: 2%;
     padding: 1%;
     background-color: rgb(122, 122, 122);
@@ -27,7 +27,7 @@ padding-block: 1%;
     text-align: center;
 }
 
-.curso{
+.curso {
     margin-block: 2%;
     padding: 2%;
     background-color: rgb(230, 243, 255);
@@ -35,7 +35,7 @@ padding-block: 1%;
     text-align: center;
 }
 
-.nivel-curso{
+.nivel-curso {
     margin-block: 2%;
     padding: 2%;
     background-color: rgb(230, 243, 255);
@@ -43,27 +43,32 @@ padding-block: 1%;
     text-align: center;
 }
 
-.video-curso{
+.video-curso {
     background-color: rgba(177, 177, 177, 0.692);
     padding: 1%;
     border-radius: 8px;
 }
 
 .imagen-curso {
-    max-width: 30%; /* Ajusta el ancho máximo al 50% del contenedor */
-    height: auto;   /* Mantiene la proporción de la imagen */
-    border-radius: 8px; /* Opcional: da bordes redondeados */
-    display: block; /* Centra la imagen si se combina con margin */
-    margin: 0 auto; /* Centra la imagen horizontalmente */
+    max-width: 30%;
+    /* Ajusta el ancho máximo al 50% del contenedor */
+    height: auto;
+    /* Mantiene la proporción de la imagen */
+    border-radius: 8px;
+    /* Opcional: da bordes redondeados */
+    display: block;
+    /* Centra la imagen si se combina con margin */
+    margin: 0 auto;
+    /* Centra la imagen horizontalmente */
 }
 
-.recursos-curso{
+.recursos-curso {
     background-color: rgba(177, 177, 177, 0.692);
     padding: 1%;
     border-radius: 8px;
 }
 
-.btn_enviar{
+.btn_enviar {
     padding: 1rem;
     background-color: #7c6dfd;
     color: white;
@@ -72,11 +77,11 @@ padding-block: 1%;
     border-radius: 8px;
 }
 
-.btn_enviar:hover{
+.btn_enviar:hover {
     background-color: #3f00b3;
 }
 
-#pdf{
+#pdf {
     padding: 1rem;
     background-color: #233749;
     color: white;
@@ -85,7 +90,7 @@ padding-block: 1%;
     border-radius: 8px;
 }
 
-video{
+video {
     width: 100%;
     border-radius: 8px;
 }

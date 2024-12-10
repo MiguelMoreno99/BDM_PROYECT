@@ -280,7 +280,7 @@ class UserController
     {
         // Obtener los resultados usando el modelo
         $resultados = $this->userModel->getReporteInstructor();
-        
+
         // Almacenar resultados en la sesión
         $_SESSION['Reporte_Instructor'] = $resultados;
 
@@ -293,7 +293,7 @@ class UserController
     {
         // Obtener los resultados usando el modelo
         $resultados = $this->userModel->getReporteEstudiante();
-        
+
         // Almacenar resultados en la sesión
         $_SESSION['Reporte_Estudiante'] = $resultados;
 
@@ -301,7 +301,6 @@ class UserController
         header('Location: ../HTML/reportes.php');
         exit();
     }
-
 }
 
 // Uso en index.php:

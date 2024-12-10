@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once '../.Controlador/Curso.php';
 
 $controller = new CourseController($config);
@@ -9,6 +9,7 @@ $courses = $controller->miscursos();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +19,7 @@ $courses = $controller->miscursos();
     <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
     <link rel="stylesheet" href="../CSS/MisCursos.css">
 </head>
+
 <body>
     <div id="header-container"></div>
     <h1 id="titulo">MIS CURSOS</h1>
@@ -37,12 +39,12 @@ $courses = $controller->miscursos();
                 </div>
                 <br><br>
 
-            <form id="profileForm" method="POST" action="../.Controlador/Curso.php">
-            <input type="hidden" name="accion" value="ActualizarUltimoIngreso">
-                <input type="hidden" name="id_inscripcion" value="<?= htmlspecialchars($course['id_inscripcion']) ?>">
-                <input type="hidden" name="Titulo" value="<?= htmlspecialchars($course['titulo_curso']) ?>">
-                <button type="submit" id="entrar" class="boton">Entrar</button>
-            </form>
+                <form id="profileForm" method="POST" action="../.Controlador/Curso.php">
+                    <input type="hidden" name="accion" value="ActualizarUltimoIngreso">
+                    <input type="hidden" name="id_inscripcion" value="<?= htmlspecialchars($course['id_inscripcion']) ?>">
+                    <input type="hidden" name="Titulo" value="<?= htmlspecialchars($course['titulo_curso']) ?>">
+                    <button type="submit" id="entrar" class="boton">Entrar</button>
+                </form>
 
             </div>
         <?php endforeach; ?>
@@ -52,4 +54,5 @@ $courses = $controller->miscursos();
 
     <script src="../JS/templates.js"></script>
 </body>
+
 </html>

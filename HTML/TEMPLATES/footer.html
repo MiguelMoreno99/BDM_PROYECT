@@ -1,4 +1,3 @@
-
 <template id="header-template">
     <footer class="main-footer">
         <div class="footer-opciones">

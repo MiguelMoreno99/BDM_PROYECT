@@ -23,18 +23,18 @@ $usuario = $_SESSION['usuario'];
   <div id="header-container"></div>
 
 
-   <section class="seccion-admin">
+  <section class="seccion-admin">
 
-   <?php include '../.Vista/Editar_usuario.php'; ?>
+    <?php include '../.Vista/Editar_usuario.php'; ?>
 
-   </section>
+  </section>
 
-     <!-- Footer -->
+  <!-- Footer -->
   <div id="footer-container"></div>
 
-   <script src="../JS/templates.js"></script>
-   <script src="../JS/Gestion_admin.js"></script>
-   <script src="../JS/validacion_gestion_Usuarios.js"></script>
+  <script src="../JS/templates.js"></script>
+  <script src="../JS/Gestion_admin.js"></script>
+  <script src="../JS/validacion_gestion_Usuarios.js"></script>
 
 </body>
 

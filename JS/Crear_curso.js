@@ -1,6 +1,6 @@
 let nivelActual = 0;  // Empieza en 0, porque no hay ningún nivel al inicio
 
-document.getElementById('tipo-precio').addEventListener('change', function() {
+document.getElementById('tipo-precio').addEventListener('change', function () {
   const precioCompletoGroup = document.getElementById('precio-completo-group');
   const contenedorNiveles = document.getElementById('contenedor-niveles');
 

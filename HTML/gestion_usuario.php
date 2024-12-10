@@ -27,7 +27,7 @@ $usuario = $_SESSION['usuario'];
 
     <!-- Filtros de Reporte -->
     <form action="../.Controlador/Curso.php" method="post" class="filtros">
-    <input type="hidden" name="accion" value="Alumnos_Cursos">
+      <input type="hidden" name="accion" value="Alumnos_Cursos">
 
       <label for="fecha_inicio">Fecha inicio:</label>
       <input type="date" id="fecha_inicio" name="fecha_inicio">
@@ -75,10 +75,10 @@ $usuario = $_SESSION['usuario'];
           </tr>
         </thead>
         <tbody>
-    <?php
-    if (isset($_SESSION['Alumno_datos']) && !empty($_SESSION['Alumno_datos'])) {
-        foreach ($_SESSION['Alumno_datos'] as $curso) {
-            echo "
+          <?php
+          if (isset($_SESSION['Alumno_datos']) && !empty($_SESSION['Alumno_datos'])) {
+            foreach ($_SESSION['Alumno_datos'] as $curso) {
+              echo "
                 <tr>
                     <td>{$curso['nombre_categoria']}</td>
                     <td>{$curso['titulo_curso']}</td>
@@ -88,10 +88,10 @@ $usuario = $_SESSION['usuario'];
                     <td>{$curso['porcentaje_avance_curso']}%</td>
                     <td>" . ($curso['inscripcion_finalizada'] ? 'Finalizado' : 'En progreso') . "</td>
                 </tr>";
-        }
-    }
-    ?>
-</tbody>
+            }
+          }
+          ?>
+        </tbody>
       </table>
     </div>
 

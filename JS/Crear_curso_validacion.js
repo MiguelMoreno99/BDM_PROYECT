@@ -1,5 +1,5 @@
 // Función para validar y manejar el envío del formulario
-document.getElementById('crear-curso-form').addEventListener('submit', function(event) {
+document.getElementById('crear-curso-form').addEventListener('submit', function (event) {
   // Obtener los elementos del formulario
   const tituloCurso = document.getElementById('titulo-curso');
   const descripcionCurso = document.getElementById('descripcion-curso');
@@ -20,7 +20,7 @@ document.getElementById('crear-curso-form').addEventListener('submit', function(
     event.preventDefault();
     return;
   }
-  
+
   if (descripcionCurso.value.length > 100) {
     alert('La descripción no puede tener más de 100 caracteres.');
     descripcionCurso.focus();
@@ -44,10 +44,10 @@ document.getElementById('crear-curso-form').addEventListener('submit', function(
 });
 
 // Mostrar contador de caracteres en tiempo real
-document.getElementById('descripcion-curso').addEventListener('input', function() {
+document.getElementById('descripcion-curso').addEventListener('input', function () {
   const maxLength = 100;
   const currentLength = this.value.length;
   if (currentLength > maxLength) {
-      this.value = this.value.slice(0, maxLength);
+    this.value = this.value.slice(0, maxLength);
   }
 });

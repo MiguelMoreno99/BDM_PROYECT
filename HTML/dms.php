@@ -146,7 +146,9 @@ $usuario = $_SESSION['usuario'];
                 if (messageContent && currentUserId) {
                     fetch('../.Controlador/Usuario.php', {
                             method: 'POST',
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
                             body: `accion=insertarMensaje&id_usuario2=${currentUserId}&texto_mensaje=${encodeURIComponent(messageContent)}`,
                         })
                         .then(response => response.json())

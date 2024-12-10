@@ -37,21 +37,16 @@ class BusquedaController
         header('Location: ../HTML/busqueda.php');
         exit();
     }
-
-
 }
 
 // Uso en index.php:
 $config = require '../PHP/config.php';
 $controller = new BusquedaController($config);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-{
-    switch ($_POST['accion']) 
-    {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    switch ($_POST['accion']) {
         case 'Getbusqueda':
             $controller->GetBusqueda_avanzada();
             break;
-
     }
 }

@@ -6,6 +6,7 @@ $usuario = $_SESSION['usuario'];
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@ $usuario = $_SESSION['usuario'];
   <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
   <link rel="stylesheet" href="../CSS/gestion_instructor.css">
 </head>
+
 <body>
   <!-- Header -->
   <div id="header-container"></div>
@@ -140,16 +142,16 @@ $usuario = $_SESSION['usuario'];
       </form>
 
       <form id="accionCursoForm2" action="../.Controlador/Curso.php" method="post" class="filtros">
-  <input type="hidden" name="accion" value="Desactivarcurso">
-  <input type="hidden" name="curso_seleccionado" value="">
-  <button type="submit" class="btn-submit" onclick="enviarFormulario('accionCursoForm2')">Desactivar curso</button>
-</form>
+        <input type="hidden" name="accion" value="Desactivarcurso">
+        <input type="hidden" name="curso_seleccionado" value="">
+        <button type="submit" class="btn-submit" onclick="enviarFormulario('accionCursoForm2')">Desactivar curso</button>
+      </form>
 
-<form id="accionCursoForm3" action="../.Controlador/Curso.php" method="post" class="filtros">
-  <input type="hidden" name="accion" value="ActivarCurso">
-  <input type="hidden" name="curso_seleccionado" value="">
-  <button type="submit" class="btn-submit" onclick="enviarFormulario('accionCursoForm3')">Activar curso</button>
-</form>
+      <form id="accionCursoForm3" action="../.Controlador/Curso.php" method="post" class="filtros">
+        <input type="hidden" name="accion" value="ActivarCurso">
+        <input type="hidden" name="curso_seleccionado" value="">
+        <button type="submit" class="btn-submit" onclick="enviarFormulario('accionCursoForm3')">Activar curso</button>
+      </form>
 
 
     </div>
@@ -224,18 +226,18 @@ $usuario = $_SESSION['usuario'];
 
 
   <script>
-  function enviarFormulario(formularioId) {
-    const formulario = document.getElementById(formularioId);
-    const cursoSeleccionado = document.querySelector('input[name="curso_seleccionado"]:checked');
+    function enviarFormulario(formularioId) {
+      const formulario = document.getElementById(formularioId);
+      const cursoSeleccionado = document.querySelector('input[name="curso_seleccionado"]:checked');
 
-    if (cursoSeleccionado) {
-      formulario.querySelector('input[name="curso_seleccionado"]').value = cursoSeleccionado.value;
-      formulario.submit();
-    } else {
-      alert('Por favor, selecciona un curso.');
+      if (cursoSeleccionado) {
+        formulario.querySelector('input[name="curso_seleccionado"]').value = cursoSeleccionado.value;
+        formulario.submit();
+      } else {
+        alert('Por favor, selecciona un curso.');
+      }
     }
-  }
-</script>
+  </script>
 
 
 

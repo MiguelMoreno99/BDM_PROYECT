@@ -1,9 +1,12 @@
-h1 
-{
-    font-size: 36px; /* Tamaño de fuente más grande */
-    font-weight: bold; /* Negrita para resaltar el título */
-    text-align: center; /* Centra el texto */
-    color: #ffffff; /* Un color oscuro pero suave */
+h1 {
+    font-size: 36px;
+    /* Tamaño de fuente más grande */
+    font-weight: bold;
+    /* Negrita para resaltar el título */
+    text-align: center;
+    /* Centra el texto */
+    color: #ffffff;
+    /* Un color oscuro pero suave */
 }
 
 .cursos-contenedor {

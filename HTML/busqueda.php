@@ -28,47 +28,47 @@ $usuario = $_SESSION['usuario'];
             <h1>Búsqueda Avanzada de Cursos: </h1>
 
             <form action="../.Controlador/BUsqueda.php" method="POST" class="filtros">
-               <input type="hidden" name="accion" value="Getbusqueda">
-                    <div class="search-box">
-                       <div class="input-box-text">
-                       <input type="text" placeholder="Buscar Curso..." id="search-input" name="Busqueda_curso">
+                <input type="hidden" name="accion" value="Getbusqueda">
+                <div class="search-box">
+                    <div class="input-box-text">
+                        <input type="text" placeholder="Buscar Curso..." id="search-input" name="Busqueda_curso">
                     </div>
 
                     <div class="input-box-button">
-                       <button type="" class="btn">Buscar Cursos</button>
+                        <button type="" class="btn">Buscar Cursos</button>
                     </div>
-                    </div>
-                 <div class="dropdowns">
+                </div>
+                <div class="dropdowns">
                     <label for="categories">Filtrar por Categoria:</label>
                     <input type="text" name="Busqueda_categoria" placeholder="Buscar_categoria">
 
                     <label for="user-order">Filtar por Creador:</label>
                     <input type="text" name="Busqueda_creador" placeholder="Buscar_creador">
 
-                 <div class="date-range">
-                    <label for="start-date">Fecha de Creación Desde:
-                    </label>
-                    <input type="date" id="start-date" name="fecha_inicio">
+                    <div class="date-range">
+                        <label for="start-date">Fecha de Creación Desde:
+                        </label>
+                        <input type="date" id="start-date" name="fecha_inicio">
 
-                    <label for="end-date">Hasta: </label>
-                    <input type="date" id="end-date" name="fecha_fin">
-                </div>
+                        <label for="end-date">Hasta: </label>
+                        <input type="date" id="end-date" name="fecha_fin">
+                    </div>
                 </div>
 
-<div class="results-container">
-    <?php
-    if (!empty($_SESSION['busqueda_avanzda'])) {
-        echo "<div class='curso-grid'>";
-        foreach ($_SESSION['busqueda_avanzda'] as $curso) {
-            $imagen = base64_encode($curso['Imagen']);
-            $titulo = htmlspecialchars($curso['Titulo_Curso']);
-            $descripcion = htmlspecialchars($curso['Descripcion']);
-            $categoria = htmlspecialchars($curso['Nombre_Categoria']);
-            $instructor = htmlspecialchars($curso['Nombre_Instructor']);
-            $niveles = htmlspecialchars($curso['Niveles']);
-            $precio = htmlspecialchars($curso['Precio']);
-            
-            echo "
+                <div class="results-container">
+                    <?php
+                    if (!empty($_SESSION['busqueda_avanzda'])) {
+                        echo "<div class='curso-grid'>";
+                        foreach ($_SESSION['busqueda_avanzda'] as $curso) {
+                            $imagen = base64_encode($curso['Imagen']);
+                            $titulo = htmlspecialchars($curso['Titulo_Curso']);
+                            $descripcion = htmlspecialchars($curso['Descripcion']);
+                            $categoria = htmlspecialchars($curso['Nombre_Categoria']);
+                            $instructor = htmlspecialchars($curso['Nombre_Instructor']);
+                            $niveles = htmlspecialchars($curso['Niveles']);
+                            $precio = htmlspecialchars($curso['Precio']);
+
+                            echo "
                 <a href='curso_detalle.php?titulo=" . urlencode($titulo) . "' class='curso-link'>
                     <div class='curso-item'>
                         <img src='data:image/jpeg;base64," . $imagen . "' alt='Imagen del curso' class='curso-img'>
@@ -81,13 +81,13 @@ $usuario = $_SESSION['usuario'];
                         </div>
                     </div>
                 </a>";
-        }
-        echo "</div>";
-    } else {
-        echo "<p class='no-results'>No se encontraron resultados para los filtros aplicados.</p>";
-    }
-    ?>
-</div>
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p class='no-results'>No se encontraron resultados para los filtros aplicados.</p>";
+                    }
+                    ?>
+                </div>
 
 
         </div>

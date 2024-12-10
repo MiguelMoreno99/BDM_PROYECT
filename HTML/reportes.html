@@ -2,107 +2,107 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reportes</title>
-  <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
-  <link rel="stylesheet" href="../CSS/GENERAL/header.css">
-  <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
-  <link rel="stylesheet" href="../CSS/reportes.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes</title>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
+    <link rel="stylesheet" href="../CSS/reportes.css">
 </head>
 
 <body>
-  <!-- Header -->
-  <div id="header-container"></div>
+    <!-- Header -->
+    <div id="header-container"></div>
 
-  <!-- Reportes -->
-  <section class="reporte-usuarios">
-    <br>
-    <br>
-    <h1>Reporte de Usuarios</h1>
-    <br>
-    <br>
-    <!-- Selección de Tipo de Usuario -->
-    <form action="" method="post" class="filtros">
-        <label for="tipo_usuario">Tipo de Usuario:</label>
-        <select id="tipo_usuario" name="tipo_usuario" onchange="mostrarReporte(this.value)">
-            <option value="instructor">Instructor</option>
-            <option value="estudiante">Estudiante</option>
-        </select>
-    </form>
+    <!-- Reportes -->
+    <section class="reporte-usuarios">
+        <br>
+        <br>
+        <h1>Reporte de Usuarios</h1>
+        <br>
+        <br>
+        <!-- Selección de Tipo de Usuario -->
+        <form action="" method="post" class="filtros">
+            <label for="tipo_usuario">Tipo de Usuario:</label>
+            <select id="tipo_usuario" name="tipo_usuario" onchange="mostrarReporte(this.value)">
+                <option value="instructor">Instructor</option>
+                <option value="estudiante">Estudiante</option>
+            </select>
+        </form>
 
-    <!-- Tabla para Instructores -->
-    <div id="reporte_instructor" class="reporte">
-        <h2>Reporte para Instructores</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Nombre</th>
-                    <th>Fecha de Ingreso</th>
-                    <th>Cantidad de Cursos Ofrecidos</th>
-                    <th>Total de Ganancias</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Ejemplo de datos -->
-                <tr>
-                    <td>instructor123</td>
-                    <td>Juan Pérez</td>
-                    <td>01/01/2021</td>
-                    <td>10</td>
-                    <td>$5000</td>
-                </tr>
-                <tr>
-                    <td>instructor456</td>
-                    <td>María López</td>
-                    <td>15/05/2022</td>
-                    <td>8</td>
-                    <td>$3500</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <!-- Tabla para Instructores -->
+        <div id="reporte_instructor" class="reporte">
+            <h2>Reporte para Instructores</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Cantidad de Cursos Ofrecidos</th>
+                        <th>Total de Ganancias</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ejemplo de datos -->
+                    <tr>
+                        <td>instructor123</td>
+                        <td>Juan Pérez</td>
+                        <td>01/01/2021</td>
+                        <td>10</td>
+                        <td>$5000</td>
+                    </tr>
+                    <tr>
+                        <td>instructor456</td>
+                        <td>María López</td>
+                        <td>15/05/2022</td>
+                        <td>8</td>
+                        <td>$3500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Tabla para Estudiantes -->
-    <div id="reporte_estudiante" class="reporte" style="display:none;">
-        <h2>Reporte para Estudiantes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Nombre</th>
-                    <th>Fecha de Ingreso</th>
-                    <th>Cantidad de Cursos Inscritos</th>
-                    <th>% de Cursos Terminados</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Ejemplo de datos -->
-                <tr>
-                    <td>estudiante789</td>
-                    <td>Ana Martínez</td>
-                    <td>20/02/2023</td>
-                    <td>5</td>
-                    <td>80%</td>
-                </tr>
-                <tr>
-                    <td>estudiante987</td>
-                    <td>Pedro García</td>
-                    <td>05/06/2022</td>
-                    <td>3</td>
-                    <td>100%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+        <!-- Tabla para Estudiantes -->
+        <div id="reporte_estudiante" class="reporte" style="display:none;">
+            <h2>Reporte para Estudiantes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Cantidad de Cursos Inscritos</th>
+                        <th>% de Cursos Terminados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ejemplo de datos -->
+                    <tr>
+                        <td>estudiante789</td>
+                        <td>Ana Martínez</td>
+                        <td>20/02/2023</td>
+                        <td>5</td>
+                        <td>80%</td>
+                    </tr>
+                    <tr>
+                        <td>estudiante987</td>
+                        <td>Pedro García</td>
+                        <td>05/06/2022</td>
+                        <td>3</td>
+                        <td>100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-  <!-- Footer -->
-  <div id="footer-container"></div>
+    <!-- Footer -->
+    <div id="footer-container"></div>
 
-  <script src="../JS/templates.js"></script>
-  <script src="../JS/reportes.js"></script>
+    <script src="../JS/templates.js"></script>
+    <script src="../JS/reportes.js"></script>
 </body>
 
 </html>

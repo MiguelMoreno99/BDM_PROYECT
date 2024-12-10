@@ -7,7 +7,8 @@
     --color-boton: #E3CC03;
     --color-boton-hover: #A47E1B;
     --color-blanco: #ffffff;
-    --color-negro: #000000; /* Añadir color negro */
+    --color-negro: #000000;
+    /* Añadir color negro */
 }
 
 .editar {
@@ -30,9 +31,11 @@
     padding: 2rem;
 }
 
-h1, h2 {
+h1,
+h2 {
     text-align: center;
-    color: var(--color-blanco); /* Mantener h1 y h2 en color blanco */
+    color: var(--color-blanco);
+    /* Mantener h1 y h2 en color blanco */
 }
 
 h1 {
@@ -56,34 +59,40 @@ form.filtros {
 form.filtros label {
     margin: 0.5em;
     font-size: 1em;
-    color: var(--color-blanco); /* Mantener labels en color blanco */
+    color: var(--color-blanco);
+    /* Mantener labels en color blanco */
 }
 
-form.filtros select, form.filtros input[type="date"] {
+form.filtros select,
+form.filtros input[type="date"] {
     padding: 0.5rem;
     border: 1px solid #a0a0a0;
     border-radius: 5px;
     font-size: 1em;
-    color: var(--color-negro); /* Texto en negro para inputs y select */
+    color: var(--color-negro);
+    /* Texto en negro para inputs y select */
 }
 
 /* Opciones del select */
 form.filtros select option {
-    color: var(--color-negro); /* Asegura que las opciones del select tengan texto en negro */
+    color: var(--color-negro);
+    /* Asegura que las opciones del select tengan texto en negro */
 }
 
 /* Botones */
 .btn-submit {
     padding: 0.75rem 1.5rem;
     background-color: var(--color-boton);
-    color: var(--color-negro); /* Texto en negro para los botones */
+    color: var(--color-negro);
+    /* Texto en negro para los botones */
     border: none;
     border-radius: 5px;
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 1.5rem; /* Añadir margen superior */
+    margin-top: 1.5rem;
+    /* Añadir margen superior */
 }
 
 .btn-submit:hover {
@@ -98,7 +107,8 @@ table {
     background: var(--color-secundario);
 }
 
-table th, table td {
+table th,
+table td {
     border: 1px solid #dddddd;
     padding: 1rem;
     text-align: center;
@@ -123,7 +133,8 @@ table tbody tr:nth-child(even) {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--color-blanco); /* Mantener labels en blanco */
+    color: var(--color-blanco);
+    /* Mantener labels en blanco */
 }
 
 .form-group input {
@@ -134,7 +145,8 @@ table tbody tr:nth-child(even) {
     font-size: 1em;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-    color: var(--color-negro); /* Texto en negro para inputs */
+    color: var(--color-negro);
+    /* Texto en negro para inputs */
 }
 
 .form-group input:focus {

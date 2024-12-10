@@ -71,7 +71,8 @@ section.ventas {
     margin: 2rem auto;
 }
 
-h1, h2 {
+h1,
+h2 {
     text-align: center;
     color: #2E3B4D;
 }
@@ -83,7 +84,9 @@ form.filtros {
     margin-bottom: 2rem;
 }
 
-form label, form select, form input[type="date"] {
+form label,
+form select,
+form input[type="date"] {
     margin: 0.5em;
     font-size: 1em;
 }
@@ -111,7 +114,8 @@ table {
     margin-bottom: 2rem;
 }
 
-table th, table td {
+table th,
+table td {
     border: 1px solid #dddddd;
     padding: 1em;
     text-align: center;
@@ -131,45 +135,49 @@ table tfoot td {
     background-color: #f1f1f1;
 }
 
-:root{
+:root {
     --color-principal: rgb(192, 3, 226);
-    --color-primary-hover:hsl(303, 100%, 40%);
-    --color-verde:#04A75B;
+    --color-primary-hover: hsl(303, 100%, 40%);
+    --color-verde: #04A75B;
     --color-negro: #444A47;
     --color-fondo: #ffffff;
     --color-footer: #151515;
 }
 
-*,::after, ::before{
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
 
-*{
+* {
     padding: 0px;
     margin: 0;
 }
 
-body{
+body {
     font-family: 'Poppins', sans-serif;
 }
 
-.hm-wrapper{
+.hm-wrapper {
     position: relative;
 }
 
-.hm-wrapper, body{
+.hm-wrapper,
+body {
     min-height: 100%;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-ul,ol{
+ul,
+ol {
     list-style: none;
 }
 
-img{
+img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -177,24 +185,24 @@ img{
     border-style: none;
 }
 
-.bg-fondo{
+.bg-fondo {
     background: var(--color-fondo);
 }
 
-.container{
+.container {
     width: 1122px;
     padding: 0 15px;
     margin: 0 auto;
 }
 
-@media screen and (min-width: 1px){
-    .container{
+@media screen and (min-width: 1px) {
+    .container {
         width: auto;
         max-width: 1122px !important;
     }
 }
 
-.uppercase{
+.uppercase {
 
     text-transform: uppercase !important;
 }

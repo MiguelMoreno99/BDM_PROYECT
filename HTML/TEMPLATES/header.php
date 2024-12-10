@@ -16,10 +16,10 @@ $usuario = $_SESSION['usuario'];
                 <li><a href="busqueda.php">Busqueda</a></li>
 
                 <?php if (isset($_SESSION['usuario'])): ?>
-                <li><a href="Editar_Perfil.php">Editar Perfil</a></li>
+                    <li><a href="Editar_Perfil.php">Editar Perfil</a></li>
                 <?php else: ?>
 
-                <?php endif; ?>  
+                <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario'])): ?>
                     <li><a href="dms.php">Mensajes</a></li>
@@ -28,7 +28,7 @@ $usuario = $_SESSION['usuario'];
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 2): ?>
-                   <li><a href="MisCursos.php">Mis Cursos</a></li>
+                    <li><a href="MisCursos.php">Mis Cursos</a></li>
                 <?php else: ?>
 
                 <?php endif; ?>
@@ -63,16 +63,16 @@ $usuario = $_SESSION['usuario'];
 
                 <?php endif; ?>
 
-                
+
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 3): ?>
-                    <li><a href="reportes.php">Reportes</a></li> 
+                    <li><a href="reportes.php">Reportes</a></li>
                 <?php else: ?>
 
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario'])): ?>
                     <li><a href="../.Vista/cerrarsesion.php">Cerrar Sesión</a></li>
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($usuario['imagen_usuario']); ?>" alt="Imagen de perfil" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">               
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($usuario['imagen_usuario']); ?>" alt="Imagen de perfil" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
                 <?php else: ?>
                     <li><a href="inicio_sesion.html">Iniciar Sesión</a></li>
                     <li><a href="registro.html">Registrarse</a></li>

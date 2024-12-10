@@ -150,11 +150,11 @@ class CategoryController
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
         $category = $this->categoryModel->checkCategoryExists($titulo);
         $tipo_usuario = $_SESSION['usuario']['tipo_usuario'];
-        
+
 
         echo "  <h2 id='nombre_categoria'>" . $category['nombre_categoria'] . "</h2>
                 <p class='descripcion'>" . $category['descripcion_categoria'] . "</p>";
-        
+
         if ($tipo_usuario == 1) {
         }
         if ($tipo_usuario == 2) {
@@ -163,10 +163,7 @@ class CategoryController
             echo "<a href='#' class='btn-eliminar'>Eliminar Categoria</a>
                   <a href='Editar_Categoria.php?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>
                   ";
-        }
-        else
-        {
-
+        } else {
         }
     }
 
@@ -200,8 +197,6 @@ class CategoryController
         $categorys = $this->categoryModel->showAllCategorys();
         return is_array($categorys) ? $categorys : [];
     }
-    
-
 }
 
 // Uso en index.php:
