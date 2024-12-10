@@ -30,6 +30,8 @@
             $controller->showCategorys();
             ?>
         </div>
+
+
     </main>
 
     <br>
@@ -42,6 +44,28 @@
             <?php
             require_once '../.Controlador/Curso.php';
             $controller->showCourses();
+            ?>
+        </div>
+
+        <br>
+        <h1>Cursos mejor calificados</h1>
+        <br>
+
+        <div class="mejor-calificados">
+            <?php
+            require_once '../.Controlador/Curso.php';
+            $controller->showCursoMejorCalificado();
+            ?>
+        </div>
+
+        <br>
+        <h1>Cursos con mas inscripciones</h1>
+        <br>
+
+        <div class="mas-inscritos">
+            <?php
+            require_once '../.Controlador/Curso.php';
+            $controller->showCursoMasInscrito();
             ?>
         </div>
     </main>

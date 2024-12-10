@@ -29,14 +29,6 @@ $usuario = $_SESSION['usuario'];
     <br>
     <br>
 
-    <form action="" method="post" class="filtros seleccion-accion">
-      <label for="tipo_usuario">Acción:</label>
-      <select id="tipo_usuario" name="tipo_usuario" onchange="cambiarTextoBoton()">
-        <option value="desactivar">Desactivar</option>
-        <option value="activar">Activar</option>
-      </select>
-    </form>
-
     <!-- Filtros de Reporte -->
     <form action="../.Controlador/Curso.php" method="post" class="filtros">
       <input type="hidden" name="accion" value="Curso_Info">
@@ -85,7 +77,7 @@ $usuario = $_SESSION['usuario'];
                 echo "
                   <tr>
                       <td>
-                         <input type='radio' name='curso_seleccionado' value='{$curso['IdCurso']}'>
+                         <input type='radio' name='curso_seleccionado' value='{$curso['CursoID']}'>
                       </td>
                       <td>{$curso['Categoria']}</td>
                       <td>{$curso['Curso']}</td>
@@ -93,7 +85,7 @@ $usuario = $_SESSION['usuario'];
                       <td>{$curso['FechaCreacion']}</td>
                       <td>{$curso['TotalAlumnos']}</td>
                       <td>{$curso['PromedioAvance']}%</td>
-                      <td>$ {$curso['TotalIngresos']}</td>
+                      <td>$ {$curso['IngresosDelCurso']}</td>
                   </tr>";
               }
             }
@@ -108,9 +100,9 @@ $usuario = $_SESSION['usuario'];
 
             if (isset($_SESSION['curso_data']) && !empty($_SESSION['curso_data'])) {
               foreach ($_SESSION['curso_data'] as $curso) {
-                $totalTarjetaCredito += $curso['TotalTarjetaCredito'];
-                $totalTarjetaDebito += $curso['TotalTarjetaDebito'];
-                $totalPayPal += $curso['TotalPayPal'];
+                $totalTarjetaCredito += $curso['IngresosTarjetaCredito'];
+                $totalTarjetaDebito += $curso['IngresosTarjetaDebito'];
+                $totalPayPal += $curso['IngresosPayPal'];
                 $totalIngresos += $curso['TotalIngresos'];
               }
             }

@@ -107,7 +107,7 @@ class CategoryController
 
         // Registrar usuario
         $this->categoryModel->DeleteCategory([
-            $titulo
+            $titulo,
         ]);
 
         // Redirigir al inicio
@@ -149,21 +149,24 @@ class CategoryController
         // Obtener el titulo de la categoría
         $titulo = isset($_GET['titulo']) ? trim($_GET['titulo']) : '';
         $category = $this->categoryModel->checkCategoryExists($titulo);
-        $tipo_usuario = $_SESSION['usuario']['tipo_usuario'];
 
+        echo "<h2 id='nombre_categoria'>" . $category['nombre_categoria'] . "</h2>
+              <p class='descripcion'>" . $category['descripcion_categoria'] . "</p>";
 
-        echo "  <h2 id='nombre_categoria'>" . $category['nombre_categoria'] . "</h2>
-                <p class='descripcion'>" . $category['descripcion_categoria'] . "</p>";
+        // Verificar si el usuario ha iniciado sesión
+        if (isset($_SESSION['usuario'])) {
+            $tipo_usuario = $_SESSION['usuario']['tipo_usuario'];
 
-        if ($tipo_usuario == 1) {
-        }
-        if ($tipo_usuario == 2) {
-        }
-        if ($tipo_usuario == 3) {
-            echo "<a href='#' class='btn-eliminar'>Eliminar Categoria</a>
-                  <a href='Editar_Categoria.php?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>
-                  ";
-        } else {
+            if ($tipo_usuario == 1) {
+                // Opciones para tipo de usuario 1 (puedes agregar lo que necesites aquí)
+            } elseif ($tipo_usuario == 2) {
+                // Opciones para tipo de usuario 2 (puedes agregar lo que necesites aquí)
+            } elseif ($tipo_usuario == 3) {
+                echo "<a href='#' class='btn-eliminar'>Eliminar Categoria</a>
+                      <a href='Editar_Categoria.php?titulo=" . $category['nombre_categoria'] . "' class='btn-inscribirse'>Editar Categoria</a>";
+            } else {
+                // Opciones para otros tipos de usuario (si aplican)
+            }
         }
     }
 

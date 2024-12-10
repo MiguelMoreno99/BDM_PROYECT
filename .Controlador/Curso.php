@@ -15,6 +15,7 @@ class CourseController
         $this->courseModel = new Modelo_Curso($config);
     }
 
+
     public function registerCourse()
     {
         $titulo_curso = $_POST['titulo-curso'];
@@ -150,6 +151,69 @@ class CourseController
             ";
         }
     }
+
+    public function showCursoMejorCalificado()
+    {
+        $empty = 1;
+        $courses = $this->courseModel->vista_Cursos_Mejor_Puntuados();
+        if ($courses) {
+            foreach ($courses as $curso) {
+                $imagen = base64_encode($curso['imagen_curso']);
+                echo "
+                    <a href='curso_detalle.php?titulo=" . $curso['titulo_curso'] . "'' class='curso-link'>
+                        <div class='curso-item'>
+                            <img src='data:image/jpeg;base64," . $imagen . "' alt='Curso'>
+                            <h3>" . $curso['titulo_curso'] . "</h3>
+                            <p>" . $curso['descripcion_curso'] . "</p>
+                        </div>
+                    </a>";
+                $empty = 0;
+            }
+        }
+        if ($empty == 1) {
+            echo "
+            <div class='curso-item'>
+                <h3>No hay Ningun Curso Creado!</h3>
+                <p>Primero cree algun curso para poder ver mas informacion</p>
+            </div>
+            ";
+        }
+    }
+
+
+    public function showCursoMasInscrito()
+    {
+        $empty = true;
+        $courses = $this->courseModel->vista_cursos_mas_inscripciones();
+
+        if (!empty($courses)) {
+            foreach ($courses as $curso) {
+                // Verificar que $curso sea un array antes de acceder a sus claves
+                if (is_array($curso)) {
+                    $imagen = base64_encode($curso['imagen_curso']);
+                    echo "
+                        <a href='curso_detalle.php?titulo=" . $curso['titulo_curso'] . "' class='curso-link'>
+                            <div class='curso-item'>
+                                <img src='data:image/jpeg;base64," . $imagen . "' alt='Curso'>
+                                <h3>" . $curso['titulo_curso'] . "</h3>
+                                <p>" . $curso['descripcion_curso'] . "</p>
+                            </div>
+                        </a>";
+                    $empty = false;
+                }
+            }
+        }
+
+        if ($empty) {
+            echo "
+            <div class='curso-item'>
+                <h3>No hay Ningun Curso Creado!</h3>
+                <p>Primero cree algun curso para poder ver mas informacion</p>
+            </div>
+            ";
+        }
+    }
+
 
     public function showCoursesByCategory()
     {

@@ -37,6 +37,21 @@ class Modelo_Curso
         return $stmt;
     }
 
+    public function vista_cursos_mas_inscripciones()
+    {
+        $stmt = $this->db->callProcedure('GetCursosMasInscritos', []);
+        return $stmt;
+    }
+
+    public function vista_Cursos_Mejor_Puntuados()
+    {
+        $stmt = $this->db->callProcedure('GetCursosMejorPuntuados', []);
+        return $stmt;
+    }
+
+
+
+
     public function showAllCoursesByCategory($id_category)
     {
         $stmt = $this->db->callProcedure('PROCMostrarCursosPorCategoria', [$id_category]);
