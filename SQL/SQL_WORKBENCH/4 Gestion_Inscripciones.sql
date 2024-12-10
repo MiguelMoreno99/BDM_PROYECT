@@ -110,47 +110,47 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE PROCEDURE GetCursoInfo(
-    IN start_date DATETIME,         -- Fecha inicial del rango
-    IN end_date DATETIME,           -- Fecha final del rango
-    IN category_name VARCHAR(255),  -- Nombre de la categoría (puede ser NULL para no filtrar)
-    IN curso_deshabilitado INT,     -- Filtro de cursos deshabilitados (puede ser NULL para no filtrar)
-    IN user_id INT                  -- ID del usuario (puede ser NULL para no filtrar)
-)
-BEGIN
-    SELECT 
-        c.nombre_categoria AS Categoria,
-        cr.id_curso AS IdCurso,                              -- ID del curso
-        cr.titulo_curso AS Curso,
-        cr.curso_deshabilitado AS CursoDeshabilitado,
-        cr.fecha_creacion_curso AS FechaCreacion,
-        COUNT(i.id_inscripcion) AS TotalAlumnos,             -- Total de alumnos inscritos
-        COALESCE(AVG(i.porcentaje_avance_curso), 0) AS PromedioAvance, -- Promedio de avance
-        COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 1 THEN i.Precio_pagado ELSE 0 END), 0) AS TotalTarjetaCredito, -- Total pago con tarjeta de crédito
-        COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 0 THEN i.Precio_pagado ELSE 0 END), 0) AS TotalTarjetaDebito,  -- Total pago con tarjeta de débito
-        COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 2 THEN i.Precio_pagado ELSE 0 END), 0) AS TotalPayPal,         -- Total pago con PayPal
-        COALESCE(SUM(i.Precio_pagado), 0) AS TotalIngresos   -- Total ingresos generados
-    FROM 
-        tabla_categorias c
-    INNER JOIN 
-        tabla_cursos cr ON c.id_categoria = cr.id_categoria_curso
-    LEFT JOIN 
-        tabla_inscripciones i ON cr.id_curso = i.id_curso_inscripcion
-    WHERE 
-        (start_date IS NULL OR cr.fecha_creacion_curso >= start_date) AND
-        (end_date IS NULL OR cr.fecha_creacion_curso <= end_date) AND
-        (category_name IS NULL OR c.nombre_categoria = category_name) AND
-        (curso_deshabilitado IS NULL OR cr.curso_deshabilitado = curso_deshabilitado) AND
-        (user_id IS NULL OR cr.id_instructor_creacion_curso = user_id) -- Validación por instructor
-    GROUP BY 
-        c.nombre_categoria, 
-        cr.id_curso,                  -- Incluido en el GROUP BY
-        cr.titulo_curso, 
-        cr.curso_deshabilitado, 
-        cr.fecha_creacion_curso
-    ORDER BY 
-        cr.fecha_creacion_curso DESC;
-END$$
+-- CREATE PROCEDURE GetCursoInfo(
+--     IN start_date DATETIME,         -- Fecha inicial del rango
+--     IN end_date DATETIME,           -- Fecha final del rango
+--     IN category_name VARCHAR(255),  -- Nombre de la categoría (puede ser NULL para no filtrar)
+--     IN curso_deshabilitado INT,     -- Filtro de cursos deshabilitados (puede ser NULL para no filtrar)
+--     IN user_id INT                  -- ID del usuario (puede ser NULL para no filtrar)
+-- )
+-- BEGIN
+--     SELECT 
+--        c.nombre_categoria AS Categoria,
+--         cr.id_curso AS IdCurso,                              -- ID del curso
+--         cr.titulo_curso AS Curso,
+--         cr.curso_deshabilitado AS CursoDeshabilitado,
+--         cr.fecha_creacion_curso AS FechaCreacion,
+--         COUNT(i.id_inscripcion) AS TotalAlumnos,             -- Total de alumnos inscritos
+--         COALESCE(AVG(i.porcentaje_avance_curso), 0) AS PromedioAvance, -- Promedio de avance
+--         COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 1 THEN i.Precio_pagado ELSE 0 END), 0) AS TotalTarjetaCredito, -- Total pago con tarjeta de crédito
+--         COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 0 THEN i.Precio_pagado ELSE 0 END), 0) AS TotalTarjetaDebito,  -- Total pago con tarjeta de débito
+--         COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 2 THEN i.Precio_pagado ELSE 0 END), 0) AS TotalPayPal,         -- Total pago con PayPal
+--         COALESCE(SUM(i.Precio_pagado), 0) AS TotalIngresos   -- Total ingresos generados
+--     FROM 
+--         tabla_categorias c
+--     INNER JOIN 
+--         tabla_cursos cr ON c.id_categoria = cr.id_categoria_curso
+--     LEFT JOIN 
+--         tabla_inscripciones i ON cr.id_curso = i.id_curso_inscripcion
+--     WHERE 
+--        (start_date IS NULL OR cr.fecha_creacion_curso >= start_date) AND
+--         (end_date IS NULL OR cr.fecha_creacion_curso <= end_date) AND
+--         (category_name IS NULL OR c.nombre_categoria = category_name) AND
+--         (curso_deshabilitado IS NULL OR cr.curso_deshabilitado = curso_deshabilitado) AND
+--         (user_id IS NULL OR cr.id_instructor_creacion_curso = user_id) -- Validación por instructor
+--     GROUP BY 
+--         c.nombre_categoria, 
+--         cr.id_curso,                  -- Incluido en el GROUP BY
+--         cr.titulo_curso, 
+--         cr.curso_deshabilitado, 
+--         cr.fecha_creacion_curso
+--     ORDER BY 
+--         cr.fecha_creacion_curso DESC;
+-- END$$
 
 DELIMITER ;
 

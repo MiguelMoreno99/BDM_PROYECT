@@ -336,43 +336,54 @@ DELIMITER ;
 
 DELIMITER $$
 
--- CREATE PROCEDURE GetCursoInfo(
---     IN start_date DATETIME,         -- Fecha inicial del rango
---     IN end_date DATETIME,           -- Fecha final del rango
---     IN category_name VARCHAR(255),  -- Nombre de la categoría (puede ser NULL para no filtrar)
---     IN curso_deshabilitado INT,     -- Filtro de cursos deshabilitados (puede ser NULL para no filtrar)
---     IN ID_Instructor INT            -- ID del instructor (puede ser NULL para no filtrar)
--- )
--- BEGIN
---     SELECT 
---         c.nombre_categoria AS Categoria,
---         cr.titulo_curso AS Curso,
---         cr.curso_deshabilitado AS CursoDeshabilitado,
---         cr.fecha_creacion_curso AS FechaCreacion,
---         COUNT(i.id_inscripcion) AS TotalAlumnos,
---         COALESCE(AVG(i.porcentaje_avance_curso), 0) AS PromedioAvance
---     FROM 
---         tabla_categorias c
---     INNER JOIN 
---         tabla_cursos cr ON c.id_categoria = cr.id_categoria_curso
---     LEFT JOIN 
---         tabla_inscripciones i ON cr.id_curso = i.id_curso_inscripcion
---     WHERE 
---         (start_date IS NULL OR cr.fecha_creacion_curso >= start_date) AND
---         (end_date IS NULL OR cr.fecha_creacion_curso <= end_date) AND
---         (category_name IS NULL OR c.nombre_categoria = category_name) AND
---         (curso_deshabilitado IS NULL OR cr.curso_deshabilitado = curso_deshabilitado) AND
---         (ID_Instructor IS NULL OR cr.id_instructor_creacion_curso = ID_Instructor)
---     GROUP BY 
---         c.nombre_categoria, cr.titulo_curso, cr.curso_deshabilitado, cr.fecha_creacion_curso
---     ORDER BY 
---         cr.fecha_creacion_curso DESC;
--- END $$
+CREATE PROCEDURE GetCursoInfo(
+    IN start_date DATETIME,         -- Fecha inicial del rango
+    IN end_date DATETIME,           -- Fecha final del rango
+    IN category_name VARCHAR(255),  -- Nombre de la categoría (puede ser NULL para no filtrar)
+    IN curso_deshabilitado INT,     -- Filtro de cursos deshabilitados (puede ser NULL para no filtrar)
+    IN ID_Instructor INT            -- ID del instructor (puede ser NULL para no filtrar)
+)
+BEGIN
+    SELECT 
+        c.id_categoria,
+        c.nombre_categoria AS Categoria,
+        cr.id_curso AS CursoID,
+        cr.titulo_curso AS Curso,
+        cr.curso_deshabilitado AS CursoDeshabilitado,
+        cr.fecha_creacion_curso AS FechaCreacion,
+        cr.id_instructor_creacion_curso AS InstructorID,
+        CONCAT(u.nombre_usuario, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS InstructorNombre,
+        COUNT(i.id_inscripcion) AS TotalAlumnos,
+        COALESCE(AVG(i.porcentaje_avance_curso), 0) AS PromedioAvance,
+        COALESCE(SUM(i.Precio_pagado), 0) AS TotalIngresos,
+        COALESCE(SUM(i.Precio_pagado), 0) AS IngresosDelCurso,  -- Total de ingresos del curso
+        COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 0 THEN i.Precio_pagado ELSE 0 END), 0) AS IngresosTarjetaDebito,
+        COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 1 THEN i.Precio_pagado ELSE 0 END), 0) AS IngresosTarjetaCredito,
+        COALESCE(SUM(CASE WHEN i.metodo_pago_inscripcion = 2 THEN i.Precio_pagado ELSE 0 END), 0) AS IngresosPayPal,
+        COUNT(i.metodo_pago_inscripcion) AS TotalCursos
+    FROM 
+        tabla_categorias c
+    INNER JOIN 
+        tabla_cursos cr ON c.id_categoria = cr.id_categoria_curso
+    LEFT JOIN 
+        tabla_inscripciones i ON cr.id_curso = i.id_curso_inscripcion
+    LEFT JOIN 
+        tabla_usuario u ON cr.id_instructor_creacion_curso = u.id_usuario
+    WHERE 
+        (start_date IS NULL OR cr.fecha_creacion_curso >= start_date) AND
+        (end_date IS NULL OR cr.fecha_creacion_curso <= end_date) AND
+        (category_name IS NULL OR c.nombre_categoria = category_name) AND
+        (curso_deshabilitado IS NULL OR cr.curso_deshabilitado = curso_deshabilitado) AND
+        (ID_Instructor IS NULL OR cr.id_instructor_creacion_curso = ID_Instructor)
+    GROUP BY 
+        c.id_categoria, c.nombre_categoria, cr.id_curso, cr.titulo_curso, cr.curso_deshabilitado, cr.fecha_creacion_curso, cr.id_instructor_creacion_curso, InstructorNombre
+    ORDER BY 
+        cr.fecha_creacion_curso DESC;
+END $$
 
 DELIMITER ;
 
-
--- CALL GetCursoInfo('2024-11-23', NULL, 'Programación', 0);
+CALL GetCursoInfo('2024-11-23', NULL, 'Programación', 0, 13);
 
 -- Informacion del reporte de administradores
 
