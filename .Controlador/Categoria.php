@@ -107,7 +107,7 @@ class CategoryController
 
         // Registrar usuario
         $this->categoryModel->DeleteCategory([
-            $titulo,
+            $titulo
         ]);
 
         // Redirigir al inicio

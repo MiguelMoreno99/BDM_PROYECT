@@ -13,7 +13,11 @@ $usuario = $_SESSION['usuario'];
             <ul>
                 <li><a href="index.php">Inicio</a></li>
 
-                <li><a href="busqueda.php">Busqueda</a></li>
+                <?php if (isset($_SESSION['usuario'])): ?>
+                    <li><a href="busqueda.php">Busqueda</a></li>
+                <?php else: ?>
+
+                <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario'])): ?>
                     <li><a href="Editar_Perfil.php">Editar Perfil</a></li>

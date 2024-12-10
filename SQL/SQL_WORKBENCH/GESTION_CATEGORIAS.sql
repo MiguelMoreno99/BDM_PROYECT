@@ -106,7 +106,7 @@ BEGIN
     -- Obtener el ID de la categoría basada en el nombre
     SELECT id_categoria INTO cat_id
     FROM tabla_categorias
-    WHERE nombre_categoria = nombre_categoria;
+    WHERE nombre_categoria = p_nombre_categoria;
 
     -- Verificar si la categoría existe
     IF cat_id IS NOT NULL THEN
