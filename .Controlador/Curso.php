@@ -384,11 +384,28 @@ class CourseController
 
     public function registrarInscripcion()
     {
-
         $id_usuario_ins = $_POST['id_usuario'];
         $id_curso_ins = $_POST['id_curso'];
         $manejoPrecio_ins = $_POST['forma_pago'];
         $costo_total_ins = $_POST['costo_total'];
+
+        // Verificar si existe una inscripción previa para el usuario y curso
+        $inscripcionExists = $this->courseModel->checkInscripcionExista($id_usuario_ins, $id_curso_ins);
+
+        if ($inscripcionExists) {
+            // Obtener el ID de inscripción existente
+            $id_inscripcion = $inscripcionExists['id_inscripcion'];
+            $nivelesSeleccionados = json_decode($_POST['nivelesSeleccionados'], true); // Decodificar los niveles seleccionados
+
+            // Registrar los niveles seleccionados
+            foreach ($nivelesSeleccionados as $nivel) {
+                $result = $this->courseModel->validarInscripcion_niveles([$id_inscripcion, $nivel['levelID'], $id_usuario_ins]);
+                if ($result['nombre_nivel'] != "") {
+                    echo "<script>alert('Ya tuvo una inscripcion con este nivel: " . $result['nombre_nivel'] . ".'); window.history.back();</script>";
+                    return;
+                }
+            }
+        }
 
         $this->courseModel->registerInscripcion([
             $id_usuario_ins,
@@ -428,7 +445,6 @@ class CourseController
         foreach ($nivelesSeleccionados as $nivel) {
             $result = $this->courseModel->validarInscripcion_niveles([$id_inscripcion, $nivel['levelID'], $id_usuario]);
             if ($result['nombre_nivel'] != "") {
-                echo "<script>alert('Ya tuvo una inscripcion con este nivel: " . $result['nombre_nivel'] . ".'); window.history.back();</script>";
                 return;
             }
             $this->courseModel->registerInscripcion_niveles([
@@ -438,7 +454,7 @@ class CourseController
             ]);
         }
 
-        echo "<script>alert('Curso inscrito. " . $nivel['levelID'] . " " . $id_inscripcion . " " . $id_usuario . " " . $result[0]['inscripcion'] . "'); window.location.href = '../HTML/curso_detalle.php?titulo=" . urlencode($titulo_curso) . "';</script>";
+        echo "<script>alert('Curso inscrito.'); window.location.href = '../HTML/curso_detalle.php?titulo=" . urlencode($titulo_curso) . "';</script>";
     }
 
     public function miscursos()

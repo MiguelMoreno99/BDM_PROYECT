@@ -64,7 +64,7 @@ $comentarios = $controller->Mostrar_comentarios();
                     <p class="descripcion"><?php echo htmlspecialchars($curso_finalizado['descripcion_curso']); ?></p>
 
                     <?php if ($curso_finalizado['tipo_usuario'] == 1 || $curso_finalizado['tipo_usuario'] == 1): ?>
-                        <a href="Modificar_curso.php?titulo=<?php echo urlencode($curso_finalizado['titulo_curso']); ?>" class="btn-inscribirse">Modificar curso</a>
+                        
                     <?php elseif ($curso_finalizado['tipo_usuario'] == 2): ?>
                         <a href="PagoCurso.php?titulo=<?php echo urlencode($curso_finalizado['titulo_curso']); ?>" class="btn-inscribirse">Inscribirse</a>
                     <?php elseif ($curso_finalizado['tipo_usuario'] == 3): ?>
